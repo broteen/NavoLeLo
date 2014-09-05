@@ -1,6 +1,7 @@
 package com.nrift.banking.utility;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class AccountDetails implements Serializable{
 	private static final long serialVersionUID = 6297385302078200515L;
@@ -8,12 +9,14 @@ public class AccountDetails implements Serializable{
 	private long accountNo;
 	private String accountType;
 	private long balance;
+	private Timestamp updatedTime;
 	
-	public AccountDetails(long accountNo, String accountType, long balance) {
+	public AccountDetails(long accountNo, String accountType, long balance, Timestamp updatedTime) {
 		
 		this.accountNo=accountNo;
 		this.accountType=accountType;
 		this.balance=balance;
+		this.updatedTime=updatedTime;
 	}
 	/**
 	 * @return the accountNo
@@ -50,6 +53,13 @@ public class AccountDetails implements Serializable{
 	 */
 	public void setBalance(long balance) {
 		this.balance = balance;
+	}
+	
+	public Timestamp getUpdatedTime() {
+		return updatedTime;
+	}
+	public void setUpdatedTime(Timestamp updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 
 

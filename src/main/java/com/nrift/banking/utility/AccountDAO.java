@@ -42,7 +42,7 @@ public class AccountDAO {
 				List<AccountDetails> list= new LinkedList<AccountDetails>();
 				while (rs.next()) 
 				{
-					AccountDetails validAccount = new AccountDetails(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"));
+					AccountDetails validAccount = new AccountDetails(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
 					logger.info("Customer found with details="+validAccount);
 					list.add(validAccount);
 				}

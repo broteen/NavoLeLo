@@ -11,19 +11,14 @@ import org.apache.log4j.Logger;
 
 public class UserValidationDAO {
 	private Connection connection;
-	private String username;
-	private String password;
 	
 	private Logger logger = Logger.getLogger(UserValidationDAO.class);
 
-	public UserValidationDAO(Connection connection, String username,
-			String password) {
+	public UserValidationDAO(Connection connection) {
 		this.connection = connection;
-		this.username = username;
-		this.password = password;
 	}
 
-	public UserDetails validate() throws ServletException{
+	public UserDetails validate(String username,String password) throws ServletException{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {

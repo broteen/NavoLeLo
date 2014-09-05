@@ -8,8 +8,8 @@ public class UserValidationManager {
 
 	public UserDetails validate(Connection connection, String username,String password) throws ServletException {
 		
-		UserValidationDAO userValidation= new UserValidationDAO(connection, username, password);
-		UserDetails user= userValidation.validate();
+	
+		UserDetails user= new UserValidationDAO(connection).validate(username, password);
 		
 		if(user!=null)
 		{

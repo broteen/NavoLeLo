@@ -11,7 +11,7 @@ public  CustomerDetails getCustomerDetails(Connection connection, long userId) t
 			CustomerDetails customer= new CustomerDAO(connection).getCustomerDetails(userId);
 			if(customer!=null)
 			{
-			customer.setAccountList(new AccountManager().getAccountDetails(connection,customer.getCustomerId()));
+			customer.setAccountList(new AccountManager().getAllAccountDetails(connection,customer.getCustomerId()));
 			}
 			return customer;
 	}

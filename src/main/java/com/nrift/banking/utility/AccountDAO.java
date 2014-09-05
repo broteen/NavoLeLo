@@ -23,13 +23,13 @@ public class AccountDAO {
 		this.connection = connection;
 	}
 
-	public List<AccountDetails> getAccountDetails(long customerId) throws ServletException{
+	public List<AccountDetails> getAllAccountDetails(long customerId) throws ServletException{
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 
-			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE FROM ACCOUNT_TYPE A "
+			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
 					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE CUSTOMER_ID=?");
 
 			ps.setLong(1,customerId);
@@ -72,4 +72,40 @@ public class AccountDAO {
 
 	}
 
+	public AccountDetails getAccountDetails(String receiverAccount ) throws ServletException {
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+
+			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
+					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?");
+
+			ps.setString(1,receiverAccount);
+			rs = ps.executeQuery();
+			if(rs !=null && rs.next())
+			{
+				AccountDetails validAccount = new AccountDetails(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
+				logger.info("Customer found with details="+validAccount);
+				return(validAccount);
+			}
+			return null;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+
+		finally{
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+
+	}
 }

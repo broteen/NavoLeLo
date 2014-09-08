@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import javax.servlet.ServletException;
 
 public class AccountManager {
@@ -26,4 +27,14 @@ public class AccountManager {
 		
 		return new AccountDAO(connection).getAccountDetails(receiverAccount);
 	}
+
+public  AccountDetails getAccountHistory(Connection connection, long accountNo) throws ServletException {
+	
+	AccountDetails account= new AccountDAO(connection).getAccountDetails(accountNo);
+	if(account!=null)
+	{
+	account.setTransactionHistoryDetailsList(new TransactionHistoryManager(). getTransactionHistoryDetails(connection,account.getAccountNo()));
+	}
+	return account;
+}
 }

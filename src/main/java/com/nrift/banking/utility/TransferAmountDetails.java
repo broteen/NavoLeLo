@@ -1,5 +1,6 @@
 package com.nrift.banking.utility;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class TransferAmountDetails  implements Serializable {

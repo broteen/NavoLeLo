@@ -127,10 +127,6 @@ public class AccountDAO {
 			{
 				customerID=rs.getInt("CUSTOMER_ID");
 				String status=rs.getString("STATUS");
-				if(status=="normal")
-				{
-					customerID=0L;
-				}
 			}
 				return customerID;
 	}

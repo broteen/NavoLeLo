@@ -11,7 +11,7 @@
 <div id="error"></div>
 	<h3>Enter Sender's and Receiver's account number and amount to be sent</h3>
 	
-	<form name="transferFund" action=" " method="post">
+	<form name="transferFund" action="TransactionAuthorisationController" method="post">
 		<strong>Sender's Account Number</strong>:
 		<select name="senderAccountNumber">
      		<c:forEach  var="account" items="${user.customerDetails.accountList}">

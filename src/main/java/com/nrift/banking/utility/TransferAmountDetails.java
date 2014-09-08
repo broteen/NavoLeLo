@@ -2,7 +2,8 @@ package com.nrift.banking.utility;
 
 import java.sql.Timestamp;
 
-public class TransferAmountDetails {
+public class TransferAmountDetails  implements Serializable {
+	private static final long serialVersionUID = 6297385302078200520L;	
 	private long senderAccountNo;
 	private long receiverAccountNo;
 	private long amount;

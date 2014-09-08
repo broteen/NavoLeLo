@@ -110,7 +110,7 @@ public class AccountDAO {
 	
 	public long getCustomerId(long accountNumber) throws ServletException
 	{
-		long customer_ID=0L; 
+		long customerID=0L; 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -123,11 +123,14 @@ public class AccountDAO {
 			rs = ps.executeQuery();
 			if(rs !=null)
 			{
-				customer_ID=rs.getInt("CUSTOMER_ID");
+				customerID=rs.getInt("CUSTOMER_ID");
 				String status=rs.getString("STATUS");
-				
+				if(status=="normal")
+				{
+					customerID=0L;
+				}
 			}
-				return customer_ID;
+				return customerID;
 	}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -57,7 +57,7 @@ public class RegisterController extends HttpServlet {
 			try{
 				
 				long customerId = registerValidation.validateAccountNumber(con,accountNumber);
-				if (customerId != 0) {
+				if (customerId != 0L) {
 					logger.info("account found with given account number =" + customerId);	
 				}
 				

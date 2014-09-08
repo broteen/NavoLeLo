@@ -23,7 +23,7 @@
   <li><a href="index.jsp">Home</a></li>
   <li><a href="">Transactions</a>
   <ul id=b>
-                <li><a href="Transfer.jsp">Transfer</a></li>
+                <li><a href="transferFund.jsp">Transfer</a></li>
                 <li><a href="Withdraw.jsp">Withdraw</a></li>
                 <li><a href="Deposit.jsp">Deposit</a></li>
             </ul></li>

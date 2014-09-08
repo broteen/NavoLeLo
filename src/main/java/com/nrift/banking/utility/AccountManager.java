@@ -42,14 +42,14 @@ public  AccountDetails getAccountHistory(Connection connection, long accountNo) 
 	}
 	return account;
 }
-public boolean IsAmountWithdrawn(Connection connection,long senderAccountNo, long amount) {
+public boolean IsAmountWithdrawn(Connection connection,long senderAccountNo, long amount) throws ServletException {
 		if (new AccountDAO(connection).WithdrawAmount(senderAccountNo,amount)==0)
 			return false;
 		else
 			return true;
 	}
 
-	public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount) {
+	public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount) throws ServletException {
 		if (new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount)==0)
 			return false;
 		else

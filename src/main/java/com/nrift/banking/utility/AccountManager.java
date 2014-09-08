@@ -1,6 +1,7 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -26,6 +27,10 @@ public class AccountManager {
 	public AccountDetails getAccountDetails(Connection connection,long receiverAccount) throws ServletException {
 		
 		return new AccountDAO(connection).getAccountDetails(receiverAccount);
+	}
+	
+	public Timestamp getUpdateTime(Connection connection,long accountNo) throws ServletException{
+		return new AccountDAO(connection).getUpdatedTime(accountNo);
 	}
 
 public  AccountDetails getAccountHistory(Connection connection, long accountNo) throws ServletException {

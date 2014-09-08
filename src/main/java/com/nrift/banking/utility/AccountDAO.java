@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,4 +148,37 @@ public class AccountDAO {
         }
 		
 	}
+
+	public Timestamp getUpdatedTime(long accountNo) throws ServletException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+
+			ps = connection.prepareStatement("SELECT UPDATED_TIME FROM ACCOUNT WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+
+			ps.setLong(1,accountNo);
+			ps.setString(2, "normal");
+			rs = ps.executeQuery();
+			if(rs !=null && rs.next()){
+				return(rs.getTimestamp("UPDATED_TIME"));
+			}
+			return null;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+
+		finally{
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+	}
+
 }

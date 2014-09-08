@@ -7,6 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello
-</body>
+<form action="TransferAmountController" method="post">
+	<table>
+		<tr>
+			<td> ${transferAmountDetails.senderAccountNo}</td>
+		</tr>
+		<tr>
+			<td> ${transferAmountDetails.receiverAccountNo}</td>
+		</tr>
+		<tr>
+			<td> ${transferAmountDetails.amount}</td>
+		</tr>
+		<tr>
+			<td> <input type="submit" value="Confirm"/></td>
+			<td> <input type="button" onclick="history.go(-1);" value="Back"/></td>
+		</tr>
+	</table>
+</form>
 </html>

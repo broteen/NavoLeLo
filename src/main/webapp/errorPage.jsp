@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,16 +6,29 @@
 <title>Error Page</title>
 </head>
 <body>
-	<h1>Oops, an error has occured</h1>
-	<h2>Error Code:</h2>
-	<span>${error.errorCode}</span>
-	<strong>${error.customText}</strong>
-	<h2>Requested URI:</h2>
+	<h1>
+		<font color="red">Oops, an error has occured! </font>
+	</h1>
+	<c:choose>
+		<c:when test="${error.name}!=null">
+			<strong><font size="4">Exception name:</font></strong>
+			<span>${error.name}</span>
+			<br><br>
+			<strong><font size="4">Exception message:</font></strong>
+			<span>${error.message}</span>
+		</c:when>
+		<c:otherwise>
+			<strong><font size="4">Error Code: </font></strong>
+			<span>${error.statusCode}</span>
+			<br><br>
+			<strong><font size="4">Error Description: </font></strong>
+			<span>${error.customText}</span>
+		</c:otherwise>
+	</c:choose>
+
+	<br><br>
+	<strong><font size="4">Requested URI:</font></strong>
 	<span>${error.requestedUri}</span>
-	<h2>Exception name:</h2>
-	<span>${error.name}</span>
-	<h2>Exception message:</h2>
-	<span>${error.message}</span>
 	<div></div>
 </body>
 </html>

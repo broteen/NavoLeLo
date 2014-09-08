@@ -169,10 +169,62 @@ public class AccountDAO {
 			System.out.println(e);
 			throw new ServletException("DB Connection problem.");
 		}
-
 		finally{
 			try {
 				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+	}
+
+	public int WithdrawAmount(long accountNo, long amount) throws ServletException {
+		PreparedStatement ps = null;
+		try {
+
+			ps = connection.prepareStatement("UPDATE ACCOUNT SET BALANCE=BALANCE-? WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+			
+			ps.setLong(1,amount);
+			ps.setLong(2,accountNo);
+			ps.setString(3, "normal");
+			return ps.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+		finally{
+			try{
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+
+	}
+
+	public int DepositeAmount(long accountNo, long amount) throws ServletException {
+		PreparedStatement ps = null;
+		try {
+
+			ps = connection.prepareStatement("UPDATE ACCOUNT SET BALANCE=BALANCE+? WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+			
+			ps.setLong(1,amount);
+			ps.setLong(2,accountNo);
+			ps.setString(3, "normal");
+			return ps.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+		finally{
+			try{
 				ps.close();
 			} catch (SQLException e) {
 			logger.error("SQLException in closing PreparedStatement or ResultSet");

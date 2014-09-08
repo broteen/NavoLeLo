@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.TransferAmount;
+import com.nrift.banking.utility.TransferAmountManager;
 import com.nrift.banking.utility.TransferAmountDetails;
 import com.nrift.banking.utility.TransferAuthorizationManager;
 
@@ -48,7 +48,7 @@ public class TransferAmountController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection con = (Connection) getServletContext().getAttribute("connection");
-		TransferAmount transAmount = new TransferAmount();
+		TransferAmountManager transAmount = new TransferAmountManager();
 		HttpSession session= request.getSession(false);
 		TransferAmountDetails transferAmountDetails = (TransferAmountDetails)session.getAttribute("transferAmountDetails"); 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferSystemConformation.jsp");
@@ -59,7 +59,6 @@ public class TransferAmountController extends HttpServlet {
 				request.setAttribute("message", "Transaction is Successfull");
 				
 			} else {
-				PrintWriter out = response.getWriter();
 				logger.error("Transaction is Not Successfull");
 				request.setAttribute("message", "Transaction is Not Successfull");
 			}

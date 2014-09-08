@@ -42,4 +42,17 @@ public  AccountDetails getAccountHistory(Connection connection, long accountNo) 
 	}
 	return account;
 }
+public boolean IsAmountWithdrawn(Connection connection,long senderAccountNo, long amount) {
+		if (new AccountDAO(connection).WithdrawAmount(senderAccountNo,amount)==0)
+			return false;
+		else
+			return true;
+	}
+
+	public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount) {
+		if (new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount)==0)
+			return false;
+		else
+			return true;
+	}
 }

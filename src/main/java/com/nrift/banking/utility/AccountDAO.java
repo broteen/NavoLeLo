@@ -106,6 +106,44 @@ public class AccountDAO {
 			}
 
 		}
-
+	}
+	
+	public long getCustomerId(long accountNumber) throws ServletException
+	{
+		long customer_ID=0L; 
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			ps = connection.prepareStatement("SELECT CUSTOMER_ID,STATUS FROM ACCOUNT WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+					
+			ps.setLong(1,accountNumber);
+			ps.setString(2, "normal");
+			rs = ps.executeQuery();
+			if(rs !=null)
+			{
+				customer_ID=rs.getInt("CUSTOMER_ID");
+				String status=rs.getString("STATUS");
+				
+			}
+				return customer_ID;
+	}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+		finally{
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+                logger.error("SQLException in closing PreparedStatement or ResultSet");
+            }
+             
+        }
+		
 	}
 }

@@ -57,5 +57,45 @@ public class UserValidationDAO {
              
         }
 	}
+	
+	public boolean validateUserName(String username) throws ServletException
+	{
+		boolean user;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = connection.prepareStatement("SELECT * FROM REGISTERED_USERS WHERE USER_NAME=?");
+
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if (rs != null) 
+			{
+				logger.info("User name already exists"+username);
+			  user=true;	
+				}
+				else
+				{
+					user=false;
+				}
+				
+				
+				return user;
+			}
+			
+		 catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			throw new ServletException("DB Connection problem.");
+		}finally{
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+                logger.error("SQLException in closing PreparedStatement or ResultSet");
+            }
+             
+        }
+	}
 
 }

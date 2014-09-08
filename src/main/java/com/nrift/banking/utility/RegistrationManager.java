@@ -22,23 +22,5 @@ public class RegistrationManager {
 	  return(new CustomerManager().checkuser_ID(connection,customerId));
 	}
 }
-/*public long validateAccount(Connection connection, long account_number) throws ServletException {
-		
-	long customerId= new AccountDAO(connection).getCustomerId(account_number);
-		
-		return customerId;
-		
-	}
-
-public CustomerDetails validateCustomer(Connection connection,long customerId) throws ServletException
-{
-	CustomerDetails customer=new CustomerDAO(connection).getCustomer_Details(customerId);
-	return customer;
-}
-public boolean checkuser_ID(Connection connection,long customerId) throws ServletException
-{
-	boolean user_id=new CustomerDAO(connection).checkUserId(customerId);
-	return user_id;
-}*/
 
 

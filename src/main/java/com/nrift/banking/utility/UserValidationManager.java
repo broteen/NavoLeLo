@@ -24,6 +24,10 @@ public class UserValidationManager {
 		
 	}
 	
+	public boolean checkUserName(Connection connection, String username) throws ServletException
+	{
+		return(new UserValidationDAO(connection).validateUserName(username));
+	}
 	
 
 }

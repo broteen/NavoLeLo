@@ -11,7 +11,7 @@ public class AccountManager {
 
 	public List<AccountDetails> getAccountDetails(Connection connection,long customerId) throws ServletException {
 		
-		return(new AccountDAO(connection).getAccountDetails(customerId) );
+		return(new AccountDAO(connection).getAllAccountDetails(customerId) );
 	}
 
 	public long validateAccount(Connection connection, long account_number) throws ServletException {

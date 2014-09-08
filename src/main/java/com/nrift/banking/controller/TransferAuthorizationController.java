@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.AccountDetails;
+import com.nrift.banking.utility.TransferAmountDetails;
 import com.nrift.banking.utility.TransferAuthorizationManager;
 import com.nrift.banking.utility.UserDetails;
 
@@ -48,17 +49,17 @@ public class TransferAuthorizationController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String senderAccount = request.getParameter("senderAccountNumber");
-		String receiverAccount = request.getParameter("receiverAccountNumber");
-		Long amount = Long.parseLong(request.getParameter("amount"));
+		long senderAccount = Long.parseLong(request.getParameter("senderAccountNumber"));
+		long receiverAccount = Long.parseLong(request.getParameter("receiverAccountNumber"));
+		long amount = Long.parseLong(request.getParameter("amount"));
 		String errorMsg = null;
-		if (senderAccount == null || senderAccount.equals("")) {
+		if (senderAccount==0L) {
 			errorMsg = "Sender's Account Number can't be null or empty";
 		}
-		if (receiverAccount == null || receiverAccount.equals("")) {
+		if (receiverAccount==0L) {
 			errorMsg = "Receiver's Account Number can't be null or empty";
 		}
-		if(amount==null || amount==0L){
+		if(amount==0L){
 			errorMsg = "Amount can't be null or empty or zero";
 		}
 
@@ -75,12 +76,11 @@ public class TransferAuthorizationController extends HttpServlet {
 			TransferAuthorizationManager trancAuthorise = new TransferAuthorizationManager();
 			
 			try{
-				AccountDetails account= trancAuthorise.validate(con,receiverAccount);
+				TransferAmountDetails transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);
 				HttpSession session= request.getSession(false);
-				UserDetails user=(UserDetails)session.getAttribute("user");
-				if (account!=null && user!=null) {
+				if (transferAmountDetails!=null) {
 					logger.info("Transaction is Authorised");
-					
+					session.setAttribute("transferAmountDetails", transferAmountDetails);
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferUserConformation.jsp");
 					rd.forward(request, response);
 				} else {

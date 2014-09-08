@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -30,16 +30,17 @@ public class AccountDAO {
 		try {
 
 			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE CUSTOMER_ID=?");
+					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE CUSTOMER_ID=? AND B.STATUS=?");
 
 			ps.setLong(1,customerId);
+			ps.setString(2, "normal");
 			rs = ps.executeQuery();
 
 			if(rs !=null)
 			{
 
 
-				List<AccountDetails> list= new LinkedList<AccountDetails>();
+				List<AccountDetails> list= new ArrayList<AccountDetails>();
 				while (rs.next()) 
 				{
 					AccountDetails validAccount = new AccountDetails(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
@@ -72,16 +73,17 @@ public class AccountDAO {
 
 	}
 
-	public AccountDetails getAccountDetails(String receiverAccount ) throws ServletException {
+	public AccountDetails getAccountDetails(long accountNo ) throws ServletException {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 
 			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?");
+					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=? AND B.STATUS=?");
 
-			ps.setString(1,receiverAccount);
+			ps.setLong(1,accountNo);
+			ps.setString(2, "normal");
 			rs = ps.executeQuery();
 			if(rs !=null && rs.next())
 			{

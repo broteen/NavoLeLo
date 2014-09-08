@@ -46,7 +46,7 @@ public class CustomerDAO {
             } catch (SQLException e) {
                 logger.error("SQLException in closing PreparedStatement or ResultSet");
             }
-             
+         
         }
 
 	}

@@ -39,7 +39,7 @@ public class LogInfoController  extends HttpServlet {
 
 		if (errorMsg != null) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
-					"/loginfo.jsp");
+					"/loginfo.html");
 			PrintWriter out = response.getWriter();
 			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
@@ -58,7 +58,7 @@ public class LogInfoController  extends HttpServlet {
 					session.setAttribute("user", user);
 					//System.out.println(user.getCustomerDetails().getName());
 					System.out.print("hi");
-					response.sendRedirect("loginsuccess.jsp");
+					response.sendRedirect("loginsuccess.html");
 				} else {
 					RequestDispatcher rd = getServletContext()
 							.getRequestDispatcher("/login.html");

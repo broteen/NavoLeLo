@@ -44,7 +44,7 @@ public class RegisterController extends HttpServlet {
 
 		if (errorMsg != null) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
-					"/register.jsp");
+					"/register.html");
 			PrintWriter out = response.getWriter();
 			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
@@ -63,7 +63,7 @@ public class RegisterController extends HttpServlet {
 				
 				else {
 					RequestDispatcher rd = getServletContext()
-							.getRequestDispatcher("/register.jsp");
+							.getRequestDispatcher("/register.html");
 					PrintWriter out = response.getWriter();
 					logger.error("account not found=" + name);
 					out.println("<font color=red>Account does not exists with the given account number</font>");
@@ -73,19 +73,19 @@ public class RegisterController extends HttpServlet {
 					if(customer!=null)
 					{
 						
-						if(customer.getName()==name && customer.getContactNumber()==contactNumber)
+						if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber)
 						{		logger.info("customer found with details=" + customerId);
 						
 					
 					if(registerValidation.checkuserID(con,customerId))
 					{
 						logger.error("new user.....");
-					response.sendRedirect("loginfo.jsp");
+					response.sendRedirect("loginfo.html");
 						}
 					else
 					{
 						RequestDispatcher rd = getServletContext()
-								.getRequestDispatcher("/register.jsp");
+								.getRequestDispatcher("/register.html");
 						PrintWriter out = response.getWriter();
 						logger.error("customer is already registered");
 						out.println("<font color=red>customer is already register</font>");
@@ -94,7 +94,7 @@ public class RegisterController extends HttpServlet {
 						}
 						else{
 							RequestDispatcher rd = getServletContext()
-									.getRequestDispatcher("/register.jsp");
+									.getRequestDispatcher("/register.html");
 							PrintWriter out = response.getWriter();
 							logger.error("customer not found=" + name);
 							out.println("<font color=red>No customer found with given customer details, please fill correct details</font>");
@@ -104,7 +104,7 @@ public class RegisterController extends HttpServlet {
 				} 
 				else {
 					RequestDispatcher rd = getServletContext()
-							.getRequestDispatcher("/register.jsp");
+							.getRequestDispatcher("/register.html");
 					PrintWriter out = response.getWriter();
 					logger.error("customer not found=" + name);
 					out.println("<font color=red>No customer found with given account number, please fill correct details</font>");

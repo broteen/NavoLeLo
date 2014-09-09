@@ -70,6 +70,7 @@ public class TransferAmountController extends HttpServlet {
 			rd.forward(request, response);
 		}catch(ServletException e)
 		{
+			logger.info("Error"+e);
 			//To be Implemented later this is not the correct implmentation
 			response.getWriter().print(e.getMessage()+"loginController");
 		}

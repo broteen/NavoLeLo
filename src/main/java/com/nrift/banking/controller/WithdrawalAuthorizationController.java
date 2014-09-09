@@ -14,13 +14,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.nrift.banking.utility.TransferAmountDetails;
+import com.nrift.banking.utility.TransferAuthorizationManager;
 import com.nrift.banking.utility.WithdrawAmountDetails;
 import com.nrift.banking.utility.WithdrawAuthorizationManager;
 
 /**
  * Servlet implementation class WithdrawalAuthorizationController
  */
-@WebServlet(name="WithdrawalAuthorizationController", urlPatterns="/WithdrawalAuthorizationController")
+@WebServlet("/WithdrawalAuthorizationController")
 public class WithdrawalAuthorizationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,14 +53,14 @@ public class WithdrawalAuthorizationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		long Account = Long.parseLong(request.getParameter("AccountNumber"));
+		long account = Long.parseLong(request.getParameter("AccountNumber"));
 		long amount = Long.parseLong(request.getParameter("Amount"));
 		String errorMsg = null;
-		if (Account == 0L) {
+		if (account==0L) {
 			errorMsg = "Please enter a valid account number";
 		}
-		if (amount == 0L) {
-			errorMsg = "Please enter a valid withdrawal amount";
+		if(amount==0L){
+			errorMsg = "Please enter a valid amount";
 		}
 
 		if (errorMsg != null) {
@@ -71,30 +73,27 @@ public class WithdrawalAuthorizationController extends HttpServlet {
 
 			Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
-			WithdrawAuthorizationManager withdrawalAuthorize = new WithdrawAuthorizationManager();
-
-			try {
-				WithdrawAmountDetails withdrawAmountDetails = withdrawalAuthorize
-						.validate(con, Account, amount);
-				HttpSession session = request.getSession(false);
-				if (withdrawAmountDetails != null) {
+			WithdrawAuthorizationManager withdrawAuthorise = new WithdrawAuthorizationManager();
+			
+			try{
+				WithdrawAmountDetails withdrawAmountDetails= withdrawAuthorise.validate(con,account,amount);
+				HttpSession session= request.getSession(false);
+				if (withdrawAmountDetails!=null) {
 					logger.info("Transaction is Authorised");
-					session.setAttribute("withdrawAmountDetails",
-							withdrawAmountDetails);
-					RequestDispatcher rd = getServletContext()
-							.getRequestDispatcher(
-									"/withdrawUserConfirmation.jsp");
+					session.setAttribute("withdrawAmountDetails", withdrawAmountDetails);
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/withdrawUserConfirmation.jsp");
 					rd.forward(request, response);
 				} else {
-					RequestDispatcher rd = getServletContext()
-							.getRequestDispatcher("/withdrawAmt.jsp");
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/withdrawAmt.jsp");
 					PrintWriter out = response.getWriter();
-					logger.error("Transaction is Not Authorised or Insufficient Balance in account");
-					out.println("<font color=red>Transaction Failed due to Authorization Failure or insufficient balance</font>");
+					logger.error("Transaction is Not Authorised");
+					out.println("<font color=red>Transaction Failed due to authorization failure</font>");
 					rd.include(request, response);
 				}
-			} catch (ServletException e) {
-				logger.error("Exception caught at withdrawal: " + e);
+			}catch(ServletException e)
+			{
+				//To be Implemented later this is not the correct implmentation
+				response.getWriter().print(e.getMessage()+"loginController");
 			}
 		}
 	}

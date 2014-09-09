@@ -26,7 +26,7 @@
 			<li><a href="">Transactions</a>
 				<ul id=b>
 					<li><a href="transferFund.jsp">Transfer</a></li>
-					<li><a href="Withdraw.jsp">Withdraw</a></li>
+					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
 					<li><a href="Deposit.jsp">Deposit</a></li>
 				</ul></li>
 			<li><a href="Update_details.jsp">Update details</a></li>

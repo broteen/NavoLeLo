@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Transaction Confirmation</title>
 </head>
 <body>
-
+${requestScope.message}
+<form action="withdrawAmt.jsp" method="post">
+<input type="submit" value="OK"/>
+</form>
 </body>
 </html>

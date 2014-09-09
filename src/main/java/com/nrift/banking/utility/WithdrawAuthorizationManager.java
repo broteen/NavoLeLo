@@ -6,16 +6,14 @@ import javax.servlet.ServletException;
 
 public class WithdrawAuthorizationManager {
 
-	public WithdrawAmountDetails validate(Connection connection, long Account,
+	public WithdrawAmountDetails validate(Connection connection, long account,
 			long amount) throws ServletException {
 		AccountManager acc = new AccountManager();
-		AccountDetails AccountDetails = acc.getAccountDetails(connection,
-				Account);
+		AccountDetails AccountDetails = acc.getAccountDetails(connection,account);
 		if (AccountDetails == null)
 			return null;
 		if (AccountDetails.getBalance() > amount)
-			return new WithdrawAmountDetails(Account, amount,
-					AccountDetails.getUpdatedTime());
+			return new WithdrawAmountDetails(account, amount,AccountDetails.getUpdatedTime());
 		else
 			return null;
 	}

@@ -3,23 +3,23 @@ package com.nrift.banking.utility;
 import java.sql.Timestamp;
 
 public class WithdrawAmountDetails {
-	private long AccountNo;
+	private long accountNo;
 	private long amount;
 	private Timestamp updatedTime;
 
-	public WithdrawAmountDetails(long AccountNo, long amount,
+	public WithdrawAmountDetails(long accountNo, long amount,
 			Timestamp updatedTime) {
-		this.AccountNo = AccountNo;
+		this.accountNo = accountNo;
 		this.amount = amount;
 		this.updatedTime = updatedTime;
 	}
 
 	public long getAccountNo() {
-		return AccountNo;
+		return accountNo;
 	}
 
-	public void setAccountNo(long senderAccountNo) {
-		this.AccountNo = senderAccountNo;
+	public void setAccountNo(long accountNo) {
+		this.accountNo = accountNo;
 	}
 
 	public long getAmount() {

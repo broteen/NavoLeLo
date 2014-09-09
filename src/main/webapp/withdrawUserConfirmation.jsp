@@ -9,9 +9,9 @@
 </head>
 <body>
 	<h3>Please confirm the details to proceed with the transaction:</h3>
-	<form name="withdrawUserConfirmation" action="withdrawAmountController" method="post">
-		<strong>Account Number: </strong>${withdrawAmountDetails.AccountNo}<br />
-		<strong>Amount: </strong>${withdrawAmountDetails.amount}<br />
+	<form name="withdrawUserConfirmation" action="WithdrawAmountController" method="post">
+		<strong>Account Number: </strong>${withdrawAmountDetails.accountNo}<br />
+		  <strong>Amount: </strong>${withdrawAmountDetails.amount}<br />
 		<input type="submit" value="Confirm" /> 
 		<input type="button" value="Back" />
 	</form>

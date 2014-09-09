@@ -1,0 +1,67 @@
+package com.nrift.banking.controller;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+
+import com.nrift.banking.utility.DepositeConfirmManager;
+import com.nrift.banking.utility.TransferAmountDetails;
+
+
+public class DepositeConfirmController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	static Logger logger = Logger.getLogger(DepositeConfirmController.class);
+       
+	public DepositeConfirmController() {
+        super();
+	}
+	
+	
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Connection con = (Connection) getServletContext().getAttribute("connection");
+		DepositeConfirmManager depositeConfirm = new DepositeConfirmManager ();
+		HttpSession session= request.getSession(false);
+		TransferAmountDetails depositeAmountDetails = (TransferAmountDetails)session.getAttribute("depositeAmountDetails");
+		//long accountNum =(long) session.getAttribute("depositeAccountNumber"); 
+	//	long amount=(long) session.getAttribute("depositeAmount");
+		
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositeSuccessReport.jsp");
+				
+		try{
+			if (depositeConfirm.IsDeposited(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount())) {
+				if(depositeConfirm.insertRowforDeposite(con, 0L,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount()))
+				{
+				logger.info("Deposite is Successfull");
+				request.setAttribute("message", "Deposite is Successfull");
+				}
+				
+			} else {
+				con.rollback();
+				logger.error("Deposite is Not Successfull...Rollling Back");
+				request.setAttribute("message", "Sorry!!! Deposite is Not Successfull");
+			}
+			rd.forward(request, response);
+		}catch(ServletException e)
+		{
+			
+			//To be Implemented later this is not the correct implmentation
+			response.getWriter().print(e.getMessage()+"loginController");
+		} catch (SQLException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

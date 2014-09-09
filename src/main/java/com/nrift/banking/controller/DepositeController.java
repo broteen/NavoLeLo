@@ -17,12 +17,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.DepositeManager;
+import com.nrift.banking.utility.TransferAmountDetails;
 
 	@WebServlet(name = "Deposite", urlPatterns = { "/deposite" })
 	public class DepositeController extends HttpServlet {
 		private static final long serialVersionUID = 1L;
 
-		static Logger logger = Logger.getLogger(LoginController.class);
+		static Logger logger = Logger.getLogger(DepositeController.class);
 
 		protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -49,11 +50,32 @@ import com.nrift.banking.utility.DepositeManager;
 				DepositeManager deposite=new DepositeManager();
 				
 				try{
-					
+					TransferAmountDetails depositeAmountDetails=new TransferAmountDetails(0L,accountNumber,amount,null);
 					long customerId  = deposite.validateAccountNumber(con,accountNumber);
 					if (customerId != 0L) {
 						logger.info("account found with given account number =" + customerId);	
+					
+					if(amount>0)
+					{
+                        HttpSession session= request.getSession(false);
+						
+						logger.error("show the deposite details.....");
+						session.setAttribute("depositeAmountDetails", depositeAmountDetails);
+						//session.setAttribute("depositeAccountNumber", accountNumber);
+						//session.setAttribute("depositeAmount", amount);
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/confirmDeposite.jsp");
+						rd.forward(request, response);
+						
 					}
+					else{
+						RequestDispatcher rd = getServletContext()
+								.getRequestDispatcher("/deposite.jsp");
+						PrintWriter out = response.getWriter();
+						logger.error("Invalid Amount");
+						out.println("<font color=red>Invalid amount</font>");
+						rd.include(request, response);
+					}				
+                         }
 					
 					else {
 						RequestDispatcher rd = getServletContext()
@@ -61,16 +83,6 @@ import com.nrift.banking.utility.DepositeManager;
 						PrintWriter out = response.getWriter();
 						logger.error("account not found=");
 						out.println("<font color=red>Invalid account number</font>");
-						rd.include(request, response);
-					}
-					
-					if(amount<=0)
-					{
-						RequestDispatcher rd = getServletContext()
-								.getRequestDispatcher("/deposite.jsp");
-						PrintWriter out = response.getWriter();
-						logger.error("Invalid Amount");
-						out.println("<font color=red>Invalid amount</font>");
 						rd.include(request, response);
 					}
 				}catch(ServletException e)

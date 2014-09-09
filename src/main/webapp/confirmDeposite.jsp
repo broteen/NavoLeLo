@@ -16,24 +16,26 @@
 
 <div id="content" >
 <center>
-<form action= "confirmDeposite.jsp" method="post">
+<form action= "DepositeConfirmController" method="post">
 <br>
 <br>
 <table border="1" width="30%" cellpadding="3">
                 <thead>
                     <tr>
-                        <th colspan="2"><h3>Please fill the Details for Depositing</h3></th>
+                        <th colspan="2"><h3>Please<b> Confirm </b>the Details for Depositing</h3></th>
                     </tr>
                 </thead>
                 <tbody>
-  <tr><td><b>Account Number</b><input type="text" name="name" size="40"/></td>
+  <tr><td><b>Account Number  </b></td>
+  <td> ${depositeAmountDetails.receiverAccountNo}</td></tr>
  
-  <tr><td><b>Amount(INR) </b><input type="text" name="account_number" size="40"></td>
+  <tr><td><b>Amount(INR) </b></td>
+  	<td> ${depositeAmountDetails.amount}</td>
   </tr>
   </tbody>
   </table>
-  <input type="submit" size="50" value="Next" name="next" style="height:40px; width:80px">
-  <input type="reset" size="50" value="Reset" name="reset" style="height:40px; width:80px">
+  <input type="submit" size="50" value="Confirm" name="next" style="height:40px; width:80px">
+  <input type="button" onclick="history.go(-1);" value="Back"  style="height:40px; width:80px"/>
   <br>
   <br>
   </form>

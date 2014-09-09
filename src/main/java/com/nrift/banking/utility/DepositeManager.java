@@ -18,4 +18,7 @@ public class DepositeManager {
 		return 0L;
 	}
 	}
+	
+	
+	
 }

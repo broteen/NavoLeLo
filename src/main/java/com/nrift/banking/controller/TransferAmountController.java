@@ -60,9 +60,9 @@ public class TransferAmountController extends HttpServlet {
 				
 				user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
 				session.setAttribute("user", user);
+				session.removeAttribute("transferAmountDetails");
 				logger.info("Transaction is Successfull");
 				request.setAttribute("message", "Transaction is Successfull");
-				
 			} else {
 				logger.error("Transaction is Not Successfull");
 				request.setAttribute("message", "Transaction is Not Successfull");

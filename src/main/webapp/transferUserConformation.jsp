@@ -10,12 +10,15 @@
 <form action="TransferAmountController" method="post">
 	<table>
 		<tr>
+			<td>Your Account Number</td>
 			<td> ${transferAmountDetails.senderAccountNo}</td>
 		</tr>
 		<tr>
+			<td>Receiver's Account Number</td>
 			<td> ${transferAmountDetails.receiverAccountNo}</td>
 		</tr>
 		<tr>
+			<td>Amount</td>
 			<td> ${transferAmountDetails.amount}</td>
 		</tr>
 		<tr>

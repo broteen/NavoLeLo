@@ -52,10 +52,14 @@ public class TransferAmountController extends HttpServlet {
 		TransferAmountManager transAmount = new TransferAmountManager();
 		HttpSession session= request.getSession(false);
 		TransferAmountDetails transferAmountDetails = (TransferAmountDetails)session.getAttribute("transferAmountDetails"); 
+		UserDetails user = (UserDetails)session.getAttribute("user"); 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferSystemConformation.jsp");
 				
 		try{
-			if (transAmount.IsTransferSuccessfull(con,transferAmountDetails)) {
+			if (transAmount.IsTransferSuccessfull(con,transferAmountDetails,user.getUserId())) {
+				
+				user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
+				session.setAttribute("user", user);
 				logger.info("Transaction is Successfull");
 				request.setAttribute("message", "Transaction is Successfull");
 				

@@ -233,4 +233,31 @@ public class AccountDAO {
 		}
 	}
 
+	public int setUpdatedByandUpdatedTime(long accountNo,long userId) throws ServletException {
+		PreparedStatement ps = null;
+		try {
+
+			ps = connection.prepareStatement("UPDATE ACCOUNT SET UPDATED_BY=?,UPDATED_TIME=? WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+			
+			ps.setLong(1,userId);
+			ps.setTimestamp(2,new Timestamp(new java.util.Date().getTime()));
+			ps.setLong(3,accountNo);
+			ps.setString(4, "normal");
+			return ps.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in exracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+		finally{
+			try{
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+	}
+
 }

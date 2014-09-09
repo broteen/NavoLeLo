@@ -17,7 +17,8 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.TransferAmountManager;
 import com.nrift.banking.utility.TransferAmountDetails;
 import com.nrift.banking.utility.TransferAuthorizationManager;
-
+import com.nrift.banking.utility.UserDetails;
+import com.nrift.banking.utility.UserInstantiation;
 /**
  * Servlet implementation class TransferAmountController
  */

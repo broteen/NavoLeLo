@@ -55,4 +55,12 @@ public boolean IsAmountWithdrawn(Connection connection,long senderAccountNo, lon
 		else
 			return true;
 	}
+
+	public boolean setUpdatedByandUpdatedTime(Connection connection, long accountNo,long userId) throws ServletException {
+		if (new AccountDAO(connection).setUpdatedByandUpdatedTime(accountNo,userId)==0)
+			return false;
+		else
+			return true;
+		
+	}
 }

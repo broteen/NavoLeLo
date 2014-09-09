@@ -6,11 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Withdraw Money</title>
+<script type="text/javascript" src="js/withdrawFormValidator.js"></script>
 </head>
 <body>
 <div id="error"></div>
 <h3>Fill in the account number and amount to proceed:</h3>
-<form name="withdrawAmt" action="WithdrawalAuthorizationController" method="post">
+<form name="withdrawAmt" action="WithdrawalAuthorizationController" method="post" onsubmit="return validate()">
 		<strong>Account Number:</strong>
 		<select name="AccountNumber">
      		<c:forEach  var="account" items="${user.customerDetails.accountList}">

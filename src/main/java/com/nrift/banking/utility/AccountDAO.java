@@ -57,7 +57,7 @@ public class AccountDAO {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.error("SQLException in extracting data from the ResultSet");
+			logger.error("SQLException in exracting data from the ResultSet");
 			System.out.println(e);
 			throw new ServletException("DB Connection problem.");
 		}
@@ -136,7 +136,7 @@ public class AccountDAO {
 	}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.error("SQLException in extracting data from the ResultSet");
+			logger.error("SQLException in exracting data from the ResultSet");
 			System.out.println(e);
 			throw new ServletException("DB Connection problem.");
 		}
@@ -210,6 +210,34 @@ public class AccountDAO {
 
 	}
 
+	public int CloseAccount(long accountNo) throws ServletException {
+		PreparedStatement ps = null;
+		try {
+
+			ps = connection.prepareStatement("UPDATE ACCOUNT SET STATUS=? WHERE ACCOUNT_NUMBER=?");
+			
+			/*ps.setLong(1,amount);
+			ps.setLong(2,accountNo);*/
+			ps.setString(1, "cancel");
+			ps.setLong(2, accountNo);
+			return ps.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in extracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+		finally{
+			try{
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+
+	}
+	
 	public int DepositeAmount(long accountNo, long amount) throws ServletException {
 		PreparedStatement ps = null;
 		try {

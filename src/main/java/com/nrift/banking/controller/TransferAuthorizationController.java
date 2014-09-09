@@ -59,6 +59,9 @@ public class TransferAuthorizationController extends HttpServlet {
 		if (receiverAccount==0L) {
 			errorMsg = "Receiver's Account Number can't be null or empty";
 		}
+		if(senderAccount==receiverAccount){
+			errorMsg = "Sender's and Receiver's Account Number can't be same";
+		}
 		if(amount==0L){
 			errorMsg = "Amount can't be null or empty or zero";
 		}

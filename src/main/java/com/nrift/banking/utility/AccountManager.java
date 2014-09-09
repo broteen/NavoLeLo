@@ -42,8 +42,8 @@ public  AccountDetails getAccountHistory(Connection connection, long accountNo) 
 	}
 	return account;
 }
-public boolean IsAmountWithdrawn(Connection connection,long senderAccountNo, long amount) throws ServletException {
-		if (new AccountDAO(connection).WithdrawAmount(senderAccountNo,amount)==0)
+public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount) throws ServletException {
+		if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount)==0)
 			return false;
 		else
 			return true;

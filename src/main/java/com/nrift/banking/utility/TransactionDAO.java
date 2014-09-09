@@ -50,5 +50,32 @@ public class TransactionDAO {
 
 		}
 	}
+	public int insertRowForWithdrawAmount(long accountNo, long amount) throws ServletException {
+		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		try {
+
+			ps = connection.prepareStatement("INSERT INTO TRANSACTION(TRANSACTION_TIME,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)");
+			
+			ps.setTimestamp(1,new Timestamp(new java.util.Date().getTime()));
+			ps.setLong(2,accountNo);
+			ps.setLong(3,amount);
+			ps.setLong(4,TransactionRefGenerator.getInstance().getCounter());
+			return ps.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("SQLException in extracting data from the ResultSet");
+			System.out.println(e);
+			throw new ServletException("DB Connection problem.");
+		}
+		finally{
+			try{
+				ps.close();
+			} catch (SQLException e) {
+			logger.error("SQLException in closing PreparedStatement or ResultSet");
+			}
+
+		}
+	}
 }
 

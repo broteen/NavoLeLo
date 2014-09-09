@@ -10,15 +10,15 @@
 <body>
 <div id="error"></div>
 <h3>Fill in the account number and amount to proceed:</h3>
-<form name="withdrawAmt" action=" " method="post">
-		<strong>Account Number:</strong>:
+<form name="withdrawAmt" action="WithdrawalAuthorizationController" method="post">
+		<strong>Account Number:</strong>
 		<select name="AccountNumber">
      		<c:forEach  var="account" items="${user.customerDetails.accountList}">
              	<option value="${account.accountNo}">${account.accountNo}</option>
            </c:forEach>
    		</select>
 		<br/>
-		<strong>Amount</strong>:<input type="text" name="Amount"/><br/>
+		<strong>Amount:</strong><input type="text" name="Amount"/><br/>
 		<input type="submit" value="Withdraw"/> 
 		<input type="reset" value="Reset" />
 </form>

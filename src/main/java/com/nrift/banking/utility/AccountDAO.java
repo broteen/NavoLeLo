@@ -192,7 +192,7 @@ public class AccountDAO {
 			return ps.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
+			logger.error("SQLException in extracting data from the ResultSet");
 			System.out.println(e);
 			throw new ServletException("DB Connection problem.");
 		}

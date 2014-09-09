@@ -128,6 +128,9 @@ public class AccountDAO {
 			{
 				customerID=rs.getInt("CUSTOMER_ID");
 				String status=rs.getString("STATUS");
+				if(status.equals("cancel")){
+					customerID=0L;
+				}
 			}
 				return customerID;
 	}

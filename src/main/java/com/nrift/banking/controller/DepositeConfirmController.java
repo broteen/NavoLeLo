@@ -39,8 +39,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositeSuccessReport.jsp");
 				
 		try{
+			
 			if (depositeConfirm.IsDeposited(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount())) {
-				if(depositeConfirm.insertRowforDeposite(con, 0L,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount()))
 				{
 				logger.info("Deposite is Successfull");
 				request.setAttribute("message", "Deposite is Successfull");

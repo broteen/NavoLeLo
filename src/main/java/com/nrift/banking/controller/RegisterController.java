@@ -60,8 +60,7 @@ public class RegisterController extends HttpServlet {
 				if (customerId != 0L) {
 					logger.info("account found with given account number =" + customerId);	
 				}
-				
-				else {
+			else {
 					RequestDispatcher rd = getServletContext()
 							.getRequestDispatcher("/register.html");
 					PrintWriter out = response.getWriter();
@@ -70,20 +69,17 @@ public class RegisterController extends HttpServlet {
 					rd.include(request, response);
 				}
 				CustomerDetails customer=registerValidation.validateCustomerDetails(con,customerId);
-					if(customer!=null)
-					{
+					if(customer!=null){
 						
-						if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber)
-						{		logger.info("customer found with details=" + customerId);
+						if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
+							logger.info("customer found with details=" + customerId);
 						
 					
-					if(registerValidation.checkuserID(con,customerId))
-					{
+					if(registerValidation.checkuserID(con,customerId)){
 						logger.error("new user.....");
 					response.sendRedirect("loginfo.html");
-						}
-					else
-					{
+					}
+					else{
 						RequestDispatcher rd = getServletContext()
 								.getRequestDispatcher("/register.html");
 						PrintWriter out = response.getWriter();

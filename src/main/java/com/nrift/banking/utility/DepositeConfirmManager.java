@@ -1,40 +1,45 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 
 import com.nrift.banking.utility.TransactionManager;
 
 public class DepositeConfirmManager {
-
 	
-	// UNDER CONFRIMDEPOSITEMANAGER
-			public boolean IsDeposited(Connection connection,long receiverAccountNo, long amount)
+			public boolean IsDeposited(Connection connection,long receiverAccountNo, long amount) throws SQLException
 			{
 				try{
-					return new AccountManager().IsAmountDeposited(connection,receiverAccountNo,amount);
-				}
-				
-				catch(ServletException e)
+					AccountManager accountManager= new AccountManager();
+					TransactionManager transaction= new TransactionManager();
+					Timestamp updatedTime= accountManager.getUpdateTime(connection, receiverAccountNo);
+					connection.setAutoCommit(false);
+					if(updatedTime!=null && accountManager.IsAmountDeposited(connection,receiverAccountNo,amount)){
+						if(transaction.insertRowForTransferAmount(connection,0L,receiverAccountNo,amount)!=0 && 
+								updatedTime.equals(accountManager.getUpdateTime(connection, receiverAccountNo))){
+							
+							//if(accountManager.setUpdatedByandUpdatedTime(connection,receiverAccountNo,)){
+							connection.commit();
+							connection.setAutoCommit(true);
+							return true;		
+				          }
+					}
+					else
+					{
+						connection.rollback();
+						connection.setAutoCommit(true);
+						return false;
+					}
+				}catch(ServletException e)
 				{
 					return false;
 				}
+				return false;
 				
 			}
-			
-			public boolean insertRowforDeposite(Connection connection,long senderAccountNo,long receiverAccountNo,long amount) throws ServletException{
-				
-				senderAccountNo=0L;
-				int check=new TransactionManager().insertRowForTransferAmount(connection, senderAccountNo,receiverAccountNo,amount );
-				if(check==0)
-				{
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-				
-			}
-}
+	
+		}
+

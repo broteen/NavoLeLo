@@ -14,8 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.TransferAmountDetails;
-import com.nrift.banking.utility.TransferAuthorizationManager;
 import com.nrift.banking.utility.WithdrawAmountDetails;
 import com.nrift.banking.utility.WithdrawAuthorizationManager;
 

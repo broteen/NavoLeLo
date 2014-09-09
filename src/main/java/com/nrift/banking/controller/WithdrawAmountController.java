@@ -19,8 +19,8 @@ import com.nrift.banking.utility.withdrawAmountManager;
 /**
  * Servlet implementation class withdrawAmountController
  */
-@WebServlet("/withdrawAmountController")
-public class withdrawAmountController extends HttpServlet {
+@WebServlet("/WithdrawAmountController")
+public class WithdrawAmountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger logger = Logger
 			.getLogger(WithdrawalAuthorizationController.class);
@@ -28,7 +28,7 @@ public class withdrawAmountController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public withdrawAmountController() {
+	public WithdrawAmountController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

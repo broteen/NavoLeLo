@@ -19,8 +19,8 @@
            </c:forEach>
    		</select>
 		<br/>
-		<strong>Receiver's Account Number</strong>:<input type="text" name="receiverAccountNumber"/><br/>
-		<strong>Amount</strong>:<input type="text" name="amount"/><br/>
+		<strong>Receiver's Account Number</strong>:<input type="text" name="receiverAccountNumber" <c:out value="${receiverAccountNo.receiverAccountNo}" />/><br/>
+		<strong>Amount</strong>:<input type="text" name="amount" <c:out value="${receiverAccountNo.amount}" />/><br/>
 		<input type="submit" value="Submit"/> 
 		<input type="reset" value="Reset" />
 	</form>

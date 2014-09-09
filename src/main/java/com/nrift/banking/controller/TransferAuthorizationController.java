@@ -80,7 +80,7 @@ public class TransferAuthorizationController extends HttpServlet {
 				HttpSession session= request.getSession(false);
 				if (transferAmountDetails!=null) {
 					logger.info("Transaction is Authorised");
-					session.setAttribute("transferAmountDetails", transferAmountDetails);
+					session.setAttribute("receiverAccountNo", transferAmountDetails);
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferUserConformation.jsp");
 					rd.forward(request, response);
 				} else {

@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.DepositeConfirmManager;
 import com.nrift.banking.utility.TransferAmountDetails;
+import com.nrift.banking.utility.UserDetails;
 
 
 public class DepositeConfirmController extends HttpServlet {
@@ -22,25 +23,18 @@ public class DepositeConfirmController extends HttpServlet {
 	
 	static Logger logger = Logger.getLogger(DepositeConfirmController.class);
        
-	public DepositeConfirmController() {
-        super();
-	}
-	
-	
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection con = (Connection) getServletContext().getAttribute("connection");
 		DepositeConfirmManager depositeConfirm = new DepositeConfirmManager ();
 		HttpSession session= request.getSession(false);
+		UserDetails user = (UserDetails)session.getAttribute("user"); 
 		TransferAmountDetails depositeAmountDetails = (TransferAmountDetails)session.getAttribute("depositeAmountDetails");
-		//long accountNum =(long) session.getAttribute("depositeAccountNumber"); 
-	//	long amount=(long) session.getAttribute("depositeAmount");
-		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositeSuccessReport.jsp");
 				
 		try{
 			
-			if (depositeConfirm.IsDeposited(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount())) {
+			if (depositeConfirm.IsDeposited(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount(),user.getUserId())) {
 				{
 				logger.info("Deposite is Successfull");
 				request.setAttribute("message", "Deposite is Successfull");

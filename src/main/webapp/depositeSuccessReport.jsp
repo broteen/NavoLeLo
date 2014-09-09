@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+${requestScope.message}
+<form action="deposite.jsp" method="post">
+<input type="submit" value="OK"/>
+</form>
 </body>
 </html>

@@ -14,8 +14,8 @@
 	<div id="options" div class="topcorner">
 
 		<form action="logout" method="post">
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="submit" value="Logout" >
+			Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+				type="submit" value="Logout">
 		</form>
 	</div>
 
@@ -36,8 +36,14 @@
 		</ul>
 		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
 
-		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
-		
+		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br />
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
 		<table border="1" width="30%" cellpadding="5">
 			<th>Account No</th>
 			<th>Balance</th>
@@ -45,9 +51,12 @@
 
 			<c:forEach items="${user.customerDetails.accountList}" var="current">
 				<tr>
-					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.accountNo}" /></td>
-					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.balance}" /></td>
-					<td style="text-align:center;white-space:nowrap"><c:out value="${current.accountType}" /></td>
+					<td style="text-align: center; white-space: nowrap"><c:out
+							value="${current.accountNo}" /></td>
+					<td style="text-align: center; white-space: nowrap"><c:out
+							value="${current.balance}" /></td>
+					<td style="text-align: center; white-space: nowrap"><c:out
+							value="${current.accountType}" /></td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -18,29 +18,35 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+
 /**
- * @author zeeshank
- *
+ * The Class AuthenticationFilter.
  */
 @WebFilter("/AuthenticationFilter")
 public class AuthenticationFilter implements Filter {
 
-	private Logger logger = Logger.getLogger(AuthenticationFilter.class);
-    
+    private Logger logger = Logger.getLogger(AuthenticationFilter.class);
+
+    /**
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
     public void init(FilterConfig fConfig) throws ServletException {
         logger.info("AuthenticationFilter initialized");
     }
-     
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
- 
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-         
+
         String uri = req.getRequestURI();
         logger.info("Requested Resource::"+uri);
-         
+
         HttpSession session = req.getSession(false);
-         
+
         if(session == null && !(uri.endsWith("html") || uri.endsWith("login") || uri.endsWith("register.jsp"))){
             logger.error("Unauthorized access request");
             res.sendRedirect("login.html");
@@ -48,12 +54,12 @@ public class AuthenticationFilter implements Filter {
             // pass the request along the filter chain
             chain.doFilter(request, response);
         }
-         
-         
+
+
     }
- 
+
     public void destroy() {
         //close any resources here
     }
- 
+
 }

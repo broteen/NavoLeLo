@@ -13,20 +13,23 @@
 		<c:when test="${error.name}!=null">
 			<strong><font size="4">Exception name:</font></strong>
 			<span>${error.name}</span>
-			<br><br>
+			<br>
+			<br>
 			<strong><font size="4">Exception message:</font></strong>
 			<span>${error.message}</span>
 		</c:when>
 		<c:otherwise>
 			<strong><font size="4">Error Code: </font></strong>
 			<span>${error.statusCode}</span>
-			<br><br>
+			<br>
+			<br>
 			<strong><font size="4">Error Description: </font></strong>
 			<span>${error.customText}</span>
 		</c:otherwise>
 	</c:choose>
 
-	<br><br>
+	<br>
+	<br>
 	<strong><font size="4">Requested URI:</font></strong>
 	<span>${error.requestedUri}</span>
 	<div></div>

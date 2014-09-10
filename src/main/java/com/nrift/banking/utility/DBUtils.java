@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 public final class DBUtils {
-    
+
     /**
      * Creates the prepared statement from the given SQL string.
      *
@@ -21,7 +21,7 @@ public final class DBUtils {
     public static PreparedStatement createPreparedStatement(Connection con, String sqlString) throws SQLException {
         return con.prepareStatement(sqlString);        
     }
-    
+
     /**
      * Gets the result set from the given {@link PreparedStatement} .
      *
@@ -30,9 +30,9 @@ public final class DBUtils {
      * @return the {@link ResultSet}
      * @throws SQLException the SQL exception
      */
-    
+
     public static PreparedStatement insertIntoPreparedStatement(PreparedStatement ps,Object... objects) throws SQLException{
-    	for(int i=0; i < objects.length; i++) {
+        for(int i=0; i < objects.length; i++) {
             if(objects[i] instanceof Long) {
                 ps.setLong(i+1, (Long)objects[i]);
             } else if(objects[i] instanceof String) {
@@ -42,25 +42,42 @@ public final class DBUtils {
             } else if(objects[i] instanceof Date) {
                 ps.setDate(i+1, (Date)objects[i]);
             }else if(objects[i] instanceof Integer) {
-            	ps.setInt(i+1, (int)objects[i]);
+                ps.setInt(i+1, (int)objects[i]);
             }else if(objects[i] instanceof Double) {
-            	ps.setDouble(i+1, (Double)objects[i]);
+                ps.setDouble(i+1, (Double)objects[i]);
             }
         }
-    	return ps;
+        return ps;
     }
+
+    /**
+     * Gets the result set.
+     *
+     * @param ps the ps
+     * @param objects the objects
+     * @return the result set
+     * @throws SQLException the SQL exception
+     */
     public static ResultSet getResultSet(PreparedStatement ps, Object... objects) throws SQLException {
-    	PreparedStatement prepareStatement=insertIntoPreparedStatement(ps,objects); 
+        PreparedStatement prepareStatement=insertIntoPreparedStatement(ps,objects); 
         return prepareStatement.executeQuery();
     }
-    
+
+    /**
+     * Gets the update info.
+     *
+     * @param ps the ps
+     * @param objects the objects
+     * @return the update info
+     * @throws SQLException the SQL exception
+     */
     public static int getUpdateInfo(PreparedStatement ps, Object... objects) throws SQLException {
-    	PreparedStatement prepareStatement=insertIntoPreparedStatement(ps,objects);
+        PreparedStatement prepareStatement=insertIntoPreparedStatement(ps,objects);
         int updatedrows= prepareStatement.executeUpdate();
         prepareStatement.close();
         return updatedrows;
     }
-    
+
     /**
      * Gets the result set from the sql.
      *
@@ -75,13 +92,22 @@ public final class DBUtils {
         ResultSet resultSet =  getResultSet(preparedStatement, objects);
         return resultSet;
     }
-    
+
+    /**
+     * Gets the update info from sql.
+     *
+     * @param con the con
+     * @param sqlString the sql string
+     * @param objects the objects
+     * @return the update info from sql
+     * @throws SQLException the SQL exception
+     */
     public static int getUpdateInfoFromSQL(Connection con, String sqlString, Object... objects) throws SQLException {
         PreparedStatement preparedStatement = con.prepareStatement(sqlString);
         return getUpdateInfo(preparedStatement, objects);
-        
+
     }
-    
+
     /**
      * Closes result set.
      *
@@ -92,7 +118,7 @@ public final class DBUtils {
         if(resultSet == null) {
             return;
         } else {
-        	Statement st = resultSet.getStatement();
+            Statement st = resultSet.getStatement();
             st.close();
         }        
     }

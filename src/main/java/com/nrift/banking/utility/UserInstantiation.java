@@ -9,20 +9,34 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 
 /**
- * @author zeeshank
- *
+ * The Class UserInstantiation.
  */
 public class UserInstantiation {
-	
-	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws SQLException {
-		
-		return(new CustomerService().getCustomerDetails(connection,userId));
-		
-	}
-	
-	public static AdminDTO getAdminDetails(Connection connection, long userId) throws SQLException {
-		
-		return(new AdminService().getAdminDetails(connection,userId));
-	}
 
+    /**
+     * Gets the customer details.
+     *
+     * @param connection the connection
+     * @param userId the user id
+     * @return the customer details
+     * @throws SQLException the SQL exception
+     */
+    public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws SQLException {
+
+        return(new CustomerService().getCustomerDetails(connection,userId));
+
+    }
+
+    /**
+     * Gets the admin details.
+     *
+     * @param connection the connection
+     * @param userId the user id
+     * @return the admin details
+     * @throws SQLException the SQL exception
+     */
+    public static AdminDTO getAdminDetails(Connection connection, long userId) throws SQLException {
+
+        return(new AdminService().getAdminDetails(connection,userId));
+    }
 }

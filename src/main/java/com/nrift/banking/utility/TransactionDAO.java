@@ -22,60 +22,38 @@ public class TransactionDAO {
 	public TransactionDAO(Connection connection) {
 		this.connection=connection;
 	}
-	public int insertRowForTransferAmount(long senderAccountNo,long receiverAccountNo, long amount) throws ServletException {
+	
+	private String getInsertRowForTransferQueryString() {
+        return "INSERT INTO TRANSACTION(TRANSACTION_TIME,CR_ACC_NUM,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?,?)";
+    }
+	
+	private String getInsertRowForWithdrawQueryString() {
+        return "INSERT INTO TRANSACTION(TRANSACTION_TIME,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)";
+    }
+	
+	
+	public int insertRowForTransferAmount(long senderAccountNo,long receiverAccountNo, long amount) throws SQLException {
 		
-		PreparedStatement ps = null;
+		int updatedRows=0;
 		try {
-
-			ps = connection.prepareStatement("INSERT INTO TRANSACTION(TRANSACTION_TIME,CR_ACC_NUM,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?,?)");
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getInsertRowForTransferQueryString(),new Timestamp(new java.util.Date().getTime()),receiverAccountNo,
+					senderAccountNo,amount,TransactionRefGenerator.getInstance().getCounter());
 			
-			ps.setTimestamp(1,new Timestamp(new java.util.Date().getTime()));
-			ps.setLong(2,receiverAccountNo);
-			ps.setLong(3,senderAccountNo);
-			ps.setLong(4,amount);
-			ps.setLong(5,TransactionRefGenerator.getInstance().getCounter());
-			return ps.executeUpdate();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+		}finally{
 		}
-		finally{
-			try{
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
+		return updatedRows;
 	}
-	public int insertRowForWithdrawAmount(long accountNo, long amount) throws ServletException {
-		// TODO Auto-generated method stub
-		PreparedStatement ps = null;
+
+	public int insertRowForWithdrawAmount(long accountNo, long amount) throws SQLException {
+		
+		int updatedRows=0;
 		try {
-
-			ps = connection.prepareStatement("INSERT INTO TRANSACTION(TRANSACTION_TIME,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)");
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getInsertRowForWithdrawQueryString(),new Timestamp(new java.util.Date().getTime()),accountNo,
+					amount,TransactionRefGenerator.getInstance().getCounter());
 			
-			ps.setTimestamp(1,new Timestamp(new java.util.Date().getTime()));
-			ps.setLong(2,accountNo);
-			ps.setLong(3,amount);
-			ps.setLong(4,TransactionRefGenerator.getInstance().getCounter());
-			return ps.executeUpdate();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in extracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+		}finally{
 		}
-		finally{
-			try{
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
+		return updatedRows;
 	}
 }
 

@@ -1,13 +1,13 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
-import javax.servlet.ServletException;
 
 public class WithdrawAuthorizationService {
 
 	public WithdrawAmountDTO validate(Connection connection, long account,
-			long amount) throws ServletException {
+			long amount) throws SQLException  {
 		AccountService acc = new AccountService();
 		AccountDTO AccountDetails = acc.getAccountDetails(connection,account);
 		if (AccountDetails == null)

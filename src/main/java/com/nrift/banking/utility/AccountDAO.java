@@ -85,7 +85,7 @@ public class AccountDAO {
 
 	
 	
-	public AccountDTO getAccountDetails(long accountNo ) throws ServletException, SQLException {
+	public AccountDTO getAccountDetails(long accountNo ) throws SQLException {
 		
 		AccountDTO accountDetails = null;
 		ResultSet rs = null;
@@ -106,7 +106,7 @@ public class AccountDAO {
 	}
 	
 	
-	public long getCustomerId(long accountNumber) throws ServletException, SQLException
+	public long getCustomerId(long accountNumber) throws SQLException
 	{
 		long customerID=0L; 
 		ResultSet rs = null;
@@ -126,7 +126,7 @@ public class AccountDAO {
 		return customerID;
 	}
 
-	public Timestamp getUpdatedTime(long accountNo) throws ServletException, SQLException {
+	public Timestamp getUpdatedTime(long accountNo) throws SQLException {
 		Timestamp timestamp=null;
 		ResultSet rs = null;
 		try {

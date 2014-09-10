@@ -1,13 +1,14 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 
 public class TransferAmountService {
 
-	public boolean IsTransferSuccessfull(Connection connection,TransferAmountDTO transAmtDetails,long userId) throws ServletException {
+	public boolean IsTransferSuccessfull(Connection connection,TransferAmountDTO transAmtDetails,long userId) throws SQLException {
 	
 		try{
 		AccountService accountManager= new AccountService();

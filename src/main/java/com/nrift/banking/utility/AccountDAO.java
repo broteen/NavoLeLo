@@ -35,7 +35,7 @@ public class AccountDAO {
     }
     
     private String getCustomerQueryString() {
-        return "select customer_id from account where account_number = ?";
+        return "SELECT CUSTOMER_ID,STATUS FROM ACCOUNT WHERE ACCOUNT_NUMBER=?";
     }
     
     private String getUpdatedTimeQueryString() {

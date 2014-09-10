@@ -17,7 +17,7 @@ public class DepositeConfirmService {
 
 		connection.setAutoCommit(false);
 		if(updatedTime!=null && accountManager.IsAmountDeposited(connection,receiverAccountNo,amount)){
-			if(transaction.insertRowForTransferAmount(connection,0L,receiverAccountNo,amount)!=0 && 
+			if(transaction.insertRowForDepositeAmount(connection,receiverAccountNo,amount)!=0 && 
 					updatedTime.equals(accountManager.getUpdateTime(connection, receiverAccountNo))){
 
 				if(accountManager.setUpdatedByandUpdatedTime(connection,receiverAccountNo, userId)){

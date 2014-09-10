@@ -4,7 +4,6 @@ package com.nrift.banking.utility;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.ServletException;
 
 public class TransactionService {
 
@@ -16,6 +15,11 @@ public class TransactionService {
 			long accountNo, long amount) throws SQLException  {
 		// TODO Auto-generated method stub
 		return new TransactionDAO(connection).insertRowForWithdrawAmount(accountNo,amount);
+	}
+
+	public int insertRowForDepositeAmount(Connection connection,
+			long accountNo, long amount)throws SQLException {
+			return new TransactionDAO(connection).insertRowForDepositeAmount(accountNo,amount);
 	}
 
 }

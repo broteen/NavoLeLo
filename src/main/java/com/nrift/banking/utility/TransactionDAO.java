@@ -31,6 +31,10 @@ public class TransactionDAO {
         return "INSERT INTO TRANSACTION(TRANSACTION_TIME,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)";
     }
 	
+	private String getInsertRowForDepositeQueryString() {
+        return "INSERT INTO TRANSACTION(TRANSACTION_TIME,CR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)";
+    }
+	
 	
 	public int insertRowForTransferAmount(long senderAccountNo,long receiverAccountNo, long amount) throws SQLException {
 		
@@ -51,6 +55,16 @@ public class TransactionDAO {
 			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getInsertRowForWithdrawQueryString(),new Timestamp(new java.util.Date().getTime()),accountNo,
 					amount,TransactionRefGenerator.getInstance().getCounter());
 			
+		}finally{
+		}
+		return updatedRows;
+	}
+
+	public int insertRowForDepositeAmount(long accountNo, long amount) throws SQLException {
+		int updatedRows=0;
+		try {
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getInsertRowForDepositeQueryString(),new Timestamp(new java.util.Date().getTime()),accountNo,
+					amount,TransactionRefGenerator.getInstance().getCounter());	
 		}finally{
 		}
 		return updatedRows;

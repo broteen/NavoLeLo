@@ -16,17 +16,17 @@ import org.apache.log4j.Logger;
 public class LogoutController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(LogoutController.class);
-        
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("JSESSIONID")){
-                logger.info("JSESSIONID="+cookie.getValue());
-                break;
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("JSESSIONID")){
+                    logger.info("JSESSIONID="+cookie.getValue());
+                    break;
+                }
             }
-        }
         }
         //invalidate the session if exists
         HttpSession session = request.getSession(false);
@@ -36,5 +36,5 @@ public class LogoutController extends HttpServlet {
         }
         response.sendRedirect("login.html");
     }
- 
+
 }

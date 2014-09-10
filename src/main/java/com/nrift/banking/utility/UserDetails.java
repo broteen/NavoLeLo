@@ -4,74 +4,74 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class UserDetails implements Serializable{
-	
-	private static final long serialVersionUID = 6297385302078200511L;
 
-	private long userId;
-	private String userName;
-	private Timestamp lastLoggedOn;
-	private boolean isAdmin;
-	private CustomerDTO customerDetails=null;
-	private AdminDTO AdminDetails=null;
+    private static final long serialVersionUID = 6297385302078200511L;
 
-	public UserDetails(long userId, String userName,boolean isAdmin,Timestamp lastLoggedOn) {
-		this.userId = userId;
-		this.userName = userName;
-		this.isAdmin = isAdmin;
-		this.lastLoggedOn = lastLoggedOn;
-	}
+    private long userId;
+    private String userName;
+    private Timestamp lastLoggedOn;
+    private boolean isAdmin;
+    private CustomerDTO customerDetails=null;
+    private AdminDTO AdminDetails=null;
 
-	public long getUserId() {
-		return userId;
-	}
+    public UserDetails(long userId, String userName,boolean isAdmin,Timestamp lastLoggedOn) {
+        this.userId = userId;
+        this.userName = userName;
+        this.isAdmin = isAdmin;
+        this.lastLoggedOn = lastLoggedOn;
+    }
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public Timestamp getLastLoggedOn() {
-		return lastLoggedOn;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setLastLoggedOn(Timestamp lastLoggedOn) {
-		this.lastLoggedOn = lastLoggedOn;
-	}
+    public Timestamp getLastLoggedOn() {
+        return lastLoggedOn;
+    }
 
-	public boolean isAdmin() {
-		return isAdmin;
-	}
+    public void setLastLoggedOn(Timestamp lastLoggedOn) {
+        this.lastLoggedOn = lastLoggedOn;
+    }
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+    public boolean isAdmin() {
+        return isAdmin;
+    }
 
-	public CustomerDTO getCustomerDetails() {
-		return customerDetails;
-	}
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
-	public void setCustomerDetails(CustomerDTO customerDetails) {
-		this.customerDetails = customerDetails;
-	}
+    public CustomerDTO getCustomerDetails() {
+        return customerDetails;
+    }
 
-	public AdminDTO getAdminDetails() {
-		return AdminDetails;
-	}
+    public void setCustomerDetails(CustomerDTO customerDetails) {
+        this.customerDetails = customerDetails;
+    }
 
-	public void setAdminDetails(AdminDTO adminDetails) {
-		AdminDetails = adminDetails;
-	}
+    public AdminDTO getAdminDetails() {
+        return AdminDetails;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public void setAdminDetails(AdminDTO adminDetails) {
+        AdminDetails = adminDetails;
+    }
 
-	
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+
 }

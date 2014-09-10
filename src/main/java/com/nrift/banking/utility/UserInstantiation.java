@@ -12,16 +12,16 @@ import javax.servlet.ServletException;
  *
  */
 public class UserInstantiation {
-	
-	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
-		
-		return(new CustomerService().getCustomerDetails(connection,userId));
-		
-	}
-	
-	public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
-		
-		return(new AdminService().getAdminDetails(connection,userId));
-	}
+
+    public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
+
+        return(new CustomerService().getCustomerDetails(connection,userId));
+
+    }
+
+    public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
+
+        return(new AdminService().getAdminDetails(connection,userId));
+    }
 
 }

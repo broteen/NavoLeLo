@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.DepositeService;
 import com.nrift.banking.utility.TransferAmountDTO;
 
-	@WebServlet(name = "Deposite", urlPatterns = { "/deposite" })
+	@WebServlet(name = "Deposite", urlPatterns = { "/DepositeController" })
 	public class DepositeController extends HttpServlet {
 		private static final long serialVersionUID = 1L;
 
@@ -29,6 +29,7 @@ import com.nrift.banking.utility.TransferAmountDTO;
 
 		protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+			logger.info("Inside deposite controller class");
 			long accountNumber= Long.parseLong(request.getParameter("accountNumber"));
 			long amount =Long.parseLong( request.getParameter("amount"));
 			String errorMsg = null;
@@ -52,6 +53,7 @@ import com.nrift.banking.utility.TransferAmountDTO;
 				DepositeService deposite=new DepositeService();
 				
 				try{
+					logger.info("Inside deposite controller class");
 					TransferAmountDTO depositeAmountDetails=new TransferAmountDTO(0L,accountNumber,amount,null);
 					  HttpSession session= request.getSession(false);
 					long customerId  = deposite.validateAccountNumber(con,accountNumber);

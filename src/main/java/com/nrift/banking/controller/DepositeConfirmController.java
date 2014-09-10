@@ -19,14 +19,14 @@ import com.nrift.banking.utility.DepositeConfirmService;
 import com.nrift.banking.utility.TransferAmountDTO;
 import com.nrift.banking.utility.UserDetails;
 
-@WebServlet(name = "DepositeConfirm", urlPatterns = { "/confirmDeposite" })
+@WebServlet(name = "DepositeConfirm", urlPatterns = { "/DepositeConfirmController" })
 public class DepositeConfirmController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	static Logger logger = Logger.getLogger(DepositeConfirmController.class);
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		logger.info("Inside Deposite Controller Class");
 		Connection con = (Connection) getServletContext().getAttribute("connection");
 		DepositeConfirmService depositeConfirm = new DepositeConfirmService ();
 		HttpSession session= request.getSession(false);

@@ -16,7 +16,7 @@
 
 <div id="content" >
 <center>
-<form action= "confirmDeposite.jsp" method="post">
+<form action= "DepositeController" method="post">
 <br>
 <br>
 <table border="1" width="30%" cellpadding="3">

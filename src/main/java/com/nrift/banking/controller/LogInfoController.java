@@ -20,7 +20,7 @@ import com.nrift.banking.utility.LogInfoService;
 import com.nrift.banking.utility.UserDetails;
 import com.nrift.banking.utility.UserValidationService;
 
-@WebServlet(name = "LogInfo", urlPatterns = { "/loginfo" })
+@WebServlet(name = "LogInfo", urlPatterns = { "/LogInfoController" })
 public class LogInfoController  extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

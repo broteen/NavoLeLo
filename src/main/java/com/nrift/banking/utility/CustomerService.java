@@ -8,7 +8,7 @@ public class CustomerService {
 	
 public  CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
 		
-			CustomerDTO customer= new CustomerDAO(connection).getCustomerDetails(userId);
+			CustomerDTO customer= new CustomerDAO(connection).getCustomerDetailsByUserId(userId);
 			if(customer!=null)
 			{
 			customer.setAccountList(new AccountService().getAllAccountDetails(connection,customer.getCustomerId()));
@@ -18,7 +18,7 @@ public  CustomerDTO getCustomerDetails(Connection connection, long userId) throw
 
 public CustomerDTO validateCustomer(Connection connection,long customerId) throws ServletException
 {
-	CustomerDTO customer=new CustomerDAO(connection).getCustomer_Details(customerId);
+	CustomerDTO customer=new CustomerDAO(connection).getCustomerDetailsByCustomerId(customerId);
 	return customer;
 }
 public boolean checkuser_ID(Connection connection,long customerId) throws ServletException

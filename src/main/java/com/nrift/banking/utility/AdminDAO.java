@@ -1,11 +1,8 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
@@ -20,38 +17,25 @@ public class AdminDAO {
 		this.connection = connection;
 		
 	}
-
-	public AdminDTO getAdminDetails(long userId) throws ServletException
-	{
-		PreparedStatement ps = null;
+	
+	private String getAdminQueryString() {
+        return "SELECT * FROM ADMIN WHERE USER_ID=?";
+    }
+	
+	public AdminDTO getAdminDetails(long userId) throws SQLException{
+		AdminDTO admindeatils=null;
 		ResultSet rs = null;
 		try {
-			ps = connection.prepareStatement("SELECT * FROM ADMIN WHERE USER_ID=?");
-
-			ps.setLong(1, userId);
-			rs = ps.executeQuery();
-			if (rs != null && rs.next()) 
-			{
-				AdminDTO validAdmin = new AdminDTO(rs.getLong("ADMIN_ID"),rs.getString("NAME"),rs.getString("EMAIL"));
-				logger.info("Admin found with details="+validAdmin);
-				return validAdmin;
+			rs = DBUtils.getResultSetFromSQL(connection, getAdminQueryString(), userId);
+			if (rs != null && rs.next()) {
+				admindeatils = new AdminDTO(rs.getLong("ADMIN_ID"),rs.getString("NAME"),rs.getString("EMAIL"));
+				logger.info("Admin found with details="+admindeatils);
 			}
 			
-			return null;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			throw new ServletException("DB Connection problem.");
 		}finally{
-            try {
-                rs.close();
-                ps.close();
-            } catch (SQLException e) {
-                logger.error("SQLException in closing PreparedStatement or ResultSet");
-            }
-             
+			DBUtils.closeResultSet(rs);   
         }
-
+		return admindeatils; 
 	}
 
 }

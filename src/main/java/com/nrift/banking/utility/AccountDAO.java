@@ -23,272 +23,161 @@ public class AccountDAO {
 	public AccountDAO(Connection connection) {
 		this.connection = connection;
 	}
+	
+	private String getAllAccountQueryString() {
+        return "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
+                        + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE CUSTOMER_ID=?";
+    }
+    
+    private String getAccountQueryString() {
+        return "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
+                        + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?";
+    }
+    
+    private String getCustomerQueryString() {
+        return "select customer_id from account where account_number = ?";
+    }
+    
+    private String getUpdatedTimeQueryString() {
+        return "SELECT UPDATED_TIME FROM ACCOUNT WHERE ACCOUNT_NUMBER=? AND STATUS=?";
+    }
+    
+    private String getWithdrawQueryString() {
+        return "UPDATE ACCOUNT SET BALANCE=BALANCE-? WHERE ACCOUNT_NUMBER=? AND STATUS=?";
+    }
+    
+    private String getDepositeQueryString() {
+        return "UPDATE ACCOUNT SET BALANCE=BALANCE+? WHERE ACCOUNT_NUMBER=? AND STATUS=?";
+    }
+    
+    private String getCloseAccountQueryString() {
+        return "UPDATE ACCOUNT SET STATUS=? WHERE ACCOUNT_NUMBER=?";
+    }
+    
+    private String getUpdatedByAndTimeQueryString() {
+        return "UPDATE ACCOUNT SET UPDATED_BY=?,UPDATED_TIME=? WHERE ACCOUNT_NUMBER=? AND STATUS=?";
+    }
+    
+    
+	public List<AccountDTO> getAllAccountDetails(long customerId) throws SQLException{
 
-	public List<AccountDTO> getAllAccountDetails(long customerId) throws ServletException{
-
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-
-			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE CUSTOMER_ID=? AND B.STATUS=?");
-
-			ps.setLong(1,customerId);
-			ps.setString(2, "normal");
-			rs = ps.executeQuery();
-
-			if(rs !=null)
-			{
-
-
-				List<AccountDTO> list= new ArrayList<AccountDTO>();
-				while (rs.next()) 
-				{
-					AccountDTO validAccount = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
-					logger.info("Customer found with details="+validAccount);
-					list.add(validAccount);
-				}
-
-				return (list);
-
-			}
-
-			return null;
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
-		}
-
-		finally{
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
+		List<AccountDTO> list = new ArrayList<AccountDTO>();
+        ResultSet rs = null;
+        try {
+            rs = DBUtils.getResultSetFromSQL(connection, getAllAccountQueryString(), customerId);
+            if(rs != null) {
+                while(rs.next()) {
+                    AccountDTO validAccount = new AccountDTO(
+                                    rs.getLong("ACCOUNT_NUMBER"),
+                                    rs.getString("ACCOUNT_TYPE"),
+                                    rs.getLong("BALANCE"),
+                                    rs.getTimestamp("UPDATED_TIME"));
+                    logger.info("Customer found with details=" + validAccount);
+                    list.add(validAccount);
+                }
+            }
+        } finally {
+            DBUtils.closeResultSet(rs);
+        }
+        return list;
 
 	}
 
-	public AccountDTO getAccountDetails(long accountNo ) throws ServletException {
+	
+	
+	public AccountDTO getAccountDetails(long accountNo ) throws ServletException, SQLException {
 		
-		PreparedStatement ps = null;
+		AccountDTO accountDetails = null;
 		ResultSet rs = null;
 		try {
 
-			ps = connection.prepareStatement("SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-					+ "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=? AND B.STATUS=?");
-
-			ps.setLong(1,accountNo);
-			ps.setString(2, "normal");
-			rs = ps.executeQuery();
+			
+			rs = DBUtils.getResultSetFromSQL(connection, getAccountQueryString(), accountNo);
 			if(rs !=null && rs.next())
 			{
-				AccountDTO validAccount = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
-				logger.info("Customer found with details="+validAccount);
-				return(validAccount);
+				accountDetails = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
+				logger.info("Customer found with details="+accountDetails);
 			}
-			return null;
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+			return accountDetails;
+		}finally{
+			DBUtils.closeResultSet(rs);
 		}
 
-		finally{
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
 	}
 	
-	public long getCustomerId(long accountNumber) throws ServletException
+	
+	public long getCustomerId(long accountNumber) throws ServletException, SQLException
 	{
 		long customerID=0L; 
-		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		try {
-			
-			ps = connection.prepareStatement("SELECT CUSTOMER_ID,STATUS FROM ACCOUNT WHERE ACCOUNT_NUMBER=? AND STATUS=?");
-					
-			ps.setLong(1,accountNumber);
-			ps.setString(2, "normal");
-			rs = ps.executeQuery();
-			if(rs !=null)
-			{
-				customerID=rs.getInt("CUSTOMER_ID");
+			rs=DBUtils.getResultSetFromSQL(connection, getCustomerQueryString(), accountNumber);
+			if(rs !=null && rs.next()){
+				customerID=rs.getLong("CUSTOMER_ID");
 				String status=rs.getString("STATUS");
 				if(status.equals("cancel")){
 					customerID=0L;
 				}
 			}
-				return customerID;
-	}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
-		}
-		finally{
-            try {
-                rs.close();
-                ps.close();
-            } catch (SQLException e) {
-                logger.error("SQLException in closing PreparedStatement or ResultSet");
-            }
-             
+		}finally{
+			DBUtils.closeResultSet(rs);
         }
-		
+		return customerID;
 	}
 
-	public Timestamp getUpdatedTime(long accountNo) throws ServletException {
-		PreparedStatement ps = null;
+	public Timestamp getUpdatedTime(long accountNo) throws ServletException, SQLException {
+		Timestamp timestamp=null;
 		ResultSet rs = null;
 		try {
 
-			ps = connection.prepareStatement("SELECT UPDATED_TIME FROM ACCOUNT WHERE ACCOUNT_NUMBER=? AND STATUS=?");
-
-			ps.setLong(1,accountNo);
-			ps.setString(2, "normal");
-			rs = ps.executeQuery();
-			if(rs !=null && rs.next()){
-				return(rs.getTimestamp("UPDATED_TIME"));
-			}
-			return null;
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+			rs = DBUtils.getResultSetFromSQL(connection,getUpdatedTimeQueryString(), accountNo,"normal");
+			if(rs !=null && rs.next())
+				timestamp=rs.getTimestamp("UPDATED_TIME");
 		}
 		finally{
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
+			DBUtils.closeResultSet(rs);
 		}
+		return timestamp;
 	}
 
-	public int WithdrawAmount(long accountNo, long amount) throws ServletException {
-		PreparedStatement ps = null;
+	public int WithdrawAmount(long accountNo, long amount) throws SQLException {
+		int updatedRows=0;
 		try {
-
-			ps = connection.prepareStatement("UPDATE ACCOUNT SET BALANCE=BALANCE-? WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getWithdrawQueryString(), amount,accountNo,"normal");
 			
-			ps.setLong(1,amount);
-			ps.setLong(2,accountNo);
-			ps.setString(3, "normal");
-			return ps.executeUpdate();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in extracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+		}finally{
 		}
-		finally{
-			try{
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
-
+		return updatedRows;
 	}
 
-	public int CloseAccount(long accountNo) throws ServletException {
-		PreparedStatement ps = null;
+	public int CloseAccount(long accountNo)throws SQLException {
+		int updatedRows=0;
 		try {
-
-			ps = connection.prepareStatement("UPDATE ACCOUNT SET STATUS=? WHERE ACCOUNT_NUMBER=?");
-			
-			/*ps.setLong(1,amount);
-			ps.setLong(2,accountNo);*/
-			ps.setString(1, "cancel");
-			ps.setLong(2, accountNo);
-			return ps.executeUpdate();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in extracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getCloseAccountQueryString(),"cancel",accountNo);
+		}finally{
 		}
-		finally{
-			try{
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
-
+		return updatedRows;
 	}
 	
-	public int DepositeAmount(long accountNo, long amount) throws ServletException {
-		PreparedStatement ps = null;
+	public int DepositeAmount(long accountNo, long amount) throws SQLException{
+		int updatedRows=0;
 		try {
-
-			ps = connection.prepareStatement("UPDATE ACCOUNT SET BALANCE=BALANCE+? WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getDepositeQueryString(), amount,accountNo,"normal");
 			
-			ps.setLong(1,amount);
-			ps.setLong(2,accountNo);
-			ps.setString(3, "normal");
-			return ps.executeUpdate();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+		}finally{
 		}
-		finally{
-			try{
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
+		return updatedRows;
 	}
 
-	public int setUpdatedByandUpdatedTime(long accountNo,long userId) throws ServletException {
-		PreparedStatement ps = null;
+	public int setUpdatedByandUpdatedTime(long accountNo,long userId) throws SQLException{
+		int updatedRows=0;
 		try {
-
-			ps = connection.prepareStatement("UPDATE ACCOUNT SET UPDATED_BY=?,UPDATED_TIME=? WHERE ACCOUNT_NUMBER=? AND STATUS=?");
+			updatedRows=DBUtils.getUpdateInfoFromSQL(connection, getUpdatedByAndTimeQueryString(), userId,new Timestamp(new java.util.Date().getTime()),accountNo,"normal");
 			
-			ps.setLong(1,userId);
-			ps.setTimestamp(2,new Timestamp(new java.util.Date().getTime()));
-			ps.setLong(3,accountNo);
-			ps.setString(4, "normal");
-			return ps.executeUpdate();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+		}finally{
 		}
-		finally{
-			try{
-				ps.close();
-			} catch (SQLException e) {
-			logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
+		return updatedRows;
 	}
 
 }

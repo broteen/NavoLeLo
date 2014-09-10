@@ -18,11 +18,17 @@ import com.nrift.banking.utility.TransferAmountDTO;
 import com.nrift.banking.utility.UserDetails;
 
 
+/**
+ * The Class DepositeConfirmController.
+ */
 public class DepositeConfirmController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     static Logger logger = Logger.getLogger(DepositeConfirmController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Connection con = (Connection) getServletContext().getAttribute("connection");

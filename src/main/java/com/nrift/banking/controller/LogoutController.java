@@ -12,11 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class LogoutController.
+ */
 @WebServlet(name = "Logout", urlPatterns = { "/logout" })
 public class LogoutController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(LogoutController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         Cookie[] cookies = request.getCookies();

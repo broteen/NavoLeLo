@@ -3,8 +3,18 @@ package com.nrift.banking.utility;
 import java.sql.Connection;
 import java.sql.Timestamp;
 
+/**
+ * The Class WithdrawAmountService.
+ */
 public class WithdrawAmountService {
 
+    /**
+     * Checks if is withdraw successful.
+     *
+     * @param connection the connection
+     * @param withdrawAmountDetails the withdraw amount details
+     * @return true, if successful
+     */
     public boolean IsWithdrawSuccessfull(Connection connection,
             WithdrawAmountDTO withdrawAmountDetails) {
         // TODO Auto-generated method stub

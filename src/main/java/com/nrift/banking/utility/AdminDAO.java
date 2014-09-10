@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class AdminDAO.
+ */
 public class AdminDAO {
 
     private Connection connection;
@@ -16,11 +19,23 @@ public class AdminDAO {
 
     private Logger logger = Logger.getLogger(AdminDAO.class);
 
+    /**
+     * Instantiates a new admin dao.
+     *
+     * @param connection the connection
+     */
     public AdminDAO(Connection connection) {
         this.connection = connection;
 
     }
 
+    /**
+     * Gets the admin details.
+     *
+     * @param userId the user id
+     * @return the admin details
+     * @throws ServletException the servlet exception
+     */
     public AdminDTO getAdminDetails(long userId) throws ServletException
     {
         PreparedStatement ps = null;

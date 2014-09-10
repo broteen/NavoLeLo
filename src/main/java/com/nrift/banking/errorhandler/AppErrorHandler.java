@@ -15,25 +15,39 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.controller.LoginController;
 import com.nrift.banking.utility.AppErrorDTO;
 
+
 /**
- * @author zeeshank
- * 
+ * The Class AppErrorHandler.
  */
 @WebServlet("/AppErrorHandler")
 public class AppErrorHandler extends HttpServlet {
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(LoginController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         processError(request, response);
     }
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         processError(request, response);
     }
 
+    /**
+     * Process error.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     private void processError(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         // Analyze the servlet exception

@@ -17,6 +17,9 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.UserDetails;
 import com.nrift.banking.utility.UserValidationService;
 
+/**
+ * The Class SearchAccountController.
+ */
 @WebServlet(name = "SearchAccount", urlPatterns = { "/admin/searchAccount" })
 public class SearchAccountController extends HttpServlet {
 
@@ -24,6 +27,9 @@ public class SearchAccountController extends HttpServlet {
 
     static Logger logger = Logger.getLogger(LoginController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String customerName = request.getParameter("customerName");

@@ -1,6 +1,5 @@
 package com.nrift.banking.controller;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,12 +18,21 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.DepositeService;
 import com.nrift.banking.utility.TransferAmountDTO;
 
+/**
+ * The Class DepositeController.
+ */
 @WebServlet(name = "Deposite", urlPatterns = { "/deposite" })
 public class DepositeController extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The logger. */
     static Logger logger = Logger.getLogger(DepositeController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         long accountNumber= Long.parseLong(request.getParameter("accountNumber"));

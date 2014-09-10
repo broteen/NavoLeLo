@@ -18,6 +18,9 @@ import com.nrift.banking.utility.LogInfoService;
 import com.nrift.banking.utility.UserDetails;
 import com.nrift.banking.utility.UserValidationService;
 
+/**
+ * The Class LogInfoController.
+ */
 @WebServlet(name = "LogInfo", urlPatterns = { "/loginfo" })
 public class LogInfoController  extends HttpServlet {
 
@@ -25,6 +28,9 @@ public class LogInfoController  extends HttpServlet {
 
     static Logger logger = Logger.getLogger(LoginController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");

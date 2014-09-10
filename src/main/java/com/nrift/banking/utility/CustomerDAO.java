@@ -9,16 +9,31 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class CustomerDAO.
+ */
 public class CustomerDAO {
 
     private Connection connection;
 
     private Logger logger = Logger.getLogger(CustomerDAO.class);
 
+    /**
+     * Instantiates a new customer dao.
+     *
+     * @param connection the connection
+     */
     public CustomerDAO(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Gets the customer details.
+     *
+     * @param userId the user id
+     * @return the customer details
+     * @throws ServletException the servlet exception
+     */
     public CustomerDTO getCustomerDetails(long userId) throws ServletException{
 
         PreparedStatement ps = null;
@@ -50,6 +65,14 @@ public class CustomerDAO {
         }
 
     }
+    
+    /**
+     * Gets the customer_ details.
+     *
+     * @param customer_ID the customer_ id
+     * @return the customer_ details
+     * @throws ServletException the servlet exception
+     */
     public CustomerDTO getCustomer_Details(long customer_ID) throws ServletException{
 
         PreparedStatement ps = null;
@@ -82,6 +105,14 @@ public class CustomerDAO {
         }
 
     }
+    
+    /**
+     * Check user id.
+     *
+     * @param customerID the customer id
+     * @return true, if successful
+     * @throws ServletException the servlet exception
+     */
     public boolean checkUserId(long customerID) throws ServletException
     {
         PreparedStatement ps = null;

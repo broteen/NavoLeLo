@@ -17,6 +17,9 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.TransactionHistoryDTO;
 import com.nrift.banking.utility.TransactionHistoryService;
 
+/**
+ * The Class TransactionHistoryController.
+ */
 @WebServlet(name = "TransactionHistory", urlPatterns = { "/customer/account/accountDetails" })
 public class TransactionHistoryController extends HttpServlet {
 
@@ -24,6 +27,9 @@ public class TransactionHistoryController extends HttpServlet {
 
     static Logger logger = Logger.getLogger(LoginController.class);
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         long accountNo = (Long.parseLong(request.getParameter("accountNo")));

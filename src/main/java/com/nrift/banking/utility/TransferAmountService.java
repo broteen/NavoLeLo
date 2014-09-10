@@ -5,8 +5,20 @@ import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 
+/**
+ * The Class TransferAmountService.
+ */
 public class TransferAmountService {
 
+    /**
+     * Checks if is transfer successful.
+     *
+     * @param connection the connection
+     * @param transAmtDetails the trans amt details
+     * @param userId the user id
+     * @return true, if successful
+     * @throws ServletException the servlet exception
+     */
     public boolean IsTransferSuccessfull(Connection connection,TransferAmountDTO transAmtDetails,long userId) throws ServletException {
 
         try{

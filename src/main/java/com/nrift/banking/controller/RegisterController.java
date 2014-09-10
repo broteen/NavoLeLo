@@ -17,6 +17,9 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.CustomerDTO;
 import com.nrift.banking.utility.RegistrationService;
 
+/**
+ * The Class RegisterController.
+ */
 @WebServlet(name = "Register", urlPatterns = { "/register" })
 public class RegisterController extends HttpServlet {
 
@@ -25,6 +28,9 @@ public class RegisterController extends HttpServlet {
     static Logger logger = Logger.getLogger(RegisterController.class);
 
 
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");

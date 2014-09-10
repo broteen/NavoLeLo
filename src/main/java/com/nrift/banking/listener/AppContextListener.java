@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.nrift.banking.listener;
 
 import java.io.File;
@@ -18,13 +15,20 @@ import org.apache.log4j.xml.DOMConfigurator;
 import com.nrift.banking.utility.DBConnectionManager;
 
 /**
- * @author zeeshank
+ * The listener interface for receiving appContext events.
+ * The class that is interested in processing a appContext
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addAppContextListener<code> method. When
+ * the appContext event occurs, that object's appropriate
+ * method is invoked.
  *
+ * @see AppContextEvent
  */
 @WebListener
 public class AppContextListener implements ServletContextListener {
 
-    /* (non-Javadoc)
+    /**
      * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -38,7 +42,7 @@ public class AppContextListener implements ServletContextListener {
 
     }
 
-    /* (non-Javadoc)
+    /**
      * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent servletContextEvent) {

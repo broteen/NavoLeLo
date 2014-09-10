@@ -19,8 +19,9 @@ import com.nrift.banking.utility.TransferAmountDTO;
 import com.nrift.banking.utility.TransferAuthorizationService;
 import com.nrift.banking.utility.UserDetails;
 import com.nrift.banking.utility.UserInstantiation;
+
 /**
- * Servlet implementation class TransferAmountController
+ * Servlet implementation class TransferAmountController.
  */
 @WebServlet("/TransferAmountController")
 public class TransferAmountController extends HttpServlet {

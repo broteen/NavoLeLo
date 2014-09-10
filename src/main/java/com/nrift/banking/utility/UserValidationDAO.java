@@ -9,15 +9,31 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class UserValidationDAO.
+ */
 public class UserValidationDAO {
     private Connection connection;
 
     private Logger logger = Logger.getLogger(UserValidationDAO.class);
 
+    /**
+     * Instantiates a new user validation dao.
+     *
+     * @param connection the connection
+     */
     public UserValidationDAO(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Validate the username and password at the time of login
+     *
+     * @param username the username
+     * @param password the password
+     * @return the user details
+     * @throws ServletException the servlet exception
+     */
     public UserDetails validate(String username,String password) throws ServletException{
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -58,6 +74,13 @@ public class UserValidationDAO {
         }
     }
 
+    /**
+     * Validate user name at the time of registration
+     *
+     * @param username the username
+     * @return true, if successful
+     * @throws ServletException the servlet exception
+     */
     public boolean validateUserName(String username) throws ServletException
     {
         boolean user;

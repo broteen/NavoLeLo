@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.nrift.banking.filter;
 
 import java.io.IOException;
@@ -18,6 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class AuthenticationFilter.
+ */
 @WebFilter("/AuthenticationFilter")
 public class AuthenticationFilter implements Filter {
 
@@ -27,6 +27,9 @@ public class AuthenticationFilter implements Filter {
         logger.info("AuthenticationFilter initialized");
     }
 
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;

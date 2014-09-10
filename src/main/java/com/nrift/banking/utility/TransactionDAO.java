@@ -16,12 +16,31 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class TransactionDAO.
+ */
 public class TransactionDAO {
     private Connection connection;
     private Logger logger = Logger.getLogger(UserValidationDAO.class);
+
+    /**
+     * Instantiates a new transaction dao.
+     *
+     * @param connection the connection
+     */
     public TransactionDAO(Connection connection) {
         this.connection=connection;
     }
+
+    /**
+     * Insert row for transfer amount into Transaction table
+     *
+     * @param senderAccountNo the sender account no
+     * @param receiverAccountNo the receiver account no
+     * @param amount the amount
+     * @return the int
+     * @throws ServletException the servlet exception
+     */
     public int insertRowForTransferAmount(long senderAccountNo,long receiverAccountNo, long amount) throws ServletException {
 
         PreparedStatement ps = null;
@@ -50,6 +69,15 @@ public class TransactionDAO {
 
         }
     }
+
+    /**
+     * Insert row for withdraw amount into Transaction table
+     *
+     * @param accountNo the account no
+     * @param amount the amount
+     * @return the int
+     * @throws ServletException the servlet exception
+     */
     public int insertRowForWithdrawAmount(long accountNo, long amount) throws ServletException {
         // TODO Auto-generated method stub
         PreparedStatement ps = null;

@@ -4,8 +4,18 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
+/**
+ * The Class DepositeService.
+ */
 public class DepositeService {
 
+    /**
+     * Validate account number.
+     *
+     * @param con the con
+     * @param accountNumber the account number
+     * @return the long
+     */
     public long validateAccountNumber(Connection con,long accountNumber) {
 
         try{
@@ -18,7 +28,4 @@ public class DepositeService {
             return 0L;
         }
     }
-
-
-
 }

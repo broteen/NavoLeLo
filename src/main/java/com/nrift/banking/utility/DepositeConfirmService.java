@@ -8,8 +8,21 @@ import javax.servlet.ServletException;
 
 import com.nrift.banking.utility.TransactionService;
 
+/**
+ * The Class DepositeConfirmService.
+ */
 public class DepositeConfirmService {
 
+    /**
+     * Checks if is deposited.
+     *
+     * @param connection the connection
+     * @param receiverAccountNo the receiver account no
+     * @param amount the amount
+     * @param userId the user id
+     * @return true, if successful
+     * @throws SQLException the SQL exception
+     */
     public boolean IsDeposited(Connection connection,long receiverAccountNo, long amount, long userId) throws SQLException
     {
         try{

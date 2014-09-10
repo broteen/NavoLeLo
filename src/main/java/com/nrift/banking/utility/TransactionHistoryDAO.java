@@ -1,5 +1,3 @@
-
-
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
@@ -13,16 +11,31 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class TransactionHistoryDAO.
+ */
 public class TransactionHistoryDAO {
 
     private Connection connection;
 
     private Logger logger = Logger.getLogger(TransactionHistoryDAO.class);
 
+    /**
+     * Instantiates a new transaction history dao.
+     *
+     * @param connection the connection
+     */
     public TransactionHistoryDAO(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Gets the transaction history details.
+     *
+     * @param accountNo the account no
+     * @return the transaction history details
+     * @throws ServletException the servlet exception
+     */
     public List<TransactionHistoryDTO> getTransactionHistoryDetails(long accountNo) throws ServletException{
 
         PreparedStatement ps = null;
@@ -53,7 +66,7 @@ public class TransactionHistoryDAO {
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            logger.error("SQLException in exracting data from the ResultSet");
+            logger.error("SQLException in extracting data from the ResultSet");
             System.out.println(e);
             throw new ServletException("DB Connection problem.");
         }

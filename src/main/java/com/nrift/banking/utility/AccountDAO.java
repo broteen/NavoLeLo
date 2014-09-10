@@ -12,16 +12,31 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class AccountDAO.
+ */
 public class AccountDAO {
 
     private Connection connection;
 
     private Logger logger = Logger.getLogger(AccountDAO.class);
 
+    /**
+     * Instantiates a new account dao.
+     *
+     * @param connection the connection
+     */
     public AccountDAO(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Gets the all account details.
+     *
+     * @param customerId the customer id
+     * @return the all account details
+     * @throws ServletException the servlet exception
+     */
     public List<AccountDTO> getAllAccountDetails(long customerId) throws ServletException{
 
         PreparedStatement ps = null;
@@ -72,6 +87,13 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Gets the account details.
+     *
+     * @param accountNo the account no
+     * @return the account details
+     * @throws ServletException the servlet exception
+     */
     public AccountDTO getAccountDetails(long accountNo ) throws ServletException {
 
         PreparedStatement ps = null;
@@ -109,6 +131,13 @@ public class AccountDAO {
         }
     }
 
+    /**
+     * Gets the customer id.
+     *
+     * @param accountNumber the account number
+     * @return the customer id
+     * @throws ServletException the servlet exception
+     */
     public long getCustomerId(long accountNumber) throws ServletException
     {
         long customerID=0L; 
@@ -150,6 +179,13 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Gets the updated time.
+     *
+     * @param accountNo the account no
+     * @return the updated time
+     * @throws ServletException the servlet exception
+     */
     public Timestamp getUpdatedTime(long accountNo) throws ServletException {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -181,6 +217,14 @@ public class AccountDAO {
         }
     }
 
+    /**
+     * Withdraw amount.
+     *
+     * @param accountNo the account no
+     * @param amount the amount
+     * @return the int
+     * @throws ServletException the servlet exception
+     */
     public int WithdrawAmount(long accountNo, long amount) throws ServletException {
         PreparedStatement ps = null;
         try {
@@ -208,6 +252,13 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Close account.
+     *
+     * @param accountNo the account no
+     * @return the int
+     * @throws ServletException the servlet exception
+     */
     public int CloseAccount(long accountNo) throws ServletException {
         PreparedStatement ps = null;
         try {
@@ -236,6 +287,14 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Deposit amount.
+     *
+     * @param accountNo the account no
+     * @param amount the amount
+     * @return the int
+     * @throws ServletException the servlet exception
+     */
     public int DepositeAmount(long accountNo, long amount) throws ServletException {
         PreparedStatement ps = null;
         try {
@@ -262,6 +321,14 @@ public class AccountDAO {
         }
     }
 
+    /**
+     * Sets the updated by and updated time.
+     *
+     * @param accountNo the account no
+     * @param userId the user id
+     * @return the int
+     * @throws ServletException the servlet exception
+     */
     public int setUpdatedByandUpdatedTime(long accountNo,long userId) throws ServletException {
         PreparedStatement ps = null;
         try {

@@ -5,8 +5,19 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+/**
+ * The Class TransactionHistoryService.
+ */
 public class TransactionHistoryService {
 
+    /**
+     * Gets the transaction history details.
+     *
+     * @param connection the connection
+     * @param accountNo the account no
+     * @return the transaction history details
+     * @throws ServletException the servlet exception
+     */
     public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws ServletException {
         AccountService acc=new AccountService();
         AccountDTO accountDetails= acc.getAccountDetails(connection, accountNo);

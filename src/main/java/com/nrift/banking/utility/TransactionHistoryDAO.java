@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,52 +22,29 @@ public class TransactionHistoryDAO {
 	public TransactionHistoryDAO(Connection connection) {
 		this.connection = connection;
 	}
+	
+	 private String getTransactionHistoryeQueryString() {
+	        return "SELECT TRANSACTION_REF, TRANSACTION_TIME, CR_ACC_NUM, DR_ACC_NUM, AMOUNT FROM TRANSACTION WHERE CR_NUM = ? OR DR_NUM = ?";
+	 }
+	 
+	public List<TransactionHistoryDTO> getTransactionHistoryDetails(long accountNo) throws SQLException{
 
-	public List<TransactionHistoryDTO> getTransactionHistoryDetails(long accountNo) throws ServletException{
-
-		PreparedStatement ps = null;
+		List<TransactionHistoryDTO> list= null;
 		ResultSet rs = null;
 		try {
-
-			ps = connection.prepareStatement("SELECT TRANSACTION_REF, TRANSACTION_TIME, CR_ACC_NUM, DR_ACC_NUM, AMOUNT FROM TRANSACTION WHERE CR_NUM = ? OR DR_NUM = ?");
-
-			ps.setLong(1,accountNo);
-			rs = ps.executeQuery();
-			if(rs !=null)
-			{
-
-
-				List<TransactionHistoryDTO> list= new LinkedList<TransactionHistoryDTO>();
-				while (rs.next()) 
-				{
+			rs = DBUtils.getResultSetFromSQL(connection, getTransactionHistoryeQueryString(),accountNo,accountNo);
+			if(rs !=null){
+				list= new ArrayList<TransactionHistoryDTO>();
+				while (rs.next()){
 					TransactionHistoryDTO transaction = new TransactionHistoryDTO(rs.getLong("TRANSACTION_REF"),rs.getTimestamp("TRANSACTION_TIME"),rs.getLong("CR_ACCNUM"), rs.getLong("DR_ACCNUM"), rs.getLong("AMOUNT"));
 					logger.info("Transaction is shown="+transaction);
 					list.add(transaction);
 				}
-
-				return (list);
-
 			}
-
-			return null;
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.error("SQLException in exracting data from the ResultSet");
-			System.out.println(e);
-			throw new ServletException("DB Connection problem.");
+		}finally{
+			 DBUtils.closeResultSet(rs);
 		}
-
-		finally{
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in closing PreparedStatement or ResultSet");
-			}
-
-		}
-
+		return list;
 	}
 
 }

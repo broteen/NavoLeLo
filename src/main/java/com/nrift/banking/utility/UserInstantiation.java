@@ -4,6 +4,7 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 
@@ -13,13 +14,13 @@ import javax.servlet.ServletException;
  */
 public class UserInstantiation {
 	
-	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
+	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws SQLException {
 		
 		return(new CustomerService().getCustomerDetails(connection,userId));
 		
 	}
 	
-	public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
+	public static AdminDTO getAdminDetails(Connection connection, long userId) throws SQLException {
 		
 		return(new AdminService().getAdminDetails(connection,userId));
 	}

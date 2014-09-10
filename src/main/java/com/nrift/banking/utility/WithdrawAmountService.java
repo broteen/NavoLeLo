@@ -1,14 +1,12 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class WithdrawAmountService {
 
-	public boolean IsWithdrawSuccessfull(Connection connection,
-			WithdrawAmountDTO withdrawAmountDetails) {
-		// TODO Auto-generated method stub
-		try{
+	public boolean IsWithdrawSuccessfull(Connection connection,WithdrawAmountDTO withdrawAmountDetails) throws SQLException{
 		AccountService accountManager= new AccountService();
 		TransactionService transaction= new TransactionService();
 		long AccountNo=withdrawAmountDetails.getAccountNo();
@@ -18,12 +16,7 @@ public class WithdrawAmountService {
 		if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount)){
 			
 			if(transaction.insertRowForWithdrawAmount(connection,AccountNo,amount)!=0)
-				return true;
-			else
-				return false;
-		}
-		}catch(Exception e){
-			System.out.println(e.getStackTrace());
+				return true;		
 		}
 		return false;
 	}

@@ -1,22 +1,23 @@
 package com.nrift.banking.utility;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
 
 
 
-import javax.servlet.ServletException;
+
 
 public class AccountService {
 
-	public List<AccountDTO> getAllAccountDetails(Connection connection,long customerId) throws ServletException {
+	public List<AccountDTO> getAllAccountDetails(Connection connection,long customerId) throws SQLException {
 		
 		return new AccountDAO(connection).getAllAccountDetails(customerId);
 	}
 	
-	public long validateAccount(Connection connection, long account_number) throws ServletException {
+	public long validateAccount(Connection connection, long account_number) throws SQLException {
 		
 		long customerId= new AccountDAO(connection).getCustomerId(account_number);
 			
@@ -24,16 +25,16 @@ public class AccountService {
 			
 		}
 
-	public AccountDTO getAccountDetails(Connection connection,long receiverAccount) throws ServletException {
+	public AccountDTO getAccountDetails(Connection connection,long receiverAccount) throws SQLException {
 		
 		return new AccountDAO(connection).getAccountDetails(receiverAccount);
 	}
 	
-	public Timestamp getUpdateTime(Connection connection,long accountNo) throws ServletException{
+	public Timestamp getUpdateTime(Connection connection,long accountNo) throws SQLException{
 		return new AccountDAO(connection).getUpdatedTime(accountNo);
 	}
 
-public  AccountDTO getAccountHistory(Connection connection, long accountNo) throws ServletException {
+public  AccountDTO getAccountHistory(Connection connection, long accountNo) throws SQLException {
 	
 	AccountDTO account= new AccountDAO(connection).getAccountDetails(accountNo);
 	if(account!=null)
@@ -42,21 +43,21 @@ public  AccountDTO getAccountHistory(Connection connection, long accountNo) thro
 	}
 	return account;
 }
-public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount) throws ServletException {
+public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount) throws SQLException {
 		if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount)==0)
 			return false;
 		else
 			return true;
 	}
 
-	public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount) throws ServletException {
+	public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount) throws SQLException {
 		if (new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount)==0)
 			return false;
 		else
 			return true;
 	}
 
-	public boolean setUpdatedByandUpdatedTime(Connection connection, long accountNo,long userId) throws ServletException {
+	public boolean setUpdatedByandUpdatedTime(Connection connection, long accountNo,long userId) throws SQLException{
 		if (new AccountDAO(connection).setUpdatedByandUpdatedTime(accountNo,userId)==0)
 			return false;
 		else

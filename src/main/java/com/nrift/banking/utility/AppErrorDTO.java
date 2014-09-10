@@ -2,7 +2,7 @@ package com.nrift.banking.utility;
 
 import java.io.Serializable;
 
-public class AppErrorDetails implements Serializable {
+public class AppErrorDTO implements Serializable {
 	private static final long serialVersionUID = 6297385302078200513L;
 	
 	private int statusCode;

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.controller.LoginController;
-import com.nrift.banking.utility.AppErrorDetails;
+import com.nrift.banking.utility.AppErrorDTO;
 
 /**
  * @author zeeshank
@@ -51,7 +51,7 @@ public class AppErrorHandler extends HttpServlet {
 		if (requestUri == null) {
 			requestUri = "Unknown";
 		}
-		AppErrorDetails appError = new AppErrorDetails();
+		AppErrorDTO appError = new AppErrorDTO();
 
 
 

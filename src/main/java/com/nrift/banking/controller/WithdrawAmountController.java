@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.WithdrawAmountDetails;
+import com.nrift.banking.utility.WithdrawAmountDTO;
 import com.nrift.banking.utility.withdrawAmountManager;
 
 /**
@@ -54,7 +54,7 @@ public class WithdrawAmountController extends HttpServlet {
 				"connection");
 		withdrawAmountManager withdrawAmount = new withdrawAmountManager();
 		HttpSession session = request.getSession(false);
-		WithdrawAmountDetails withdrawAmountDetails = (WithdrawAmountDetails) session
+		WithdrawAmountDTO withdrawAmountDetails = (WithdrawAmountDTO) session
 				.getAttribute("WithdrawAmountDetails");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(
 				"/withdrawSystemConformation.jsp");

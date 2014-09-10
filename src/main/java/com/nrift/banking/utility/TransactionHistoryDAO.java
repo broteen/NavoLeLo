@@ -23,7 +23,7 @@ public class TransactionHistoryDAO {
 		this.connection = connection;
 	}
 
-	public List<TransactionHistoryDetails> getTransactionHistoryDetails(long accountNo) throws ServletException{
+	public List<TransactionHistoryDTO> getTransactionHistoryDetails(long accountNo) throws ServletException{
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -37,10 +37,10 @@ public class TransactionHistoryDAO {
 			{
 
 
-				List<TransactionHistoryDetails> list= new LinkedList<TransactionHistoryDetails>();
+				List<TransactionHistoryDTO> list= new LinkedList<TransactionHistoryDTO>();
 				while (rs.next()) 
 				{
-					TransactionHistoryDetails transaction = new TransactionHistoryDetails(rs.getLong("TRANSACTION_REF"),rs.getTimestamp("TRANSACTION_TIME"),rs.getLong("CR_ACCNUM"), rs.getLong("DR_ACCNUM"), rs.getLong("AMOUNT"));
+					TransactionHistoryDTO transaction = new TransactionHistoryDTO(rs.getLong("TRANSACTION_REF"),rs.getTimestamp("TRANSACTION_TIME"),rs.getLong("CR_ACCNUM"), rs.getLong("DR_ACCNUM"), rs.getLong("AMOUNT"));
 					logger.info("Transaction is shown="+transaction);
 					list.add(transaction);
 				}

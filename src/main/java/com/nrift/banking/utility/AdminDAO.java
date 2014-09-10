@@ -21,7 +21,7 @@ public class AdminDAO {
 		
 	}
 
-	public AdminDetails getAdminDetails(long userId) throws ServletException
+	public AdminDTO getAdminDetails(long userId) throws ServletException
 	{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class AdminDAO {
 			rs = ps.executeQuery();
 			if (rs != null && rs.next()) 
 			{
-				AdminDetails validAdmin = new AdminDetails(rs.getLong("ADMIN_ID"),rs.getString("NAME"),rs.getString("EMAIL"));
+				AdminDTO validAdmin = new AdminDTO(rs.getLong("ADMIN_ID"),rs.getString("NAME"),rs.getString("EMAIL"));
 				logger.info("Admin found with details="+validAdmin);
 				return validAdmin;
 			}

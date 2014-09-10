@@ -3,7 +3,7 @@ package com.nrift.banking.utility;
 import java.io.Serializable;
 import java.util.List;
 
-public class CustomerDetails implements Serializable {
+public class CustomerDTO implements Serializable {
 	private static final long serialVersionUID = 6297385302078200512L;
 	
 	private long customerId;
@@ -12,12 +12,12 @@ public class CustomerDetails implements Serializable {
 	private String panNumber;
 	private String email;
 	private String address;
-	private List<AccountDetails> accountList=null;
+	private List<AccountDTO> accountList=null;
 	/**
 	 * @return the name
 	 */
 	
-	public CustomerDetails(long customerId,String name,long contactNumber, String panNumber,String email,String address) 
+	public CustomerDTO(long customerId,String name,long contactNumber, String panNumber,String email,String address) 
 	{
 		this.customerId=customerId;
 		this.name=name;
@@ -98,13 +98,13 @@ public class CustomerDetails implements Serializable {
 	/**
 	 * @return the accountList
 	 */
-	public List<AccountDetails> getAccountList() {
+	public List<AccountDTO> getAccountList() {
 		return accountList;
 	}
 	/**
 	 * @param accountList the accountList to set
 	 */
-	public void setAccountList(List<AccountDetails> accountList) {
+	public void setAccountList(List<AccountDTO> accountList) {
 		this.accountList = accountList;
 	}
 

@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 
 public class AccountManager {
 
-	public List<AccountDetails> getAllAccountDetails(Connection connection,long customerId) throws ServletException {
+	public List<AccountDTO> getAllAccountDetails(Connection connection,long customerId) throws ServletException {
 		
 		return new AccountDAO(connection).getAllAccountDetails(customerId);
 	}
@@ -24,7 +24,7 @@ public class AccountManager {
 			
 		}
 
-	public AccountDetails getAccountDetails(Connection connection,long receiverAccount) throws ServletException {
+	public AccountDTO getAccountDetails(Connection connection,long receiverAccount) throws ServletException {
 		
 		return new AccountDAO(connection).getAccountDetails(receiverAccount);
 	}
@@ -33,9 +33,9 @@ public class AccountManager {
 		return new AccountDAO(connection).getUpdatedTime(accountNo);
 	}
 
-public  AccountDetails getAccountHistory(Connection connection, long accountNo) throws ServletException {
+public  AccountDTO getAccountHistory(Connection connection, long accountNo) throws ServletException {
 	
-	AccountDetails account= new AccountDAO(connection).getAccountDetails(accountNo);
+	AccountDTO account= new AccountDAO(connection).getAccountDetails(accountNo);
 	if(account!=null)
 	{
 	account.setTransactionHistoryDetailsList(new TransactionHistoryManager(). getTransactionHistoryDetails(connection,account.getAccountNo()));

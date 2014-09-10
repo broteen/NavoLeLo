@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class AccountDetails implements Serializable{
+public class AccountDTO implements Serializable{
 	private static final long serialVersionUID = 6297385302078200515L;
 	
 	private long accountNo;
 	private String accountType;
 	private long balance;
 	private Timestamp updatedTime;
-	private List<TransactionHistoryDetails> transactionHistoryDetailsList=null;
+	private List<TransactionHistoryDTO> transactionHistoryDetailsList=null;
 	
-	public AccountDetails(long accountNo, String accountType, long balance, Timestamp updatedTime) {
+	public AccountDTO(long accountNo, String accountType, long balance, Timestamp updatedTime) {
 		
 		this.accountNo=accountNo;
 		this.accountType=accountType;
@@ -63,13 +63,13 @@ public class AccountDetails implements Serializable{
 	public void setUpdatedTime(Timestamp updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-	public List<TransactionHistoryDetails> getTransactionHistoryDetailsList() {
+	public List<TransactionHistoryDTO> getTransactionHistoryDetailsList() {
 		return transactionHistoryDetailsList;
 	}
 	/**
 	 * @param accountList the accountList to set
 	 */
-	public void setTransactionHistoryDetailsList(List<TransactionHistoryDetails> list) {
+	public void setTransactionHistoryDetailsList(List<TransactionHistoryDTO> list) {
 		this.transactionHistoryDetailsList = transactionHistoryDetailsList;
 	}
 

@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 
 public class TransferAmountManager {
 
-	public boolean IsTransferSuccessfull(Connection connection,TransferAmountDetails transAmtDetails,long userId) throws ServletException {
+	public boolean IsTransferSuccessfull(Connection connection,TransferAmountDTO transAmtDetails,long userId) throws ServletException {
 	
 		try{
 		AccountManager accountManager= new AccountManager();

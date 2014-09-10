@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.DepositeManager;
-import com.nrift.banking.utility.TransferAmountDetails;
+import com.nrift.banking.utility.TransferAmountDTO;
 
 	@WebServlet(name = "Deposite", urlPatterns = { "/deposite" })
 	public class DepositeController extends HttpServlet {
@@ -50,7 +50,7 @@ import com.nrift.banking.utility.TransferAmountDetails;
 				DepositeManager deposite=new DepositeManager();
 				
 				try{
-					TransferAmountDetails depositeAmountDetails=new TransferAmountDetails(0L,accountNumber,amount,null);
+					TransferAmountDTO depositeAmountDetails=new TransferAmountDTO(0L,accountNumber,amount,null);
 					long customerId  = deposite.validateAccountNumber(con,accountNumber);
 					if (customerId != 0L) {
 						logger.info("account found with given account number =" + customerId);	

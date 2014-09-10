@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.AccountDetails;
-import com.nrift.banking.utility.TransferAmountDetails;
+import com.nrift.banking.utility.AccountDTO;
+import com.nrift.banking.utility.TransferAmountDTO;
 import com.nrift.banking.utility.TransferAuthorizationManager;
 import com.nrift.banking.utility.UserDetails;
 
@@ -79,7 +79,7 @@ public class TransferAuthorizationController extends HttpServlet {
 			TransferAuthorizationManager trancAuthorise = new TransferAuthorizationManager();
 			
 			try{
-				TransferAmountDetails transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);
+				TransferAmountDTO transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);
 				HttpSession session= request.getSession(false);
 				if (transferAmountDetails!=null) {
 					logger.info("Transaction is Authorised");

@@ -3,13 +3,13 @@ package com.nrift.banking.utility;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class SearchAccountDetails  implements Serializable {
+public class SearchAccountDTO  implements Serializable {
 	private static final long serialVersionUID = 6297385302078200520L;	
 	private String customerName;
 	private long customerId;
 	private long amount;
 	private long panNumber;
-	public SearchAccountDetails(String customerName,long customerId,long amount,long panNumber){
+	public SearchAccountDTO(String customerName,long customerId,long amount,long panNumber){
 		this.customerName=customerName;
 		this.customerId=customerId;
 		this.amount=amount;

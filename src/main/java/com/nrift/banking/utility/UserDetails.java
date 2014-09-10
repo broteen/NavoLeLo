@@ -11,8 +11,8 @@ public class UserDetails implements Serializable{
 	private String userName;
 	private Timestamp lastLoggedOn;
 	private boolean isAdmin;
-	private CustomerDetails customerDetails=null;
-	private AdminDetails AdminDetails=null;
+	private CustomerDTO customerDetails=null;
+	private AdminDTO AdminDetails=null;
 
 	public UserDetails(long userId, String userName,boolean isAdmin,Timestamp lastLoggedOn) {
 		this.userId = userId;
@@ -53,19 +53,19 @@ public class UserDetails implements Serializable{
 		this.isAdmin = isAdmin;
 	}
 
-	public CustomerDetails getCustomerDetails() {
+	public CustomerDTO getCustomerDetails() {
 		return customerDetails;
 	}
 
-	public void setCustomerDetails(CustomerDetails customerDetails) {
+	public void setCustomerDetails(CustomerDTO customerDetails) {
 		this.customerDetails = customerDetails;
 	}
 
-	public AdminDetails getAdminDetails() {
+	public AdminDTO getAdminDetails() {
 		return AdminDetails;
 	}
 
-	public void setAdminDetails(AdminDetails adminDetails) {
+	public void setAdminDetails(AdminDTO adminDetails) {
 		AdminDetails = adminDetails;
 	}
 

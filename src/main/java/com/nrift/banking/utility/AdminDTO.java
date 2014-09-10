@@ -2,7 +2,7 @@ package com.nrift.banking.utility;
 
 import java.io.Serializable;
 
-public class AdminDetails implements Serializable {
+public class AdminDTO implements Serializable {
 	private static final long serialVersionUID = 6297385302078200514L;
 	
 	private long adminId;
@@ -13,7 +13,7 @@ public class AdminDetails implements Serializable {
 	 */
 	
 	
-	public AdminDetails(long adminId,String name,String email) 
+	public AdminDTO(long adminId,String name,String email) 
 	{
 		this.adminId=adminId;
 		this.name=name;

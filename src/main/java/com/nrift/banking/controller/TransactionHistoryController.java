@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.TransactionHistoryDetails;
+import com.nrift.banking.utility.TransactionHistoryDTO;
 import com.nrift.banking.utility.TransactionHistoryManager;
 
 @WebServlet(name = "TransactionHistory", urlPatterns = { "/customer/account/accountDetails" })
@@ -43,7 +43,7 @@ public class TransactionHistoryController extends HttpServlet {
 			TransactionHistoryManager transactionHistoryManager = new TransactionHistoryManager();
 			
 			try{
-				TransactionHistoryDetails transactionHistoryDetails = (TransactionHistoryDetails) transactionHistoryManager.getTransactionHistoryDetails(con, accountNo);
+				TransactionHistoryDTO transactionHistoryDetails = (TransactionHistoryDTO) transactionHistoryManager.getTransactionHistoryDetails(con, accountNo);
 				if (transactionHistoryDetails != null) {
 					logger.info("Transaction history for account number=" + transactionHistoryDetails);
 					HttpSession session = request.getSession();

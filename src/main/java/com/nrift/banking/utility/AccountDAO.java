@@ -24,7 +24,7 @@ public class AccountDAO {
 		this.connection = connection;
 	}
 
-	public List<AccountDetails> getAllAccountDetails(long customerId) throws ServletException{
+	public List<AccountDTO> getAllAccountDetails(long customerId) throws ServletException{
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -41,10 +41,10 @@ public class AccountDAO {
 			{
 
 
-				List<AccountDetails> list= new ArrayList<AccountDetails>();
+				List<AccountDTO> list= new ArrayList<AccountDTO>();
 				while (rs.next()) 
 				{
-					AccountDetails validAccount = new AccountDetails(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
+					AccountDTO validAccount = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
 					logger.info("Customer found with details="+validAccount);
 					list.add(validAccount);
 				}
@@ -74,7 +74,7 @@ public class AccountDAO {
 
 	}
 
-	public AccountDetails getAccountDetails(long accountNo ) throws ServletException {
+	public AccountDTO getAccountDetails(long accountNo ) throws ServletException {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -88,7 +88,7 @@ public class AccountDAO {
 			rs = ps.executeQuery();
 			if(rs !=null && rs.next())
 			{
-				AccountDetails validAccount = new AccountDetails(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
+				AccountDTO validAccount = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
 				logger.info("Customer found with details="+validAccount);
 				return(validAccount);
 			}

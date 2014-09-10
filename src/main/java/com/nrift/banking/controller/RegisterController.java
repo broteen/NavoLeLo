@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.CustomerDetails;
+import com.nrift.banking.utility.CustomerDTO;
 import com.nrift.banking.utility.RegistrationManager;
 
 @WebServlet(name = "Register", urlPatterns = { "/register" })
@@ -68,7 +68,7 @@ public class RegisterController extends HttpServlet {
 					out.println("<font color=red>Account does not exists with the given account number</font>");
 					rd.include(request, response);
 				}
-				CustomerDetails customer=registerValidation.validateCustomerDetails(con,customerId);
+				CustomerDTO customer=registerValidation.validateCustomerDetails(con,customerId);
 					if(customer!=null){
 						
 						if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){

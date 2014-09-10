@@ -3,13 +3,13 @@ package com.nrift.banking.utility;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class TransferAmountDetails  implements Serializable {
+public class TransferAmountDTO  implements Serializable {
 	private static final long serialVersionUID = 6297385302078200520L;	
 	private long senderAccountNo;
 	private long receiverAccountNo;
 	private long amount;
 	private Timestamp updatedTime;
-	public TransferAmountDetails(long senderAccountNo,long receiverAccountNo,long amount,Timestamp updatedTime){
+	public TransferAmountDTO(long senderAccountNo,long receiverAccountNo,long amount,Timestamp updatedTime){
 		this.senderAccountNo=senderAccountNo;
 		this.receiverAccountNo=receiverAccountNo;
 		this.amount=amount;

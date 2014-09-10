@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import java.sql.Timestamp;
 
-public class TransactionHistoryDetails implements Serializable{
+public class TransactionHistoryDTO implements Serializable{
 	private static final long serialVersionUID = 6297385302078200515L;
 	
 	private long transactionRef;
@@ -15,7 +15,7 @@ public class TransactionHistoryDetails implements Serializable{
 
 	private Timestamp transactionTime;
 
-	public TransactionHistoryDetails (long transactionRef, Timestamp transactionTime, long crAccNum, long drAccNum, long amount) {
+	public TransactionHistoryDTO (long transactionRef, Timestamp transactionTime, long crAccNum, long drAccNum, long amount) {
 		
 		this.transactionRef=transactionRef;
 		this.transactionTime=transactionTime;

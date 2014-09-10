@@ -19,7 +19,7 @@ public class CustomerDAO {
 		this.connection = connection;
 	}
 
-	public CustomerDetails getCustomerDetails(long userId) throws ServletException{
+	public CustomerDTO getCustomerDetails(long userId) throws ServletException{
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -30,7 +30,7 @@ public class CustomerDAO {
 			rs = ps.executeQuery();
 			if (rs != null && rs.next()) 
 			{
-				CustomerDetails validCustomer = new CustomerDetails(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
+				CustomerDTO validCustomer = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
 				logger.info("Customer found with details="+validCustomer);
 				return validCustomer;
 			}
@@ -50,7 +50,7 @@ public class CustomerDAO {
         }
 
 	}
-public CustomerDetails getCustomer_Details(long customer_ID) throws ServletException{
+public CustomerDTO getCustomer_Details(long customer_ID) throws ServletException{
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -61,7 +61,7 @@ public CustomerDetails getCustomer_Details(long customer_ID) throws ServletExcep
 			rs = ps.executeQuery();
 			if (rs != null && rs.next()) 
 			{
-				CustomerDetails validCustomer = new CustomerDetails(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
+				CustomerDTO validCustomer = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
 				logger.info("Customer found with details="+validCustomer);
 				return validCustomer;
 			}

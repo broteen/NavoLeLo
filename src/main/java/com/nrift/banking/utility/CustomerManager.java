@@ -6,9 +6,9 @@ import javax.servlet.ServletException;
 
 public class CustomerManager {
 	
-public  CustomerDetails getCustomerDetails(Connection connection, long userId) throws ServletException {
+public  CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
 		
-			CustomerDetails customer= new CustomerDAO(connection).getCustomerDetails(userId);
+			CustomerDTO customer= new CustomerDAO(connection).getCustomerDetails(userId);
 			if(customer!=null)
 			{
 			customer.setAccountList(new AccountManager().getAllAccountDetails(connection,customer.getCustomerId()));
@@ -16,9 +16,9 @@ public  CustomerDetails getCustomerDetails(Connection connection, long userId) t
 			return customer;
 	}
 
-public CustomerDetails validateCustomer(Connection connection,long customerId) throws ServletException
+public CustomerDTO validateCustomer(Connection connection,long customerId) throws ServletException
 {
-	CustomerDetails customer=new CustomerDAO(connection).getCustomer_Details(customerId);
+	CustomerDTO customer=new CustomerDAO(connection).getCustomer_Details(customerId);
 	return customer;
 }
 public boolean checkuser_ID(Connection connection,long customerId) throws ServletException

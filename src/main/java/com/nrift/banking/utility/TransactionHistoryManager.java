@@ -7,9 +7,9 @@ import javax.servlet.ServletException;
 
 public class TransactionHistoryManager {
 
-	public List<TransactionHistoryDetails> getTransactionHistoryDetails(Connection connection,long accountNo) throws ServletException {
+	public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws ServletException {
 		AccountManager acc=new AccountManager();
-		AccountDetails accountDetails= acc.getAccountDetails(connection, accountNo);
+		AccountDTO accountDetails= acc.getAccountDetails(connection, accountNo);
 		return new TransactionHistoryDAO(connection).getTransactionHistoryDetails(accountNo) ;
 	}
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.WithdrawAmountDetails;
+import com.nrift.banking.utility.WithdrawAmountDTO;
 import com.nrift.banking.utility.WithdrawAuthorizationManager;
 
 /**
@@ -74,7 +74,7 @@ public class WithdrawalAuthorizationController extends HttpServlet {
 			WithdrawAuthorizationManager withdrawAuthorise = new WithdrawAuthorizationManager();
 			
 			try{
-				WithdrawAmountDetails withdrawAmountDetails= withdrawAuthorise.validate(con,account,amount);
+				WithdrawAmountDTO withdrawAmountDetails= withdrawAuthorise.validate(con,account,amount);
 				HttpSession session= request.getSession(false);
 				if (withdrawAmountDetails!=null) {
 					logger.info("Transaction is Authorised");

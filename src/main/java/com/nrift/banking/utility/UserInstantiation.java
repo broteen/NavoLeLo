@@ -13,13 +13,13 @@ import javax.servlet.ServletException;
  */
 public class UserInstantiation {
 	
-	public static CustomerDetails getCustomerDetails(Connection connection, long userId) throws ServletException {
+	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
 		
 		return(new CustomerManager().getCustomerDetails(connection,userId));
 		
 	}
 	
-	public static AdminDetails getAdminDetails(Connection connection, long userId) throws ServletException {
+	public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
 		
 		return(new AdminManager().getAdminDetails(connection,userId));
 	}

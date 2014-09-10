@@ -2,12 +2,12 @@ package com.nrift.banking.utility;
 
 import java.sql.Timestamp;
 
-public class WithdrawAmountDetails {
+public class WithdrawAmountDTO {
 	private long accountNo;
 	private long amount;
 	private Timestamp updatedTime;
 
-	public WithdrawAmountDetails(long accountNo, long amount,
+	public WithdrawAmountDTO(long accountNo, long amount,
 			Timestamp updatedTime) {
 		this.accountNo = accountNo;
 		this.amount = amount;

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class withdrawAmountManager {
 
 	public boolean IsWithdrawSuccessfull(Connection connection,
-			WithdrawAmountDetails withdrawAmountDetails) {
+			WithdrawAmountDTO withdrawAmountDetails) {
 		// TODO Auto-generated method stub
 		try{
 		AccountManager accountManager= new AccountManager();

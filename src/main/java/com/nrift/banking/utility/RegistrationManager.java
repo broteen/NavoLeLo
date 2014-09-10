@@ -12,7 +12,7 @@ public class RegistrationManager {
 	}
 	
 	
-	public CustomerDetails validateCustomerDetails(Connection connection,long customerId) throws ServletException
+	public CustomerDTO validateCustomerDetails(Connection connection,long customerId) throws ServletException
 	{
 		return(new CustomerManager().validateCustomer(connection,customerId));
 	}

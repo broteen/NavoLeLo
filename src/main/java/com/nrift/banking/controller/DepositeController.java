@@ -1,6 +1,7 @@
 package com.nrift.banking.controller;
 
 
+
 	import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -51,14 +52,13 @@ import com.nrift.banking.utility.TransferAmountDTO;
 				
 				try{
 					TransferAmountDTO depositeAmountDetails=new TransferAmountDTO(0L,accountNumber,amount,null);
+					  HttpSession session= request.getSession(false);
 					long customerId  = deposite.validateAccountNumber(con,accountNumber);
 					if (customerId != 0L) {
 						logger.info("account found with given account number =" + customerId);	
 					
-					if(amount>0)
+					if(amount>0L)
 					{
-                        HttpSession session= request.getSession(false);
-						
 						logger.error("show the deposite details.....");
 						session.setAttribute("depositeAmountDetails", depositeAmountDetails);
 						//session.setAttribute("depositeAccountNumber", accountNumber);
@@ -85,10 +85,16 @@ import com.nrift.banking.utility.TransferAmountDTO;
 						out.println("<font color=red>Invalid account number</font>");
 						rd.include(request, response);
 					}
-				}catch(ServletException e)
-				{
-					//To be Implemented later this is not the correct implmentation
-					response.getWriter().print(e.getMessage()+"DepositeController");
+				}catch(SQLException |ServletException| IOException e) {
+					try {
+	                    con.rollback();
+	                } catch(SQLException e1) {
+	                    logger.error("Rollback error");
+	                }
+					logger.error(" Exception Thrown");
+					//There should be an error block on around the top of every jsp page
+					request.setAttribute("errorMsg", "Exception Occured!");
+		            request.getRequestDispatcher("login.html").forward(request,response);
 				}
 			}
 		}

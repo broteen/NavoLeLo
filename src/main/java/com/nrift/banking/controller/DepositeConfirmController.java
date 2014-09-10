@@ -1,11 +1,13 @@
 package com.nrift.banking.controller;
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,7 @@ import com.nrift.banking.utility.DepositeConfirmService;
 import com.nrift.banking.utility.TransferAmountDTO;
 import com.nrift.banking.utility.UserDetails;
 
-
+@WebServlet(name = "DepositeConfirm", urlPatterns = { "/confirmDeposite" })
 public class DepositeConfirmController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -46,15 +48,16 @@ public class DepositeConfirmController extends HttpServlet {
 				request.setAttribute("message", "Sorry!!! Deposite is Not Successfull");
 			}
 			rd.forward(request, response);
-		}catch(ServletException e)
-		{
-			
-			//To be Implemented later this is not the correct implmentation
-			response.getWriter().print(e.getMessage()+"loginController");
-		} catch (SQLException e) {
-			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}catch(SQLException |ServletException| IOException e) {
+			try {
+                con.rollback();
+            } catch(SQLException e1) {
+                logger.error("Rollback error");
+            }
+			logger.error(" Exception Thrown");
+			//There should be an error block on around the top of every jsp page
+			request.setAttribute("errorMsg", "Exception Occured!");
+            request.getRequestDispatcher("confirmDeposit.jsp").forward(request,response);
 		}
 	}
 

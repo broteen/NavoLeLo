@@ -1,5 +1,6 @@
 package com.nrift.banking.controller;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -68,11 +69,16 @@ public class TransferAmountController extends HttpServlet {
 				request.setAttribute("message", "Transaction is Not Successfull");
 			}
 			rd.forward(request, response);
-		}catch(ServletException e)
-		{
-			logger.info("Error"+e);
-			//To be Implemented later this is not the correct implmentation
-			response.getWriter().print(e.getMessage()+"loginController");
+		}catch(SQLException |ServletException| IOException e) {
+			try {
+                con.rollback();
+            } catch(SQLException e1) {
+                logger.error("Rollback error");
+            }
+			logger.error(" Exception Thrown");
+			//There should be an error block on around the top of every jsp page
+			request.setAttribute("errorMsg", "Exception Occured!");
+            request.getRequestDispatcher("transferFund.jsp").forward(request,response);
 		}
 	}
 

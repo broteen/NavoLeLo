@@ -1,5 +1,6 @@
 package com.nrift.banking.controller;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -67,10 +68,16 @@ public class LogInfoController  extends HttpServlet {
 					out.println("<font color=red>Sorry! username already exists in the database</font>");
 					rd.include(request, response);
 				}
-			}catch(ServletException e)
-			{
-				//To be Implemented later this is not the correct implmentation
-				response.getWriter().print(e.getMessage()+"logInfoController");
+			}catch(SQLException |ServletException| IOException e) {
+				try {
+                  con.rollback();
+                } catch(SQLException e1) {
+                    logger.error("Rollback error");
+                }
+				logger.error(" Exception Thrown");
+				//There should be an error block on around the top of every jsp page
+				request.setAttribute("errorMsg", "Exception Occured!");
+	            request.getRequestDispatcher("loginfo.html").forward(request,response);
 			}
 		}
 	}

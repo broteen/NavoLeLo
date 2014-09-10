@@ -13,8 +13,10 @@
 
 	<div id="options" div class="topcorner">
 
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-			href="login.html">Logout</a>
+		<form action="logout" method="post">
+		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="submit" value="Logout" >
+		</form>
 	</div>
 
 
@@ -32,7 +34,10 @@
 			<li><a href="Update_details.jsp">Update details</a></li>
 
 		</ul>
+		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
 
+		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
+		
 		<table border="1" width="30%" cellpadding="5">
 			<th>Account No</th>
 			<th>Balance</th>
@@ -46,9 +51,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
 
-		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
 
 		<table id="footer">
 			<tr>

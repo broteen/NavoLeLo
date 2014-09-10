@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * The Class AccountDTO.
+ * The Class Account-Data Transfer Object.
  */
 public class AccountDTO implements Serializable{
     private static final long serialVersionUID = 6297385302078200515L;

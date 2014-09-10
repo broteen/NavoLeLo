@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * The Class SearchAccountDTO.
+ * The Class SearchAccount-Data Transfer Object.
  */
 public class SearchAccountDTO  implements Serializable {
     private static final long serialVersionUID = 6297385302078200520L;	

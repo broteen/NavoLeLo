@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TransactionHistoryDTO.
+ * The Class TransactionHistory-Data Transfer Object.
  */
 public class TransactionHistoryDTO implements Serializable{
 

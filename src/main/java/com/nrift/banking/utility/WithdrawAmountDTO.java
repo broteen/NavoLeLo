@@ -3,7 +3,7 @@ package com.nrift.banking.utility;
 import java.sql.Timestamp;
 
 /**
- * The Class WithdrawAmountDTO.
+ * The Class WithdrawAmount-Data Transfer Object.
  */
 public class WithdrawAmountDTO {
     private long accountNo;

@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import org.apache.log4j.Logger;
 
 /**
- * The Class AccountDAO.
+ * The Class Account-Data Access Object.
  */
 public class AccountDAO {
 

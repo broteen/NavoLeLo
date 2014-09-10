@@ -12,7 +12,7 @@ import javax.servlet.ServletException;
 import org.apache.log4j.Logger;
 
 /**
- * The Class TransactionHistoryDAO.
+ * The Class TransactionHistory-Data Access Object.
  */
 public class TransactionHistoryDAO {
 

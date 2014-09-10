@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 /**
- * The Class AdminDAO.
+ * The Class Admin-Data Access Object.
  */
 public class AdminDAO {
 

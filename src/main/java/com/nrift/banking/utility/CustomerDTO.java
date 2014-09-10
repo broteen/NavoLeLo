@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * The Class CustomerDTO.
+ * The Class Customer-Data Transfer Object.
  */
 public class CustomerDTO implements Serializable {
     private static final long serialVersionUID = 6297385302078200512L;

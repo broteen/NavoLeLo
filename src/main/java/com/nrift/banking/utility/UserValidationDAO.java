@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 /**
- * The Class UserValidationDAO.
+ * The Class UserValidation-Data Access Object.
  */
 public class UserValidationDAO {
     private Connection connection;

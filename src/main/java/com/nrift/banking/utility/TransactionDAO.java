@@ -17,7 +17,7 @@ import javax.servlet.ServletException;
 import org.apache.log4j.Logger;
 
 /**
- * The Class TransactionDAO.
+ * The Class Transaction-Data Access Object.
  */
 public class TransactionDAO {
     private Connection connection;

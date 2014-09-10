@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 /**
- * The Class CustomerDAO.
+ * The Class Customer-Data Access Object.
  */
 public class CustomerDAO {
 

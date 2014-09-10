@@ -3,7 +3,7 @@ package com.nrift.banking.utility;
 import java.io.Serializable;
 
 /**
- * The Class AppErrorDTO.
+ * The Class AppError-Data Transfer Object.
  */
 public class AppErrorDTO implements Serializable {
     private static final long serialVersionUID = 6297385302078200513L;

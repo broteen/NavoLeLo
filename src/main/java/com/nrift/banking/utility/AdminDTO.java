@@ -3,7 +3,7 @@ package com.nrift.banking.utility;
 import java.io.Serializable;
 
 /**
- * The Class AdminDTO.
+ * The Class Admin-Data Transfer Object.
  */
 public class AdminDTO implements Serializable {
     private static final long serialVersionUID = 6297385302078200514L;

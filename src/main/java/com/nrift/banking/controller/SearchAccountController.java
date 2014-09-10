@@ -17,41 +17,35 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.UserDetails;
 import com.nrift.banking.utility.UserValidationService;
 
-/**
- * The Class SearchAccountController.
- */
 @WebServlet(name = "SearchAccount", urlPatterns = { "/admin/searchAccount" })
 public class SearchAccountController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    static Logger logger = Logger.getLogger(LoginController.class);
+	static Logger logger = Logger.getLogger(LoginController.class);
 
-    /**
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        String customerName = request.getParameter("customerName");
-        long customerId = (Long.parseLong(request.getParameter("customerId")));
-        long accountNo = (Long.parseLong(request.getParameter("accountNo")));
-        long panNo = (Long.parseLong(request.getParameter("panNo")));
-        String errorMsg = null;
-        if (customerName == null || customerName.equals("")) {
-            errorMsg = "Customer Name can't be null or empty";
-
-            if (errorMsg != null) {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                        "/admin/search");
-                PrintWriter out = response.getWriter();
-                out.println("<font color=red>" + errorMsg + "</font>");
-                rd.include(request, response);
-            } /*else {
+	protected void doPost(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		String customerName = request.getParameter("customerName");
+		long customerId = (Long.parseLong(request.getParameter("customerId")));
+		long accountNo = (Long.parseLong(request.getParameter("accountNo")));
+		long panNo = (Long.parseLong(request.getParameter("panNo")));
+		String errorMsg = null;
+		if (customerName == null || customerName.equals("")) {
+			errorMsg = "Customer Name can't be null or empty";
+		
+		if (errorMsg != null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					"/admin/search");
+			PrintWriter out = response.getWriter();
+			out.println("<font color=red>" + errorMsg + "</font>");
+			rd.include(request, response);
+		} /*else {
 
 			Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
 			UserValidationManager userValidation = new UserValidationManager();
-
+			
 			try{
 				UserDetails user = userValidation.validate(con, username,password);
 				if (user != null) {
@@ -73,8 +67,8 @@ public class SearchAccountController extends HttpServlet {
 				//To be Implemented later this is not the correct implmentation
 				response.getWriter().print(e.getMessage()+"loginController");
 			}*/
-        }
-    }
+		}
+	}
 
 }
-
+	

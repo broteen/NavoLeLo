@@ -1,15 +1,15 @@
 function validateCustomerName()
 { 
 	var customerName= document.getElementById('customerName');
-	var customerNameExp= /^[a-zA-Z]+$/;
-	if(customerName.value=="")
-	{
-		alert("Customer name cannot be empty");
-	}
-	if (customerName.value.match(customerNameExp)) {
+    var customerNameExp= /^[a-zA-Z]+$/;
+    if(customerName.value=="")
+    	{
+    	alert("Customer name cannot be empty");
+    	}
+    if (customerName.value.match(customerNameExp)) {
 		return true;
 	} 
-	else {
+    else {
 		alert("Customer name invalid. Please enter valid Customer Name.");
 		return false;
 	}
@@ -18,15 +18,15 @@ function validateCustomerName()
 function validateCustomerID()
 { 
 	var customerID= document.getElementById('customerID');
-	var customerIDExp= /^[0-9]$/;
-	if(customeID.value=="")
-	{
-		return true;
-	}
-	if (customerID.value.match(customerIDExp)) {
+    var customerIDExp= /^[0-9]$/;
+    if(customeID.value=="")
+    	{
+    	return true;
+    	}
+    if (customerID.value.match(customerIDExp)) {
 		return true;
 	} 
-	else {
+    else {
 		alert("Customer id invalid. Please enter valid Customer ID.");
 		return false;
 	}
@@ -62,18 +62,18 @@ function validatePan() {
 }
 
 function validateAll(){
-	var customerName = document.getElementById('customerName');
-	var customerID = document.getElementById('customerID');
-	var accNo = document.getElementById('accNo');
-	var pan = document.getElementById('pan');
-	if((customerName.value=="") && 
-			(customerID.value=="") && 
-			(accNo.value=="")&&
-			(pan.value=="")){
-		alert("Please enter atleast one citeria : Name, Account No. or PAN No.");
-		document.getElementById('name').focus();
-		return false;
-	} else {
-		return true;
-	} 
+    var customerName = document.getElementById('customerName');
+    var customerID = document.getElementById('customerID');
+    var accNo = document.getElementById('accNo');
+    var pan = document.getElementById('pan');
+    if((customerName.value=="") && 
+       (customerID.value=="") && 
+       (accNo.value=="")&&
+       (pan.value=="")){
+        alert("Please enter atleast one citeria : Name, Account No. or PAN No.");
+        document.getElementById('name').focus();
+        return false;
+    } else {
+        return true;
+    } 
 }

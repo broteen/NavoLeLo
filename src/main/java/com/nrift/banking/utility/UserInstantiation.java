@@ -8,35 +8,20 @@ import java.sql.Connection;
 import javax.servlet.ServletException;
 
 /**
- * The Class UserInstantiation.
+ * @author zeeshank
+ *
  */
 public class UserInstantiation {
-
-    /**
-     * Gets the customer details.
-     *
-     * @param connection the connection
-     * @param userId the user id
-     * @return the customer details
-     * @throws ServletException the servlet exception
-     */
-    public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
-
-        return(new CustomerService().getCustomerDetails(connection,userId));
-
-    }
-
-    /**
-     * Gets the admin details.
-     *
-     * @param connection the connection
-     * @param userId the user id
-     * @return the admin details
-     * @throws ServletException the servlet exception
-     */
-    public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
-
-        return(new AdminService().getAdminDetails(connection,userId));
-    }
+	
+	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
+		
+		return(new CustomerService().getCustomerDetails(connection,userId));
+		
+	}
+	
+	public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
+		
+		return(new AdminService().getAdminDetails(connection,userId));
+	}
 
 }

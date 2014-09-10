@@ -17,59 +17,53 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.utility.TransactionHistoryDTO;
 import com.nrift.banking.utility.TransactionHistoryService;
 
-/**
- * The Class TransactionHistoryController.
- */
 @WebServlet(name = "TransactionHistory", urlPatterns = { "/customer/account/accountDetails" })
 public class TransactionHistoryController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    static Logger logger = Logger.getLogger(LoginController.class);
+	static Logger logger = Logger.getLogger(LoginController.class);
 
-    /**
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        long accountNo = (Long.parseLong(request.getParameter("accountNo")));
+	protected void doPost(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		long accountNo = (Long.parseLong(request.getParameter("accountNo")));
+		
+		String errorMsg = null;
+		
+		if (errorMsg != null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					"/index.jsp");
+			PrintWriter out = response.getWriter();
+			out.println("<font color=red>" + errorMsg + "</font>");
+			rd.include(request, response);
+		} else {
 
-        String errorMsg = null;
-
-        if (errorMsg != null) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/index.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>" + errorMsg + "</font>");
-            rd.include(request, response);
-        } else {
-
-            Connection con = (Connection) getServletContext().getAttribute(
-                    "connection");
-            TransactionHistoryService transactionHistoryManager = new TransactionHistoryService();
-
-            try{
-                TransactionHistoryDTO transactionHistoryDetails = (TransactionHistoryDTO) transactionHistoryManager.getTransactionHistoryDetails(con, accountNo);
-                if (transactionHistoryDetails != null) {
-                    logger.info("Transaction history for account number=" + transactionHistoryDetails);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("accountDetails", transactionHistoryDetails);
-                    System.out.print("hi");
-                    response.sendRedirect("accountDetails.jsp");
-                } else {
-                    RequestDispatcher rd = getServletContext()
-                            .getRequestDispatcher("/index.jsp");
-                    PrintWriter out = response.getWriter();
-                    logger.error("Transaction not found for account number=" + accountNo);
-                    //out.println("<font color=red>No user found with given email id, please register first.</font>");
-                    rd.include(request, response);
-                }
-            }catch(ServletException e)
-            {
-                //To be Implemented later this is not the correct implmentation
-                response.getWriter().print(e.getMessage()+"transactionHistoryController");
-            }
-        }
-    }
+			Connection con = (Connection) getServletContext().getAttribute(
+					"connection");
+			TransactionHistoryService transactionHistoryManager = new TransactionHistoryService();
+			
+			try{
+				TransactionHistoryDTO transactionHistoryDetails = (TransactionHistoryDTO) transactionHistoryManager.getTransactionHistoryDetails(con, accountNo);
+				if (transactionHistoryDetails != null) {
+					logger.info("Transaction history for account number=" + transactionHistoryDetails);
+					HttpSession session = request.getSession();
+					session.setAttribute("accountDetails", transactionHistoryDetails);
+					System.out.print("hi");
+					response.sendRedirect("accountDetails.jsp");
+				} else {
+					RequestDispatcher rd = getServletContext()
+							.getRequestDispatcher("/index.jsp");
+					PrintWriter out = response.getWriter();
+					logger.error("Transaction not found for account number=" + accountNo);
+					//out.println("<font color=red>No user found with given email id, please register first.</font>");
+					rd.include(request, response);
+				}
+			}catch(ServletException e)
+			{
+				//To be Implemented later this is not the correct implmentation
+				response.getWriter().print(e.getMessage()+"transactionHistoryController");
+			}
+		}
+	}
 
 }

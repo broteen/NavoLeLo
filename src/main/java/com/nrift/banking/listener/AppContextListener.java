@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.nrift.banking.listener;
 
 import java.io.File;
@@ -15,52 +18,45 @@ import org.apache.log4j.xml.DOMConfigurator;
 import com.nrift.banking.utility.DBConnectionManager;
 
 /**
- * The listener interface for receiving appContext events.
- * The class that is interested in processing a appContext
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addAppContextListener<code> method. When
- * the appContext event occurs, that object's appropriate
- * method is invoked.
+ * @author zeeshank
  *
- * @see AppContextEvent
  */
 @WebListener
 public class AppContextListener implements ServletContextListener {
 
-    /**
-     * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
-     */
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        Connection con = (Connection)servletContextEvent.getServletContext().getAttribute("connection");
-        try {
-            con.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+	/* (non-Javadoc)
+	 * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+	 */
+	public void contextDestroyed(ServletContextEvent servletContextEvent) {
+		Connection con = (Connection)servletContextEvent.getServletContext().getAttribute("connection");
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-    }
+	}
 
-    /**
-     * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
-     */
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        ServletContext servletContext = servletContextEvent.getServletContext();
-
-        String dburl = servletContext.getInitParameter("dburl");
-        String dbpassword = servletContext.getInitParameter("dbpassword");
-        String dbusername = servletContext.getInitParameter("dbusername");
-
-        try {
-            DBConnectionManager dbConnectionManager = new DBConnectionManager(dburl, dbusername, dbpassword);
-            servletContext.setAttribute("connection", dbConnectionManager.getConnection());
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        String log4jConfig = servletContext.getInitParameter("log4j-config");
+	/* (non-Javadoc)
+	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+	 */
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		ServletContext servletContext = servletContextEvent.getServletContext();
+		
+		String dburl = servletContext.getInitParameter("dburl");
+		String dbpassword = servletContext.getInitParameter("dbpassword");
+		String dbusername = servletContext.getInitParameter("dbusername");
+		
+		try {
+			DBConnectionManager dbConnectionManager = new DBConnectionManager(dburl, dbusername, dbpassword);
+			servletContext.setAttribute("connection", dbConnectionManager.getConnection());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String log4jConfig = servletContext.getInitParameter("log4j-config");
         if(log4jConfig == null){
             System.err.println("No log4j-config init param, initializing log4j with BasicConfigurator");
             BasicConfigurator.configure();
@@ -77,6 +73,6 @@ public class AppContextListener implements ServletContextListener {
             }
         }
 
-    }
+	}
 
 }

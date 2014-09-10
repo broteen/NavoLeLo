@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 public final class DBUtils {
-
+    
     /**
      * Creates the prepared statement from the given SQL string.
      *
@@ -21,7 +21,7 @@ public final class DBUtils {
     public static PreparedStatement createPreparedStatement(Connection con, String sqlString) throws SQLException {
         return con.prepareStatement(sqlString);        
     }
-
+    
     /**
      * Gets the result set from the given {@link PreparedStatement} .
      *
@@ -44,7 +44,7 @@ public final class DBUtils {
         }
         return ps.executeQuery();
     }
-
+    
     /**
      * Gets the result set from the sql.
      *
@@ -59,7 +59,7 @@ public final class DBUtils {
         ResultSet resultSet =  getResultSet(preparedStatement, objects);
         return resultSet;
     }
-
+    
     /**
      * Closes result set.
      *
@@ -70,7 +70,7 @@ public final class DBUtils {
         if(resultSet == null) {
             return;
         } else {
-            Statement st = resultSet.getStatement();
+        	Statement st = resultSet.getStatement();
             st.close();
         }        
     }

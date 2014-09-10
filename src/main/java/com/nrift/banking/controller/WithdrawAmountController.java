@@ -21,59 +21,59 @@ import com.nrift.banking.utility.WithdrawAmountService;
  */
 @WebServlet("/WithdrawAmountController")
 public class WithdrawAmountController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    static Logger logger = Logger
-            .getLogger(WithdrawalAuthorizationController.class);
+	private static final long serialVersionUID = 1L;
+	static Logger logger = Logger
+			.getLogger(WithdrawalAuthorizationController.class);
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public WithdrawAmountController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public WithdrawAmountController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    protected void doGet(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
-        Connection con = (Connection) getServletContext().getAttribute(
-                "connection");
-        WithdrawAmountService withdrawAmount = new WithdrawAmountService();
-        HttpSession session = request.getSession(false);
-        WithdrawAmountDTO withdrawAmountDetails = (WithdrawAmountDTO) session
-                .getAttribute("WithdrawAmountDetails");
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                "/withdrawSystemConformation.jsp");
+		Connection con = (Connection) getServletContext().getAttribute(
+				"connection");
+		WithdrawAmountService withdrawAmount = new WithdrawAmountService();
+		HttpSession session = request.getSession(false);
+		WithdrawAmountDTO withdrawAmountDetails = (WithdrawAmountDTO) session
+				.getAttribute("WithdrawAmountDetails");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/withdrawSystemConformation.jsp");
 
-        try {
-            if (withdrawAmount
-                    .IsWithdrawSuccessfull(con, withdrawAmountDetails)) {
-                logger.info("Withdraw Successfull");
-                request.setAttribute("message", "Amount has been dispatched");
+		try {
+			if (withdrawAmount
+					.IsWithdrawSuccessfull(con, withdrawAmountDetails)) {
+				logger.info("Withdraw Successfull");
+				request.setAttribute("message", "Amount has been dispatched");
 
-            } else {
-                logger.error("Withdraw Unsuccessfull");
-                request.setAttribute("message",
-                        "Transaction is Not Successfull");
-            }
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            logger.error(e);
-        }
-    }
+			} else {
+				logger.error("Withdraw Unsuccessfull");
+				request.setAttribute("message",
+						"Transaction is Not Successfull");
+			}
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			logger.error(e);
+		}
+	}
 
 }

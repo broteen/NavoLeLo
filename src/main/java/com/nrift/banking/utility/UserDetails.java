@@ -3,151 +3,75 @@ package com.nrift.banking.utility;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-/**
- * The Class UserDetails.
- */
 public class UserDetails implements Serializable{
+	
+	private static final long serialVersionUID = 6297385302078200511L;
 
-    private static final long serialVersionUID = 6297385302078200511L;
+	private long userId;
+	private String userName;
+	private Timestamp lastLoggedOn;
+	private boolean isAdmin;
+	private CustomerDTO customerDetails=null;
+	private AdminDTO AdminDetails=null;
 
-    private long userId;
-    private String userName;
-    private Timestamp lastLoggedOn;
-    private boolean isAdmin;
-    private CustomerDTO customerDetails=null;
-    private AdminDTO AdminDetails=null;
+	public UserDetails(long userId, String userName,boolean isAdmin,Timestamp lastLoggedOn) {
+		this.userId = userId;
+		this.userName = userName;
+		this.isAdmin = isAdmin;
+		this.lastLoggedOn = lastLoggedOn;
+	}
 
-    /**
-     * Instantiates a new user details.
-     *
-     * @param userId the user id
-     * @param userName the user name
-     * @param isAdmin the is admin
-     * @param lastLoggedOn the last logged on
-     */
-    public UserDetails(long userId, String userName,boolean isAdmin,Timestamp lastLoggedOn) {
-        this.userId = userId;
-        this.userName = userName;
-        this.isAdmin = isAdmin;
-        this.lastLoggedOn = lastLoggedOn;
-    }
+	public long getUserId() {
+		return userId;
+	}
 
-    /**
-     * Gets the user id.
-     *
-     * @return the user id
-     */
-    public long getUserId() {
-        return userId;
-    }
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 
-    /**
-     * Sets the user id.
-     *
-     * @param userId the new user id
-     */
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    /**
-     * Gets the user name.
-     *
-     * @return the user name
-     */
-    public String getUserName() {
-        return userName;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    /**
-     * Sets the user name.
-     *
-     * @param userName the new user name
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public Timestamp getLastLoggedOn() {
+		return lastLoggedOn;
+	}
 
-    /**
-     * Gets the last logged on.
-     *
-     * @return the last logged on
-     */
-    public Timestamp getLastLoggedOn() {
-        return lastLoggedOn;
-    }
+	public void setLastLoggedOn(Timestamp lastLoggedOn) {
+		this.lastLoggedOn = lastLoggedOn;
+	}
 
-    /**
-     * Sets the last logged on.
-     *
-     * @param lastLoggedOn the new last logged on
-     */
-    public void setLastLoggedOn(Timestamp lastLoggedOn) {
-        this.lastLoggedOn = lastLoggedOn;
-    }
+	public boolean isAdmin() {
+		return isAdmin;
+	}
 
-    /**
-     * Checks if is admin.
-     *
-     * @return true, if is admin
-     */
-    public boolean isAdmin() {
-        return isAdmin;
-    }
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 
-    /**
-     * Sets the admin.
-     *
-     * @param isAdmin the new admin
-     */
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
+	public CustomerDTO getCustomerDetails() {
+		return customerDetails;
+	}
 
-    /**
-     * Gets the customer details.
-     *
-     * @return the customer details
-     */
-    public CustomerDTO getCustomerDetails() {
-        return customerDetails;
-    }
+	public void setCustomerDetails(CustomerDTO customerDetails) {
+		this.customerDetails = customerDetails;
+	}
 
-    /**
-     * Sets the customer details.
-     *
-     * @param customerDetails the new customer details
-     */
-    public void setCustomerDetails(CustomerDTO customerDetails) {
-        this.customerDetails = customerDetails;
-    }
+	public AdminDTO getAdminDetails() {
+		return AdminDetails;
+	}
 
-    /**
-     * Gets the admin details.
-     *
-     * @return the admin details
-     */
-    public AdminDTO getAdminDetails() {
-        return AdminDetails;
-    }
+	public void setAdminDetails(AdminDTO adminDetails) {
+		AdminDetails = adminDetails;
+	}
 
-    /**
-     * Sets the admin details.
-     *
-     * @param adminDetails the new admin details
-     */
-    public void setAdminDetails(AdminDTO adminDetails) {
-        AdminDetails = adminDetails;
-    }
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-    /**
-     * Gets the serial version uid.
-     *
-     * @return the serialversionuid
-     */
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-
+	
 }

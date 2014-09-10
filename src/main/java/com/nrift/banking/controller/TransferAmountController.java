@@ -76,7 +76,7 @@ public class TransferAmountController extends HttpServlet {
             } catch(SQLException e1) {
                 logger.error("Rollback error");
             }
-			logger.error(" Exception Thrown");
+			logger.error(" Exception Thrown"+e.getMessage());
 			//There should be an error block on around the top of every jsp page
 			request.setAttribute("errorMsg", "Exception Occured!");
             request.getRequestDispatcher("transferFund.jsp").forward(request,response);

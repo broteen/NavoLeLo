@@ -41,6 +41,10 @@ public final class DBUtils {
                 ps.setTimestamp(i+1, (Timestamp)objects[i]);
             } else if(objects[i] instanceof Date) {
                 ps.setDate(i+1, (Date)objects[i]);
+            }else if(objects[i] instanceof Integer) {
+            	ps.setInt(i+1, (int)objects[i]);
+            }else if(objects[i] instanceof Double) {
+            	ps.setDouble(i+1, (Double)objects[i]);
             }
         }
     	return ps;

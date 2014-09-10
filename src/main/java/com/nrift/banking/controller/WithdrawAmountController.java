@@ -57,9 +57,9 @@ public class WithdrawAmountController extends HttpServlet {
 		WithdrawAmountService withdrawAmount = new WithdrawAmountService();
 		HttpSession session = request.getSession(false);
 		WithdrawAmountDTO withdrawAmountDetails = (WithdrawAmountDTO) session
-				.getAttribute("WithdrawAmountDetails");
+				.getAttribute("withdrawAmountDetails");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				"/withdrawSystemConformation.jsp");
+				"/withdrawSystemConfirmation.jsp");
 
 		try {
 			if (withdrawAmount

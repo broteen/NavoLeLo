@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
-public class UserValidationManager {
+public class UserValidationService {
 
 	public UserDetails validate(Connection connection, String username,String password) throws ServletException {
 		UserDetails user= new UserValidationDAO(connection).validate(username, password);

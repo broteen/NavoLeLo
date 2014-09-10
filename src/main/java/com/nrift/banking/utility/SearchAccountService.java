@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class SearchAccountManager
  */
 @WebServlet("/SearchAccountManager")
-public class SearchAccountManager extends HttpServlet {
+public class SearchAccountService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchAccountManager() {
+    public SearchAccountService() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.DepositeConfirmManager;
+import com.nrift.banking.utility.DepositeConfirmService;
 import com.nrift.banking.utility.TransferAmountDTO;
 import com.nrift.banking.utility.UserDetails;
 
@@ -26,7 +26,7 @@ public class DepositeConfirmController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection con = (Connection) getServletContext().getAttribute("connection");
-		DepositeConfirmManager depositeConfirm = new DepositeConfirmManager ();
+		DepositeConfirmService depositeConfirm = new DepositeConfirmService ();
 		HttpSession session= request.getSession(false);
 		UserDetails user = (UserDetails)session.getAttribute("user"); 
 		TransferAmountDTO depositeAmountDetails = (TransferAmountDTO)session.getAttribute("depositeAmountDetails");

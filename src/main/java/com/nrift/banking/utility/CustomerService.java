@@ -4,14 +4,14 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
-public class CustomerManager {
+public class CustomerService {
 	
 public  CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
 		
 			CustomerDTO customer= new CustomerDAO(connection).getCustomerDetails(userId);
 			if(customer!=null)
 			{
-			customer.setAccountList(new AccountManager().getAllAccountDetails(connection,customer.getCustomerId()));
+			customer.setAccountList(new AccountService().getAllAccountDetails(connection,customer.getCustomerId()));
 			}
 			return customer;
 	}

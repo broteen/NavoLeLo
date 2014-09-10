@@ -6,15 +6,15 @@ import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 
-import com.nrift.banking.utility.TransactionManager;
+import com.nrift.banking.utility.TransactionService;
 
-public class DepositeConfirmManager {
+public class DepositeConfirmService {
 	
 			public boolean IsDeposited(Connection connection,long receiverAccountNo, long amount, long userId) throws SQLException
 			{
 				try{
-					AccountManager accountManager= new AccountManager();
-					TransactionManager transaction= new TransactionManager();
+					AccountService accountManager= new AccountService();
+					TransactionService transaction= new TransactionService();
 					Timestamp updatedTime= accountManager.getUpdateTime(connection, receiverAccountNo);
 					
 					connection.setAutoCommit(false);

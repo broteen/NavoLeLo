@@ -4,22 +4,22 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
-public class RegistrationManager {
+public class RegistrationService {
 	
 	public long validateAccountNumber(Connection connection, long accountNumber)throws ServletException {
 	
-		return(new AccountManager().validateAccount(connection,accountNumber));
+		return(new AccountService().validateAccount(connection,accountNumber));
 	}
 	
 	
 	public CustomerDTO validateCustomerDetails(Connection connection,long customerId) throws ServletException
 	{
-		return(new CustomerManager().validateCustomer(connection,customerId));
+		return(new CustomerService().validateCustomer(connection,customerId));
 	}
 	
 	public boolean checkuserID(Connection connection,long customerId) throws ServletException
 	{
-	  return(new CustomerManager().checkuser_ID(connection,customerId));
+	  return(new CustomerService().checkuser_ID(connection,customerId));
 	}
 }
 

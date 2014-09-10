@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.AccountDTO;
 import com.nrift.banking.utility.TransferAmountDTO;
-import com.nrift.banking.utility.TransferAuthorizationManager;
+import com.nrift.banking.utility.TransferAuthorizationService;
 import com.nrift.banking.utility.UserDetails;
 
 /**
@@ -76,7 +76,7 @@ public class TransferAuthorizationController extends HttpServlet {
 
 			Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
-			TransferAuthorizationManager trancAuthorise = new TransferAuthorizationManager();
+			TransferAuthorizationService trancAuthorise = new TransferAuthorizationService();
 			
 			try{
 				TransferAmountDTO transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);

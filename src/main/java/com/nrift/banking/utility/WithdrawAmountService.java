@@ -3,14 +3,14 @@ package com.nrift.banking.utility;
 import java.sql.Connection;
 import java.sql.Timestamp;
 
-public class withdrawAmountManager {
+public class WithdrawAmountService {
 
 	public boolean IsWithdrawSuccessfull(Connection connection,
 			WithdrawAmountDTO withdrawAmountDetails) {
 		// TODO Auto-generated method stub
 		try{
-		AccountManager accountManager= new AccountManager();
-		TransactionManager transaction= new TransactionManager();
+		AccountService accountManager= new AccountService();
+		TransactionService transaction= new TransactionService();
 		long AccountNo=withdrawAmountDetails.getAccountNo();
 		long amount=withdrawAmountDetails.getAmount();
 		

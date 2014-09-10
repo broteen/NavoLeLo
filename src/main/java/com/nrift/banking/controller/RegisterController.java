@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.CustomerDTO;
-import com.nrift.banking.utility.RegistrationManager;
+import com.nrift.banking.utility.RegistrationService;
 
 @WebServlet(name = "Register", urlPatterns = { "/register" })
 public class RegisterController extends HttpServlet {
@@ -52,7 +52,7 @@ public class RegisterController extends HttpServlet {
 
 			Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
-			RegistrationManager registerValidation = new RegistrationManager();
+			RegistrationService registerValidation = new RegistrationService();
 			
 			try{
 				

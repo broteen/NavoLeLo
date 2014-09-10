@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-public class TransactionHistoryManager {
+public class TransactionHistoryService {
 
 	public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws ServletException {
-		AccountManager acc=new AccountManager();
+		AccountService acc=new AccountService();
 		AccountDTO accountDetails= acc.getAccountDetails(connection, accountNo);
 		return new TransactionHistoryDAO(connection).getTransactionHistoryDetails(accountNo) ;
 	}

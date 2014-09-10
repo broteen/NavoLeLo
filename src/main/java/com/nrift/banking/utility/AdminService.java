@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
-public class AdminManager {
+public class AdminService {
 
 	public AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException{
 		

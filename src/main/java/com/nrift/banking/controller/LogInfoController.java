@@ -14,9 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.LogInfoManager;
+import com.nrift.banking.utility.LogInfoService;
 import com.nrift.banking.utility.UserDetails;
-import com.nrift.banking.utility.UserValidationManager;
+import com.nrift.banking.utility.UserValidationService;
 
 @WebServlet(name = "LogInfo", urlPatterns = { "/loginfo" })
 public class LogInfoController  extends HttpServlet {
@@ -47,7 +47,7 @@ public class LogInfoController  extends HttpServlet {
 
 			Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
-			LogInfoManager logInfo=new LogInfoManager();
+			LogInfoService logInfo=new LogInfoService();
 			
 			try{
 				boolean user=logInfo.validateUsername(con, username);

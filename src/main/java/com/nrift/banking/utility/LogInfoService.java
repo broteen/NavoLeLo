@@ -4,11 +4,11 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
-public class LogInfoManager {
+public class LogInfoService {
 	
 	
 	public boolean validateUsername(Connection connection, String username) throws ServletException{
-		return(new UserValidationManager().checkUserName(connection, username));
+		return(new UserValidationService().checkUserName(connection, username));
 
 }
 

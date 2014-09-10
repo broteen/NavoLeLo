@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.DepositeManager;
+import com.nrift.banking.utility.DepositeService;
 import com.nrift.banking.utility.TransferAmountDTO;
 
 	@WebServlet(name = "Deposite", urlPatterns = { "/deposite" })
@@ -47,7 +47,7 @@ import com.nrift.banking.utility.TransferAmountDTO;
 
 				Connection con = (Connection) getServletContext().getAttribute(
 						"connection");
-				DepositeManager deposite=new DepositeManager();
+				DepositeService deposite=new DepositeService();
 				
 				try{
 					TransferAmountDTO depositeAmountDetails=new TransferAmountDTO(0L,accountNumber,amount,null);

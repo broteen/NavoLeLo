@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 
-public class TransferAmountManager {
+public class TransferAmountService {
 
 	public boolean IsTransferSuccessfull(Connection connection,TransferAmountDTO transAmtDetails,long userId) throws ServletException {
 	
 		try{
-		AccountManager accountManager= new AccountManager();
-		TransactionManager transaction= new TransactionManager();
+		AccountService accountManager= new AccountService();
+		TransactionService transaction= new TransactionService();
 		long senderAccountNo=transAmtDetails.getSenderAccountNo();
 		long receiverAccountNo=transAmtDetails.getReceiverAccountNo();
 		long amount=transAmtDetails.getAmount();

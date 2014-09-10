@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-public class AccountManager {
+public class AccountService {
 
 	public List<AccountDTO> getAllAccountDetails(Connection connection,long customerId) throws ServletException {
 		
@@ -38,7 +38,7 @@ public  AccountDTO getAccountHistory(Connection connection, long accountNo) thro
 	AccountDTO account= new AccountDAO(connection).getAccountDetails(accountNo);
 	if(account!=null)
 	{
-	account.setTransactionHistoryDetailsList(new TransactionHistoryManager(). getTransactionHistoryDetails(connection,account.getAccountNo()));
+	account.setTransactionHistoryDetailsList(new TransactionHistoryService(). getTransactionHistoryDetails(connection,account.getAccountNo()));
 	}
 	return account;
 }

@@ -15,13 +15,13 @@ public class UserInstantiation {
 	
 	public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws ServletException {
 		
-		return(new CustomerManager().getCustomerDetails(connection,userId));
+		return(new CustomerService().getCustomerDetails(connection,userId));
 		
 	}
 	
 	public static AdminDTO getAdminDetails(Connection connection, long userId) throws ServletException {
 		
-		return(new AdminManager().getAdminDetails(connection,userId));
+		return(new AdminService().getAdminDetails(connection,userId));
 	}
 
 }

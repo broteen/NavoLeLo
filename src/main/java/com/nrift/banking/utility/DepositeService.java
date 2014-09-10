@@ -4,12 +4,12 @@ import java.sql.Connection;
 
 import javax.servlet.ServletException;
 
-public class DepositeManager {
+public class DepositeService {
 
 	public long validateAccountNumber(Connection con,long accountNumber) {
 		
 		try{
-		return new AccountManager().validateAccount(con,accountNumber);
+		return new AccountService().validateAccount(con,accountNumber);
 		}
 	
 	catch(ServletException e)

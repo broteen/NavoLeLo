@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.utility.WithdrawAmountDTO;
-import com.nrift.banking.utility.WithdrawAuthorizationManager;
+import com.nrift.banking.utility.WithdrawAuthorizationService;
 
 /**
  * Servlet implementation class WithdrawalAuthorizationController
@@ -71,7 +71,7 @@ public class WithdrawalAuthorizationController extends HttpServlet {
 
 			Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
-			WithdrawAuthorizationManager withdrawAuthorise = new WithdrawAuthorizationManager();
+			WithdrawAuthorizationService withdrawAuthorise = new WithdrawAuthorizationService();
 			
 			try{
 				WithdrawAmountDTO withdrawAmountDetails= withdrawAuthorise.validate(con,account,amount);

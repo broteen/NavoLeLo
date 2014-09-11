@@ -13,10 +13,8 @@
 
 	<div id="options" div class="topcorner">
 
-		<form action="logout" method="post">
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="submit" value="Logout" >
-		</form>
+		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+			href="login.html">Logout</a>
 	</div>
 
 
@@ -28,31 +26,40 @@
 			<li><a href="">Transactions</a>
 				<ul id=b>
 					<li><a href="transferFund.jsp">Transfer</a></li>
-					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
-					<li><a href="deposite.jsp">Deposit</a></li>
-					<li><a href="searchAccount.jsp">search result</a></li>
+					<li><a href="Withdraw.jsp">Withdraw</a></li>
+					<li><a href="Deposit.jsp">Deposit</a></li>
+					<li><a href="searchAccount.jsp">Deposit</a></li>
 				</ul></li>
 			<li><a href="Update_details.jsp">Update details</a></li>
 
 		</ul>
-		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
+<div id="content">
 
-		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
-		
 		<table border="1" width="30%" cellpadding="5">
+             <th>Customer Name</th>		
+             <th>Customer Id</th>	
 			<th>Account No</th>
 			<th>Balance</th>
 			<th>Account Type</th>
 
 			<c:forEach items="${user.customerDetails.accountList}" var="current">
 				<tr>
+				      <td style="text-align:center;white-space:nowrap" ><c:out value="${current.customerName}" /></td>
+				     <td style="text-align:center;white-space:nowrap" ><c:out value="${current.customerId}" /></td>
 					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.accountNo}" /></td>
-					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.balance}" /></td>
+					<td  style="text-align:center;white-space:nowrap"><input type="submit"
+													style="background-image: url(../images/close.png); color: transparent; display: block; background-repeat: no-repeat; width: 25px; height: 25px;"
+													<c:out value="${current.accountNo}" /> ></input></td>
 					<td style="text-align:center;white-space:nowrap"><c:out value="${current.accountType}" /></td>
+					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.balance}" /></td>
+					
+					
 				</tr>
 			</c:forEach>
 		</table>
+		
 
+		
 
 		<table id="footer">
 			<tr>

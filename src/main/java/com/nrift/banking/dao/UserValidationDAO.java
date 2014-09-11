@@ -26,19 +26,13 @@ public class UserValidationDAO {
         this.connection = connection;
     }
 
-    /**
-     * Gets the validate query string.
-     *
-     * @return the validate query string
-     */
-    
+
+
+    /** The Constant VALIDATE_QUERY_STRING. */
     private static final String VALIDATE_QUERY_STRING= "select * from registered_users where user_name=? and password=?";
-    /**
-     * Gets the validate user name query string.
-     *
-     * @return the validate user name query string
-     */
-    
+
+
+    /** The Constant VALIDATE_USER_NAME_QUERY_STRING. */
     private static final String VALIDATE_USER_NAME_QUERY_STRING= "select * from registered_users where user_name=?";
 
     /**

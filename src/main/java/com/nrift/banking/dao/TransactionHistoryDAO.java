@@ -32,14 +32,12 @@ public class TransactionHistoryDAO {
         this.connection = connection;
     }
 
-    /**
-     * Gets the transaction historye query string.
-     *
-     * @return the transaction historye query string
-     */
-   
+
+
+    /** The Constant TRANSACTION_HISTORY_QUERY_STRING. */
     private static final String TRANSACTION_HISTORY_QUERY_STRING= "select transaction_ref, transaction_time, cr_acc_num, dr_acc_num, "
-    		+ "amount from transaction where cr_num = ? or dr_num = ?";
+            + "amount from transaction where cr_num = ? or dr_num = ?";
+
     /**
      * Gets the transaction history details.
      *

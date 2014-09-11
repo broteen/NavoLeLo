@@ -1,4 +1,4 @@
-package com.nrift.banking.testCase;
+package com.nrift.banking;
 
 import org.junit.After;
 import org.junit.Before;

@@ -31,67 +31,40 @@ public class AccountDAO {
         this.connection = connection;
     }
 
-    /**
-     * Gets the all account query string.
-     *
-     * @return the all account query string
-     */
-    
+    /** The Constant ALL_ACCOUNT_QUERY_STRING. */
     private static final String ALL_ACCOUNT_QUERY_STRING="select b.account_number,a.account_type,b.balance,b.updated_time from account_type a "
             + "inner join account b on a.account_type_id = b.account_type_id  where customer_id=?";
 
-    /**
-     * Gets the account query string.
-     *
-     * @return the account query string
-     */
-    
+
+    /** The Constant ACCOUNT_QUERY_STRING. */
     private static final String ACCOUNT_QUERY_STRING = "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
             + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?";
 
-    /**
-     * Gets the customer query string.
-     *
-     * @return the customer query string
-     */
-    
+
+
+    /** The Constant CUSTOMER_QUERY_STRING. */
     private static final String CUSTOMER_QUERY_STRING="select customer_id,status from account where account_number=?";
-    /**
-     * Gets the updated time query string.
-     *
-     * @return the updated time query string
-     */
-   
+
+
+    /** The Constant UPDATED_TIME_QUERY_STRING. */
     private static final String UPDATED_TIME_QUERY_STRING= "select updated_time from account where account_number=? and status=?";
-    /**
-     * Gets the withdraw query string.
-     *
-     * @return the withdraw query string
-     */
-   
+
+
+    /** The Constant WITHDRAW_QUERY_STRING. */
     private static final String WITHDRAW_QUERY_STRING="update account set balance=balance-? where account_number=? and status=?";
-    /**
-     * Gets the deposite query string.
-     *
-     * @return the deposite query string
-     */
-   
+
+    /** The Constant DEPOSITE_QUERY_STRING. */
     private static final String DEPOSITE_QUERY_STRING="update account set balance=balance+? where account_number=? and status=?";
-    /**
-     * Gets the close account query string.
-     *
-     * @return the close account query string
-     */
-   
+
+
+    /** The Constant CLOSE_ACCOUNT_QUERY_STRING. */
     private static final String CLOSE_ACCOUNT_QUERY_STRING="update account set status=? where account_number=?";
-    /**
-     * Gets the updated by and time query string.
-     *
-     * @return the updated by and time query string
-     */
-    
+
+
+    /** The Constant UPDATED_BY_AND_TIME_QUERY_STRING. */
     private static final String UPDATED_BY_AND_TIME_QUERY_STRING= "update account set updated_by=?,updated_time=? where account_number=? and status=?";
-    
+
+
     /**
      * Gets the all account details.
      *

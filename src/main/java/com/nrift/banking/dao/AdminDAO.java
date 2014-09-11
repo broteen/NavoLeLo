@@ -29,13 +29,11 @@ public class AdminDAO {
 
     }
 
-    /**
-     * Gets the admin query string.
-     *
-     * @return the admin query string
-     */
-    
+
+
+    /** The Constant ADMIN_QUERY_STRING. */
     private static final String ADMIN_QUERY_STRING= "select * from admin where user_id=?";
+
     /**
      * Gets the admin details.
      *

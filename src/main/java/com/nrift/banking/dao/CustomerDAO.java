@@ -9,13 +9,16 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.dto.CustomerDTO;
 import com.nrift.banking.utility.DBHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Customer-Data Access Object.
  */
 public class CustomerDAO {
 
+    /** The connection. */
     private Connection connection;
 
+    /** The logger. */
     private Logger logger = Logger.getLogger(CustomerDAO.class);
 
     /**
@@ -27,26 +30,17 @@ public class CustomerDAO {
         this.connection = connection;
     }
 
-    /**
-     * Gets the customer by user id query string.
-     *
-     * @return the customer by user id query string
-     */
-    
+
+
+    /** The Constant CUSTOMER_BY_USER_ID_QUERY_STRING. */
     private static final String CUSTOMER_BY_USER_ID_QUERY_STRING= "select * from customer where user_id=?";
-    /**
-     * Gets the customer by customer id query string.
-     *
-     * @return the customer by customer id query string
-     */
-    
+
+
+    /** The Constant CUSTOMER_BY_CUSTOMER_ID_QUERY_STRING. */
     private static final String CUSTOMER_BY_CUSTOMER_ID_QUERY_STRING ="select * from customer where customer_id=?";
-    /**
-     * Gets the check user id string.
-     *
-     * @return the check user id string
-     */
- 
+
+
+    /** The Constant CHECK_USER_ID_QUERY_STRING. */
     private static final String CHECK_USER_ID_QUERY_STRING="select user_id from customer where customer_id=?";
 
     /**

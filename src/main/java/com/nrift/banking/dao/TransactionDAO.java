@@ -35,26 +35,17 @@ public class TransactionDAO {
         this.connection=connection;
     }
 
-    /**
-     * Gets the insert row for transfer query string.
-     *
-     * @return the insert row for transfer query string
-     */
+
     
+    /** The Constant INSERT_ROW_FOR_TRANSFER_QUERY_STRING. */
     private static final String INSERT_ROW_FOR_TRANSFER_QUERY_STRING= "insert into transaction(transaction_time,cr_acc_num,dr_acc_num,amount,transaction_ref) values(?,?,?,?,?)";
-    /**
-     * Gets the insert row for withdraw query string.
-     *
-     * @return the insert row for withdraw query string
-     */
+ 
     
+    /** The Constant INSERT_ROW_FOR_WITHDRAW_QUERY_STRING. */
     private static final String INSERT_ROW_FOR_WITHDRAW_QUERY_STRING = "insert into transaction(transaction_time,dr_acc_num,amount,transaction_ref) values(?,?,?,?)"; 
-    /**
-     * Gets the insert row for deposite query string.
-     *
-     * @return the insert row for deposite query string
-     */
+
    
+    /** The Constant INSERT_ROW_FOR_DEPOSITE_QUERY_STRING. */
     private static final String INSERT_ROW_FOR_DEPOSITE_QUERY_STRING = "insert into transaction(transaction_time,cr_acc_num,amount,transaction_ref) values(?,?,?,?)"; 
 
     /**

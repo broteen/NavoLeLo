@@ -1,12 +1,28 @@
 package com.nrift.banking.utility;
 
+/**
+ * The Class QueryBuilder.
+ */
 public class QueryBuilder {
 	String tableNames="";
+	
+	/**
+	 * Instantiates a new query builder.
+	 *
+	 * @param tables the tables
+	 */
 	public QueryBuilder(String ...tables ) {
 		tableNames=tables[0];
 		for(int i=1; i < tables.length; i++)
 			tableNames=tableNames + " NATURAL JOIN " + tables[i];
 	}
+	
+	/**
+	 * Select the columns
+	 *
+	 * @param columns the columns
+	 * @return the string
+	 */
 	public String select(String...columns ) {
 		String query="SELECT * FROM " + tableNames;
 		for(int i=1; i < columns.length; i++)

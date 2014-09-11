@@ -62,6 +62,15 @@ public class AdminDAO {
         return admindeatils; 
     }
     
+    /**
+     * Gets the customer search details.
+     *
+     * @param connection the connection
+     * @param query the query
+     * @param objects the objects
+     * @return the customer search details
+     * @throws SQLException the SQL exception
+     */
     public List<CustomerDTO> getCustomerSearchDetails(Connection connection,String query,Object... objects) throws SQLException {
 		List<CustomerDTO> customerList= new ArrayList<CustomerDTO>();
 		ResultSet rs = null;

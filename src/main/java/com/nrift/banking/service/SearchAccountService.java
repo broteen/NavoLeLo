@@ -16,9 +16,9 @@ public class SearchAccountService {
     /**
      * Search customer details.
      *
-     * @param connection the connection
-     * @param reqParams the req params
-     * @return the list
+     * @param connection is a parameter of type java.sql.connection
+     * @param reqParams the request params
+     * @return the list of type CustomerDTO
      * @throws SQLException the SQL exception
      */
     public List<CustomerDTO> searchCustomerDetails(Connection connection,Map<String, Object> reqParams) throws SQLException {

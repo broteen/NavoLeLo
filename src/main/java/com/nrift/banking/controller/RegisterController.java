@@ -52,72 +52,72 @@ public class RegisterController extends HttpServlet {
 
         if (errorMsg != null) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/register.html");
+                    "/register.jsp");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>" + errorMsg + "</font>");
             rd.include(request, response);
         } else {
 
-            Connection con = (Connection) getServletContext().getAttribute(
-                    "connection");
-            RegistrationService registerValidation = new RegistrationService();
-
-            try{
-
-                long customerId = registerValidation.validateAccountNumber(con,accountNumber);
-                if (customerId != 0L) {
-                    logger.info("account found with given account number =" + customerId);	
-                }
-                else {
-                    RequestDispatcher rd = getServletContext()
-                            .getRequestDispatcher("/register.html");
-                    PrintWriter out = response.getWriter();
-                    logger.error("account not found=" + name);
-                    out.println("<font color=red>Account does not exists with the given account number</font>");
-                    rd.include(request, response);
-                }
-                CustomerDTO customer=registerValidation.validateCustomerDetails(con,customerId);
-                if(customer!=null){
-
-                    if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
-                        logger.info("customer found with details=" + customerId);
-
-
-                        if(registerValidation.checkuserID(con,customerId)){
-                            logger.error("new user.....");
-                            response.sendRedirect("loginfo.html");
-                        }
-                        else{
-                            RequestDispatcher rd = getServletContext()
-                                    .getRequestDispatcher("/register.html");
-                            PrintWriter out = response.getWriter();
-                            logger.error("customer is already registered");
-                            out.println("<font color=red>customer is already register</font>");
-                            rd.include(request, response);
-                        }
-                    }
-                    else{
-                        RequestDispatcher rd = getServletContext()
-                                .getRequestDispatcher("/register.html");
-                        PrintWriter out = response.getWriter();
-                        logger.error("customer not found=" + name);
-                        out.println("<font color=red>No customer found with given customer details, please fill correct details</font>");
-                        rd.include(request, response);
-                    }
-
-                } 
-                else {
-                    RequestDispatcher rd = getServletContext()
-                            .getRequestDispatcher("/register.html");
-                    PrintWriter out = response.getWriter();
-                    logger.error("customer not found=" + name);
-                    out.println("<font color=red>No customer found with given account number, please fill correct details</font>");
-                    rd.include(request, response);
-                }
-
-
-            }	
-            catch(SQLException |ServletException| IOException e) {
+        	Connection con = (Connection) getServletContext().getAttribute(
+					"connection");
+			RegistrationService registerValidation = new RegistrationService();
+			
+			try{
+				
+				long customerId = registerValidation.validateAccountNumber(con,accountNumber);
+				if (customerId != 0L) {
+					logger.info("account found with given account number =" + customerId);	
+				}
+			else {
+					RequestDispatcher rd = getServletContext()
+							.getRequestDispatcher("/register.jsp");
+					logger.error("account not found=" + name);
+					rd.include(request, response);
+				}
+				CustomerDTO customer=registerValidation.validateCustomerDetails(con,customerId);
+					if(customer!=null){
+						
+						if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
+							logger.info("customer found with details=" + customerId);
+						
+					
+					if(registerValidation.checkuserID(con,customerId)){
+						logger.error("new user.....");
+						request.setAttribute("customerId", customerId);
+						RequestDispatcher rd =getServletContext().getRequestDispatcher("/loginfo.jsp");
+						rd.forward(request, response);
+					//response.sendRedirect("loginfo.html");
+					}
+					else{
+						RequestDispatcher rd = getServletContext()
+								.getRequestDispatcher("/register.jsp");
+						PrintWriter out = response.getWriter();
+						logger.error("customer is already registered");
+						out.println("<font color=red>customer is already register</font>");
+						rd.include(request, response);
+					}
+						}
+						else{
+							RequestDispatcher rd = getServletContext()
+									.getRequestDispatcher("/register.jsp");
+							PrintWriter out = response.getWriter();
+							logger.error("customer not found=" + name);
+							out.println("<font color=red>No customer found with given customer details, please fill correct details</font>");
+							rd.include(request, response);
+						}
+						
+				} 
+				else {
+					RequestDispatcher rd = getServletContext()
+							.getRequestDispatcher("/register.jsp");
+					PrintWriter out = response.getWriter();
+					logger.error("customer not found=" + name);
+					out.println("<font color=red>No customer found with given account number, please fill correct details</font>");
+					rd.include(request, response);
+				}
+				
+					
+			}catch(SQLException |ServletException| IOException e) {
                 try {
                     con.rollback();
                 } catch(SQLException e1) {
@@ -126,7 +126,7 @@ public class RegisterController extends HttpServlet {
                 logger.error(" Exception Thrown");
                 //There should be an error block on around the top of every jsp page
                 request.setAttribute("errorMsg", "Exception Occured!");
-                request.getRequestDispatcher("register.html").forward(request,response);
+                request.getRequestDispatcher("/register.jsp").forward(request,response);
             }
         }
     }

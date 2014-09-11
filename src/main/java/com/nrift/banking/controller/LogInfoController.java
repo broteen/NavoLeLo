@@ -37,6 +37,7 @@ public class LogInfoController  extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+    	long customerID =Long.parseLong(request.getParameter("customerId"));
         String errorMsg = null;
         if (username == null || username.equals("")) {
             errorMsg = "User Name can't be null or empty";
@@ -47,35 +48,38 @@ public class LogInfoController  extends HttpServlet {
 
         if (errorMsg != null) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/loginfo.html");
+                    "/loginfo.jsp");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>" + errorMsg + "</font>");
             rd.include(request, response);
         } else {
 
-            Connection con = (Connection) getServletContext().getAttribute(
-                    "connection");
-            LogInfoService logInfo=new LogInfoService();
-
-            try{
-                boolean user=logInfo.validateUsername(con, username);
-
-                if (user==false) {
-                    logger.info("Username registered");
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", user);
-                    //System.out.println(user.getCustomerDetails().getName());
-                    System.out.print("hi");
-                    response.sendRedirect("loginsuccess.html");
-                } else {
-                    RequestDispatcher rd = getServletContext()
-                            .getRequestDispatcher("/login.html");
-                    PrintWriter out = response.getWriter();
-                    logger.error("Username already exists in database");
-                    out.println("<font color=red>Sorry! username already exists in the database</font>");
-                    rd.include(request, response);
-                }
-            }catch(SQLException |ServletException| IOException e) {
+        	Connection con = (Connection) getServletContext().getAttribute(
+					"connection");
+			LogInfoService logInfo=new LogInfoService();
+			
+			try{
+				logger.info("Username registeration");
+				boolean user=logInfo.validateUsername(con, username,password);
+			
+				logger.info("CustomerId is..."+customerID);
+				if (user==false) {
+					boolean insert=logInfo.insertUserIdInCustomer(con, customerID,username);
+					if(insert){
+					logger.info("Username registered");
+					HttpSession session = request.getSession();
+					session.setAttribute("user", user);
+					response.sendRedirect("loginsuccess.jsp");
+					}
+				} else {
+					RequestDispatcher rd = getServletContext()
+							.getRequestDispatcher("/login.jsp");
+					PrintWriter out = response.getWriter();
+					logger.error("Username already exists in database");
+					out.println("<font color=red>Sorry! You are already Registered User</font>");
+					rd.include(request, response);
+				}
+			}catch(SQLException |ServletException| IOException e) {
                 try {
                     con.rollback();
                 } catch(SQLException e1) {
@@ -84,7 +88,7 @@ public class LogInfoController  extends HttpServlet {
                 logger.error(" Exception Thrown");
                 //There should be an error block on around the top of every jsp page
                 request.setAttribute("errorMsg", "Exception Occured!");
-                request.getRequestDispatcher("loginfo.html").forward(request,response);
+                request.getRequestDispatcher("loginfo.jsp").forward(request,response);
             }
         }
     }

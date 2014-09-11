@@ -15,7 +15,7 @@ import com.nrift.banking.utility.DBConnectionManager;
 public class AccountDAOTest {
     private Connection connection;
 
-
+/*
     @Before
     public void setup(){
         try {
@@ -48,6 +48,6 @@ public class AccountDAOTest {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
 }

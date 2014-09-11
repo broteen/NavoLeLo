@@ -1,25 +1,21 @@
 package com.nrift.banking;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import javax.validation.constraints.AssertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nrift.banking.dao.CustomerDAO;
-import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.dao.AccountDAO;
 import com.nrift.banking.utility.DBConnectionManager;
 
-public class CustomerDAOTest {
-    
+public class AccountDAOTest {
     private Connection connection;
-    
-    
+
+
     @Before
     public void setup(){
         try {
@@ -33,22 +29,10 @@ public class CustomerDAOTest {
 
     @Test
     public void testGetCustomerDetailsByCustomerId() {
-        CustomerDAO customerDAO = new CustomerDAO(connection);
+        AccountDAO accountDAO = new AccountDAO(connection);
         try {
-            CustomerDTO customerDTO = customerDAO.getCustomerDetailsByCustomerId(1);
-            assertEquals("Zeeshan Khan", customerDTO.getName());   
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
-    @Test
-    public void testgetCustomerDetailsByUserId() {
-        CustomerDAO customerDAO = new CustomerDAO(connection);
-        try {
-            CustomerDTO customerDTO = customerDAO.getCustomerDetailsByUserId(5);
-            assertEquals("kolkata", customerDTO.getAddress());   
+            long customerID = accountDAO.getCustomerId(12345601);
+            assertEquals(1, customerID);   
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

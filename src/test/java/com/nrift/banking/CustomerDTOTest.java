@@ -10,7 +10,7 @@ public class CustomerDTOTest{
     CustomerDTO customer = null;
     CustomerDTO customer2 = null;
 
-    @Before
+  /*@Before
     public void setup(){
         customer.setCustomerId(12);
         customer.setName("abc");
@@ -40,5 +40,5 @@ public class CustomerDTOTest{
     @After
     public void teardown() {
 
-    }
+    }*/
 }

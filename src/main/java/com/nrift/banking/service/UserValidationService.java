@@ -49,10 +49,14 @@ public class UserValidationService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean checkUserName(Connection connection, String username) throws SQLException
-    {
-        return(new UserValidationDAO(connection).validateUserName(username));
-    }
+    public boolean checkUserName(Connection connection, String username,String password) throws SQLException
+	{
+		return(new UserValidationDAO(connection).validateUserName(username, password));
+	}
+    
+    public boolean insertUserId(Connection connection, long customerId, String username) throws SQLException {
+		return (new UserValidationDAO(connection).insertInCustomerUserId(customerId,username));
+	}
 
 
 }

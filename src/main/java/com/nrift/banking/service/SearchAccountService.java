@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.utility.QueryBuilder;
 
 /**
  * The Class SearchAccountService.
@@ -22,24 +23,8 @@ public class SearchAccountService {
      */
     public List<CustomerDTO> searchCustomerDetails(Connection connection,Map<String, Object> reqParams) throws SQLException {
 
-        String baseQuery="Select * from";
-        StringBuffer query= new StringBuffer(baseQuery);
-        query.append(" customer ")
-        .append(" natural join ")
-        .append(" account ")
-        .append(" natural join ")
-        .append(" account_type ");
-        if(!reqParams.isEmpty())
-            query.append(" where ");
-        if(reqParams.containsKey("customerName"))
-            query.append("name=?");
-        if(reqParams.containsKey("customerId"))
-            query.append("customer_id=?");
-        if(reqParams.containsKey("accountNo"))
-            query.append("account_number=?");
-        if(reqParams.containsKey("panNo"))
-            query.append("pan_number=?");
-        return new AdminService().getCustomerSearchDetails(connection, query.toString(), reqParams.values().toArray());
+        String query= new QueryBuilder().select(reqParams);
+        return new AdminService().getCustomerSearchDetails(connection, query, reqParams.values().toArray());
 
     }	
 

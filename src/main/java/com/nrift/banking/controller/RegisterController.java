@@ -43,13 +43,15 @@ public class RegisterController extends HttpServlet {
         if (name == null ||name.equals("")) {
             errorMsg = "Name can't be null or empty";
         }
-        if (accountNumber == 0L) {
+        if (accountNumber == 0) {
             errorMsg = "Account Number can't be null or empty";
         }
-        if (contactNumber==0L) {
+        if (contactNumber==0) {
             errorMsg = "Contact Number can't be null or empty";
         }
-
+         if(name == null && accountNumber == 0 && contactNumber==0){
+        	 errorMsg = " Fields can't be null or empty";
+         }
         if (errorMsg != null) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/register.jsp");

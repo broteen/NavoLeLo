@@ -9,7 +9,7 @@
 	<center>
 		<b><font size="5" face="verdana" color="black">Registration
 				is Successful!!!</font></b> <br> <br> <br> Please log-in here <a
-			href='login.html'>Go to Login</a>
+			href='login.jsp'>Go to Login</a>
 	</center>
 </body>
 </html>

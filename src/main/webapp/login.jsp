@@ -16,7 +16,7 @@
 	</form>
 
 	<br /> If you are new user, please
-	<a href="register.html">register</a>
+	<a href="register.jsp">register</a>
 
 </body>
 </html>

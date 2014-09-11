@@ -10,13 +10,14 @@
 		<b><font size="5" face="verdana" color="black">Log-in
 				information</font></b> <br> <br> <br> <br>
 		<form action="LogInfoController" method="post">
+			<input type="text" name="customerId" value="${customerId}" style="display:none"></input>
 			<table border="1" width="20%" cellpadding="3">
 				<tr>
 					<td><b>User_Id* </b><input type="text" name="username"
 						size="40"></td>
 				</tr>
 				<tr>
-					<td><b>Password* </b><input type="text" name="account_number"
+					<td><b>Password* </b><input type="text" name="password"
 						size="40"></td>
 				</tr>
 			</table>

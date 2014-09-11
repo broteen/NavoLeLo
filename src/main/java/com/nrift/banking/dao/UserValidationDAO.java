@@ -44,7 +44,7 @@ private String insertRowforNewUser() {
 	}
 	private String insertUserIdInCustomer() {
 		
-		return "INSERT INTO CUSTOMER(USER_ID) VALUES(?) WHERE NAME=?" ;
+		return "update customer set user_id=? where customer_id=?" ;
 	}
 
     
@@ -114,8 +114,8 @@ private String insertRowforNewUser() {
 		Long userId=0L;
 		try{
 		rs = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
-		userId=rs.getLong("USER_ID");
 		if (rs != null && rs.next()){
+			userId=rs.getLong("USER_ID");
 			rs1=DBHelper.getResultSetFromSQL(connection, insertUserIdInCustomer(),userId,customerId);
 			return true;
 		}

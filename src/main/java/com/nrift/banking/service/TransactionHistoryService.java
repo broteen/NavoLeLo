@@ -24,8 +24,6 @@ public class TransactionHistoryService {
      * @throws SQLException the SQL exception
      */
     public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws SQLException {
-        AccountService acc=new AccountService();
-        AccountDTO accountDetails= acc.getAccountDetails(connection, accountNo);
         return new TransactionHistoryDAO(connection).getTransactionHistoryDetails(accountNo) ;
     }
 }

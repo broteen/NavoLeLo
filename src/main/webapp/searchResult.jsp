@@ -42,17 +42,17 @@
 			<th>Balance</th>
 			<th>Account Type</th>
 
-			<c:forEach items="${user.customerDetails.accountList}" var="current">
+			<c:forEach items="${customerList}" var="customer">
 				<tr>
-				      <td style="text-align:center;white-space:nowrap" ><c:out value="${current.customerName}" /></td>
-				     <td style="text-align:center;white-space:nowrap" ><c:out value="${current.customerId}" /></td>
-					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.accountNo}" /></td>
-					<td  style="text-align:center;white-space:nowrap"><input type="submit"
+				      <td style="text-align:center;white-space:nowrap" ><c:out value="${customer.name}" /></td>
+				     <td style="text-align:center;white-space:nowrap" ><c:out value="${customer.customerId}" /></td>
+					<td style="text-align:center;white-space:nowrap" ><c:out value="${customer.accountList[0].accountNo}" /></td>
+					<td style="text-align:center;white-space:nowrap" ><c:out value="${customer.accountList[0].balance}" /></td>
+					<td style="text-align:center;white-space:nowrap" ><c:out value="${customer.accountList[0].accountType}" /></td>
+					<!--  <td  style="text-align:center;white-space:nowrap"><input type="submit"
 													style="background-image: url(../images/close.png); color: transparent; display: block; background-repeat: no-repeat; width: 25px; height: 25px;"
-													<c:out value="${current.accountNo}" /> ></input></td>
-					<td style="text-align:center;white-space:nowrap"><c:out value="${current.accountType}" /></td>
-					<td style="text-align:center;white-space:nowrap" ><c:out value="${current.balance}" /></td>
-					
+													<c:out value="${customer.accountList[0].accountNo}" /> ></input></td>
+					-->					
 					
 				</tr>
 			</c:forEach>

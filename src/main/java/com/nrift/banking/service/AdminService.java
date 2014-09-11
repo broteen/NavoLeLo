@@ -2,10 +2,11 @@ package com.nrift.banking.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.nrift.banking.dao.AdminDAO;
 import com.nrift.banking.dto.AdminDTO;
-
+import com.nrift.banking.dto.CustomerDTO;;
 
 /**
  * The Class AdminService.
@@ -25,5 +26,9 @@ public class AdminService {
         return (new AdminDAO(connection).getAdminDetails(userId));
 
     }
+    
+    public List<CustomerDTO> getCustomerSearchDetails(Connection connection,String query,Object...objects) throws SQLException {
+		return new AdminDAO(connection).getCustomerSearchDetails(connection,query,objects);
+	}
 
 }

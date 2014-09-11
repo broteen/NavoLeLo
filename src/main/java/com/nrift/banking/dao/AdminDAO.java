@@ -3,10 +3,15 @@ package com.nrift.banking.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.AdminDTO;
+import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.service.AccountService;
 import com.nrift.banking.utility.DBHelper;
 
 /**
@@ -56,5 +61,30 @@ public class AdminDAO {
         }
         return admindeatils; 
     }
+    
+    public List<CustomerDTO> getCustomerSearchDetails(Connection connection,String query,Object... objects) throws SQLException {
+		List<CustomerDTO> customerList= new ArrayList<CustomerDTO>();
+		ResultSet rs = null;
+		try {
+			rs = DBHelper.getResultSetFromSQL(connection, query, objects);
+			if (rs != null) {
+				AccountService accountService= new AccountService();
+				while(rs.next()){
+				CustomerDTO customer = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),
+						rs.getString("EMAIL"),rs.getString("ADDRESS"));
+				AccountDTO account= accountService.getAccountDetails(connection, rs.getLong("ACCOUNT_NUMBER"));
+				List<AccountDTO> accountList= new ArrayList<AccountDTO>();
+				accountList.add(account);
+				customer.setAccountList(accountList);
+				logger.info("Customer found with details="+customer);
+				customerList.add(customer);
+				}
+			}
+
+		}finally{
+			DBHelper.closeResultSet(rs);   
+        }
+		return customerList;
+	}
 
 }

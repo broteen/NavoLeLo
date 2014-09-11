@@ -40,28 +40,22 @@ public class TransactionDAO {
      *
      * @return the insert row for transfer query string
      */
-    private String getInsertRowForTransferQueryString() {
-        return "INSERT INTO TRANSACTION(TRANSACTION_TIME,CR_ACC_NUM,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?,?)";
-    }
-
+    
+    private static final String INSERT_ROW_FOR_TRANSFER_QUERY_STRING= "insert into transaction(transaction_time,cr_acc_num,dr_acc_num,amount,transaction_ref) values(?,?,?,?,?)";
     /**
      * Gets the insert row for withdraw query string.
      *
      * @return the insert row for withdraw query string
      */
-    private String getInsertRowForWithdrawQueryString() {
-        return "INSERT INTO TRANSACTION(TRANSACTION_TIME,DR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)";
-    }
-
+    
+    private static final String INSERT_ROW_FOR_WITHDRAW_QUERY_STRING = "insert into transaction(transaction_time,dr_acc_num,amount,transaction_ref) values(?,?,?,?)"; 
     /**
      * Gets the insert row for deposite query string.
      *
      * @return the insert row for deposite query string
      */
-    private String getInsertRowForDepositeQueryString() {
-        return "INSERT INTO TRANSACTION(TRANSACTION_TIME,CR_ACC_NUM,AMOUNT,TRANSACTION_REF) VALUES(?,?,?,?)";
-    }
-
+   
+    private static final String INSERT_ROW_FOR_DEPOSITE_QUERY_STRING = "insert into transaction(transaction_time,cr_acc_num,amount,transaction_ref) values(?,?,?,?)"; 
 
     /**
      * Insert row for transfer amount.
@@ -76,7 +70,7 @@ public class TransactionDAO {
 
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getInsertRowForTransferQueryString(),new Timestamp(new java.util.Date().getTime()),receiverAccountNo,
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_TRANSFER_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),receiverAccountNo,
                     senderAccountNo,amount,TransactionRefGenerator.getInstance().getCounter());
 
         }finally{
@@ -96,7 +90,7 @@ public class TransactionDAO {
 
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getInsertRowForWithdrawQueryString(),new Timestamp(new java.util.Date().getTime()),accountNo,
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_WITHDRAW_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),accountNo,
                     amount,TransactionRefGenerator.getInstance().getCounter());
 
         }finally{
@@ -115,7 +109,7 @@ public class TransactionDAO {
     public int insertRowForDepositeAmount(long accountNo, long amount) throws SQLException {
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getInsertRowForDepositeQueryString(),new Timestamp(new java.util.Date().getTime()),accountNo,
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_DEPOSITE_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),accountNo,
                     amount,TransactionRefGenerator.getInstance().getCounter());	
         }finally{
         }

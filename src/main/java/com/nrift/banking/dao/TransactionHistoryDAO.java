@@ -37,10 +37,9 @@ public class TransactionHistoryDAO {
      *
      * @return the transaction historye query string
      */
-    private String getTransactionHistoryeQueryString() {
-        return "SELECT TRANSACTION_REF, TRANSACTION_TIME, CR_ACC_NUM, DR_ACC_NUM, AMOUNT FROM TRANSACTION WHERE CR_NUM = ? OR DR_NUM = ?";
-    }
-
+   
+    private static final String TRANSACTION_HISTORY_QUERY_STRING= "select transaction_ref, transaction_time, cr_acc_num, dr_acc_num, "
+    		+ "amount from transaction where cr_num = ? or dr_num = ?";
     /**
      * Gets the transaction history details.
      *
@@ -53,7 +52,7 @@ public class TransactionHistoryDAO {
         List<TransactionHistoryDTO> list= null;
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getTransactionHistoryeQueryString(),accountNo,accountNo);
+            rs = DBHelper.getResultSetFromSQL(connection, TRANSACTION_HISTORY_QUERY_STRING,accountNo,accountNo);
             if(rs !=null){
                 list= new ArrayList<TransactionHistoryDTO>();
                 while (rs.next()){

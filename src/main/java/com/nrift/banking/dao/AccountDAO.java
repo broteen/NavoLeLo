@@ -1,14 +1,12 @@
 package com.nrift.banking.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
@@ -38,76 +36,62 @@ public class AccountDAO {
      *
      * @return the all account query string
      */
-    private String getAllAccountQueryString() {
-        return "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-                + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE CUSTOMER_ID=?";
-    }
+    
+    private static final String ALL_ACCOUNT_QUERY_STRING="select b.account_number,a.account_type,b.balance,b.updated_time from account_type a "
+            + "inner join account b on a.account_type_id = b.account_type_id  where customer_id=?";
 
     /**
      * Gets the account query string.
      *
      * @return the account query string
      */
-    private String getAccountQueryString() {
-        return "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-                + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?";
-    }
+    
+    private static final String ACCOUNT_QUERY_STRING = "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
+            + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?";
 
     /**
      * Gets the customer query string.
      *
      * @return the customer query string
      */
-    private String getCustomerQueryString() {
-        return "SELECT CUSTOMER_ID,STATUS FROM ACCOUNT WHERE ACCOUNT_NUMBER=?";
-    }
-
+    
+    private static final String CUSTOMER_QUERY_STRING="select customer_id,status from account where account_number=?";
     /**
      * Gets the updated time query string.
      *
      * @return the updated time query string
      */
-    private String getUpdatedTimeQueryString() {
-        return "SELECT UPDATED_TIME FROM ACCOUNT WHERE ACCOUNT_NUMBER=? AND STATUS=?";
-    }
-
+   
+    private static final String UPDATED_TIME_QUERY_STRING= "select updated_time from account where account_number=? and status=?";
     /**
      * Gets the withdraw query string.
      *
      * @return the withdraw query string
      */
-    private String getWithdrawQueryString() {
-        return "UPDATE ACCOUNT SET BALANCE=BALANCE-? WHERE ACCOUNT_NUMBER=? AND STATUS=?";
-    }
-
+   
+    private static final String WITHDRAW_QUERY_STRING="update account set balance=balance-? where account_number=? and status=?";
     /**
      * Gets the deposite query string.
      *
      * @return the deposite query string
      */
-    private String getDepositeQueryString() {
-        return "UPDATE ACCOUNT SET BALANCE=BALANCE+? WHERE ACCOUNT_NUMBER=? AND STATUS=?";
-    }
-
+   
+    private static final String DEPOSITE_QUERY_STRING="update account set balance=balance+? where account_number=? and status=?";
     /**
      * Gets the close account query string.
      *
      * @return the close account query string
      */
-    private String getCloseAccountQueryString() {
-        return "UPDATE ACCOUNT SET STATUS=? WHERE ACCOUNT_NUMBER=?";
-    }
-
+   
+    private static final String CLOSE_ACCOUNT_QUERY_STRING="update account set status=? where account_number=?";
     /**
      * Gets the updated by and time query string.
      *
      * @return the updated by and time query string
      */
-    private String getUpdatedByAndTimeQueryString() {
-        return "UPDATE ACCOUNT SET UPDATED_BY=?,UPDATED_TIME=? WHERE ACCOUNT_NUMBER=? AND STATUS=?";
-    }
-
-
+    
+    private static final String UPDATED_BY_AND_TIME_QUERY_STRING= "update account set updated_by=?,updated_time=? where account_number=? and status=?";
+    
     /**
      * Gets the all account details.
      *
@@ -120,7 +104,7 @@ public class AccountDAO {
         List<AccountDTO> list = new ArrayList<AccountDTO>();
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getAllAccountQueryString(), customerId);
+            rs = DBHelper.getResultSetFromSQL(connection, ALL_ACCOUNT_QUERY_STRING, customerId);
             if(rs != null) {
                 while(rs.next()) {
                     AccountDTO validAccount = new AccountDTO(
@@ -155,7 +139,7 @@ public class AccountDAO {
         try {
 
 
-            rs = DBHelper.getResultSetFromSQL(connection, getAccountQueryString(), accountNo);
+            rs = DBHelper.getResultSetFromSQL(connection, ACCOUNT_QUERY_STRING, accountNo);
             if(rs !=null && rs.next())
             {
                 accountDetails = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
@@ -182,7 +166,7 @@ public class AccountDAO {
         ResultSet rs = null;
 
         try {
-            rs=DBHelper.getResultSetFromSQL(connection, getCustomerQueryString(), accountNumber);
+            rs=DBHelper.getResultSetFromSQL(connection, CUSTOMER_QUERY_STRING, accountNumber);
             if(rs !=null && rs.next()){
                 customerID=rs.getLong("CUSTOMER_ID");
                 String status=rs.getString("STATUS");
@@ -208,7 +192,7 @@ public class AccountDAO {
         ResultSet rs = null;
         try {
 
-            rs = DBHelper.getResultSetFromSQL(connection,getUpdatedTimeQueryString(), accountNo,"normal");
+            rs = DBHelper.getResultSetFromSQL(connection,UPDATED_TIME_QUERY_STRING, accountNo,"normal");
             if(rs !=null && rs.next())
                 timestamp=rs.getTimestamp("UPDATED_TIME");
         }
@@ -229,7 +213,7 @@ public class AccountDAO {
     public int WithdrawAmount(long accountNo, long amount) throws SQLException {
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getWithdrawQueryString(), amount,accountNo,"normal");
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal");
 
         }finally{
         }
@@ -246,7 +230,7 @@ public class AccountDAO {
     public int CloseAccount(long accountNo)throws SQLException {
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getCloseAccountQueryString(),"cancel",accountNo);
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, CLOSE_ACCOUNT_QUERY_STRING,"cancel",accountNo);
         }finally{
         }
         return updatedRows;
@@ -263,7 +247,7 @@ public class AccountDAO {
     public int DepositeAmount(long accountNo, long amount) throws SQLException{
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getDepositeQueryString(), amount,accountNo,"normal");
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, DEPOSITE_QUERY_STRING, amount,accountNo,"normal");
 
         }finally{
         }
@@ -281,7 +265,7 @@ public class AccountDAO {
     public int setUpdatedByandUpdatedTime(long accountNo,long userId) throws SQLException{
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, getUpdatedByAndTimeQueryString(), userId,new Timestamp(new java.util.Date().getTime()),accountNo,"normal");
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, UPDATED_BY_AND_TIME_QUERY_STRING, userId,new Timestamp(new java.util.Date().getTime()),accountNo,"normal");
 
         }finally{
         }

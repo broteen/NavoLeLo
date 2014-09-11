@@ -34,10 +34,8 @@ public class AdminDAO {
      *
      * @return the admin query string
      */
-    private String getAdminQueryString() {
-        return "SELECT * FROM ADMIN WHERE USER_ID=?";
-    }
-
+    
+    private static final String ADMIN_QUERY_STRING= "select * from admin where user_id=?";
     /**
      * Gets the admin details.
      *
@@ -49,7 +47,7 @@ public class AdminDAO {
         AdminDTO admindeatils=null;
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getAdminQueryString(), userId);
+            rs = DBHelper.getResultSetFromSQL(connection, ADMIN_QUERY_STRING, userId);
             if (rs != null && rs.next()) {
                 admindeatils = new AdminDTO(rs.getLong("ADMIN_ID"),rs.getString("NAME"),rs.getString("EMAIL"));
                 logger.info("Admin found with details="+admindeatils);

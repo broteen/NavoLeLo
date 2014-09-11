@@ -32,28 +32,22 @@ public class CustomerDAO {
      *
      * @return the customer by user id query string
      */
-    private String getCustomerByUserIdQueryString() {
-        return "SELECT * FROM CUSTOMER WHERE USER_ID=?";
-    }
-
+    
+    private static final String CUSTOMER_BY_USER_ID_QUERY_STRING= "select * from customer where user_id=?";
     /**
      * Gets the customer by customer id query string.
      *
      * @return the customer by customer id query string
      */
-    private String getCustomerByCustomerIdQueryString() {
-        return "SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=?";
-    }
-
+    
+    private static final String CUSTOMER_BY_CUSTOMER_ID_QUERY_STRING ="select * from customer where customer_id=?";
     /**
      * Gets the check user id string.
      *
      * @return the check user id string
      */
-    private String getCheckUserIdString() {
-        return "SELECT USER_ID FROM CUSTOMER WHERE CUSTOMER_ID=?";
-    }
-
+ 
+    private static final String CHECK_USER_ID_QUERY_STRING="select user_id from customer where customer_id=?";
 
     /**
      * Gets the customer details by user id.
@@ -67,7 +61,7 @@ public class CustomerDAO {
         CustomerDTO customerDetails=null;
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getCustomerByUserIdQueryString(), userId);
+            rs = DBHelper.getResultSetFromSQL(connection, CUSTOMER_BY_USER_ID_QUERY_STRING, userId);
             if (rs != null && rs.next()) 
             {
                 customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
@@ -91,7 +85,7 @@ public class CustomerDAO {
         CustomerDTO customerDetails=null;
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getCustomerByCustomerIdQueryString(), customerId);
+            rs = DBHelper.getResultSetFromSQL(connection, CUSTOMER_BY_CUSTOMER_ID_QUERY_STRING, customerId);
             if (rs != null && rs.next()) 
             {
                 customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
@@ -115,7 +109,7 @@ public class CustomerDAO {
         boolean result=false;
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getCheckUserIdString(), customerId);
+            rs = DBHelper.getResultSetFromSQL(connection, CHECK_USER_ID_QUERY_STRING, customerId);
             if (rs != null && rs.next()) 
             {
                 String userId = rs.getString("USER_ID");

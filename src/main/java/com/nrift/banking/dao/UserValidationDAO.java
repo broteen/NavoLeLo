@@ -31,19 +31,15 @@ public class UserValidationDAO {
      *
      * @return the validate query string
      */
-    private String getValidateQueryString() {
-        return "SELECT * FROM REGISTERED_USERS WHERE USER_NAME=? and PASSWORD=?";
-    }
-
+    
+    private static final String VALIDATE_QUERY_STRING= "select * from registered_users where user_name=? and password=?";
     /**
      * Gets the validate user name query string.
      *
      * @return the validate user name query string
      */
-    private String getValidateUserNameQueryString() {
-        return "SELECT * FROM REGISTERED_USERS WHERE USER_NAME=?";
-    }
-
+    
+    private static final String VALIDATE_USER_NAME_QUERY_STRING= "select * from registered_users where user_name=?";
 
     /**
      * Validate username and password at the time of login
@@ -57,7 +53,7 @@ public class UserValidationDAO {
         UserDTO userDetails=null;
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getValidateQueryString(), username,password);
+            rs = DBHelper.getResultSetFromSQL(connection, VALIDATE_QUERY_STRING, username,password);
             if (rs != null && rs.next()) {
                 boolean isAdmin;
                 if(rs.getString("IS_ADMIN").compareTo("n")==0)
@@ -86,7 +82,7 @@ public class UserValidationDAO {
         ResultSet rs = null;
 
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, getValidateUserNameQueryString(), username);
+            rs = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
 
             if (rs != null && rs.next()) {
                 logger.info("User name already exists"+username);

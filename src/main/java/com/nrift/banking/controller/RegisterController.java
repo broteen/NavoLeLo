@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.CustomerDTO;
-import com.nrift.banking.utility.RegistrationService;
+import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.service.RegistrationService;
 
 /**
  * The Class RegisterController.

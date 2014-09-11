@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.DepositeService;
-import com.nrift.banking.utility.TransferAmountDTO;
+import com.nrift.banking.dto.TransferAmountDTO;
+import com.nrift.banking.service.DepositeService;
 
 /**
  * The Class DepositeController.

@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.DepositeConfirmService;
-import com.nrift.banking.utility.TransferAmountDTO;
-import com.nrift.banking.utility.UserDetails;
+import com.nrift.banking.dto.TransferAmountDTO;
+import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.service.DepositeConfirmService;
 
 /**
  * The Class DepositeConfirmController.
@@ -36,7 +36,7 @@ public class DepositeConfirmController extends HttpServlet {
         Connection con = (Connection) getServletContext().getAttribute("connection");
         DepositeConfirmService depositeConfirm = new DepositeConfirmService ();
         HttpSession session= request.getSession(false);
-        UserDetails user = (UserDetails)session.getAttribute("user"); 
+        UserDTO user = (UserDTO)session.getAttribute("user"); 
         TransferAmountDTO depositeAmountDetails = (TransferAmountDTO)session.getAttribute("depositeAmountDetails");
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositeSuccessReport.jsp");
 

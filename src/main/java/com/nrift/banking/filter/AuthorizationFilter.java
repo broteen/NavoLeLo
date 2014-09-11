@@ -16,9 +16,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.CustomException;
-import com.nrift.banking.utility.UserDetails;
-import com.nrift.banking.utility.UserValidationDAO;
+import com.nrift.banking.dao.UserValidationDAO;
+import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.exception.CustomException;
 
 
 /**
@@ -45,7 +45,7 @@ public class AuthorizationFilter implements Filter {
         logger.info("Requested Resource::"+uri);
 
         HttpSession session = req.getSession(false);
-        UserDetails checkUser = (UserDetails)session.getAttribute("user");
+        UserDTO checkUser = (UserDTO)session.getAttribute("user");
 
         if(uri.contains("userAdmin")){
             if(!checkUser.isAdmin()){

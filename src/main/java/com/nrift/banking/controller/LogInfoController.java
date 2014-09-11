@@ -16,9 +16,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.LogInfoService;
-import com.nrift.banking.utility.UserDetails;
-import com.nrift.banking.utility.UserValidationService;
+import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.service.LogInfoService;
+import com.nrift.banking.service.UserValidationService;
 
 /**
  * The Class LogInfoController.

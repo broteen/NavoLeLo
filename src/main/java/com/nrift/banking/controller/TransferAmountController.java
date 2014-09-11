@@ -16,10 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.TransferAmountService;
-import com.nrift.banking.utility.TransferAmountDTO;
-import com.nrift.banking.utility.TransferAuthorizationService;
-import com.nrift.banking.utility.UserDetails;
+import com.nrift.banking.dto.TransferAmountDTO;
+import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.service.TransferAmountService;
+import com.nrift.banking.service.TransferAuthorizationService;
 import com.nrift.banking.utility.UserInstantiation;
 /**
  * Servlet implementation class TransferAmountController
@@ -54,7 +54,7 @@ public class TransferAmountController extends HttpServlet {
         TransferAmountService transAmount = new TransferAmountService();
         HttpSession session= request.getSession(false);
         TransferAmountDTO transferAmountDetails = (TransferAmountDTO)session.getAttribute("transferAmountDetails"); 
-        UserDetails user = (UserDetails)session.getAttribute("user"); 
+        UserDTO user = (UserDTO)session.getAttribute("user"); 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferSystemConformation.jsp");
 
         try{

@@ -16,10 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.AccountDTO;
-import com.nrift.banking.utility.TransferAmountDTO;
-import com.nrift.banking.utility.TransferAuthorizationService;
-import com.nrift.banking.utility.UserDetails;
+import com.nrift.banking.dto.AccountDTO;
+import com.nrift.banking.dto.TransferAmountDTO;
+import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.service.TransferAuthorizationService;
 
 /**
  * Servlet implementation class TransactionAuthorisationController

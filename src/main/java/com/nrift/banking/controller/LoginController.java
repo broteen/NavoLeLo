@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.UserDetails;
-import com.nrift.banking.utility.UserValidationService;
+import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.service.UserValidationService;
 
 /**
  * The Class LoginController.
@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
             UserValidationService userValidation = new UserValidationService();
 
             try{
-                UserDetails user = userValidation.validate(con, username,password);
+                UserDTO user = userValidation.validate(con, username,password);
                 if (user != null) {
                     logger.info("User found with details=" + user);
                     HttpSession session = request.getSession();

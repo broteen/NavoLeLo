@@ -4,6 +4,7 @@
 package com.nrift.banking.errorhandler;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.controller.LoginController;
-import com.nrift.banking.utility.AppErrorDTO;
+import com.nrift.banking.dto.AppErrorDTO;
 
 /**
  * The Class AppErrorHandler.

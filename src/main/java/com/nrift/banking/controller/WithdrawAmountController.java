@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.WithdrawAmountDTO;
-import com.nrift.banking.utility.WithdrawAmountService;
+import com.nrift.banking.dto.WithdrawAmountDTO;
+import com.nrift.banking.service.WithdrawAmountService;
 
 /**
  * Servlet implementation class withdrawAmountController

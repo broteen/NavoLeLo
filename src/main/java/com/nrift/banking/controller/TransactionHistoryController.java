@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.utility.TransactionHistoryDTO;
-import com.nrift.banking.utility.TransactionHistoryService;
+import com.nrift.banking.dto.TransactionHistoryDTO;
+import com.nrift.banking.service.TransactionHistoryService;
 
 /**
  * The Class TransactionHistoryController.

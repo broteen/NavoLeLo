@@ -183,14 +183,19 @@ public class AccountDAO {
      * @return the int
      * @throws SQLException the SQL exception
      */
-    public int WithdrawAmount(long accountNo, long amount) throws SQLException {
+    public int WithdrawAmount(long accountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
         int updatedRows=0;
-        try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal");
+        if(recentUpdatedTime.equals(getUpdatedTime(accountNo))){
+            try {
+                updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal");
 
-        }finally{
+            }finally{
+            }
+            return updatedRows;
+        }else{
+            return 0;
         }
-        return updatedRows;
+
     }
 
     /**

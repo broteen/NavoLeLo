@@ -94,8 +94,8 @@ public class AccountService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount) throws SQLException {
-        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount)==0)
+    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
+        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime)==0)
             return false;
         else
             return true;

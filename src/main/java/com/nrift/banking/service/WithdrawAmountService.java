@@ -26,7 +26,7 @@ public class WithdrawAmountService {
         long amount=withdrawAmountDetails.getAmount();
 
         Timestamp updatedTime= accountManager.getUpdateTime(connection, withdrawAmountDetails.getAccountNo());
-        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount)){
+        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount,updatedTime)){
 
             if(transaction.insertRowForWithdrawAmount(connection,AccountNo,amount)!=0)
                 return true;		

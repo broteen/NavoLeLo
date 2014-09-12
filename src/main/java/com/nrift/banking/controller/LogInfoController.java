@@ -63,7 +63,7 @@ public class LogInfoController  extends HttpServlet {
 				boolean user=logInfo.validateUsername(con, username,password);
 			
 				logger.info("CustomerId is..."+customerID);
-				if (user==false) {
+				if (user) {
 					boolean insert=logInfo.insertUserIdInCustomer(con, customerID,username);
 					if(insert){
 					logger.info("Username registered");

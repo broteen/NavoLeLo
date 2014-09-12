@@ -30,7 +30,6 @@ public class TransferAmountService {
         long amount=transAmtDetails.getAmount();
 
         Timestamp updatedTime= accountManager.getUpdateTime(connection, transAmtDetails.getSenderAccountNo());
-        connection.setAutoCommit(false);
         if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,senderAccountNo,amount,updatedTime) && 
                 accountManager.IsAmountDeposited(connection,receiverAccountNo,amount)){
 

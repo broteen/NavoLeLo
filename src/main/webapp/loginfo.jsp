@@ -4,16 +4,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Log-in Information</title>
+<script type="text/javascript" src="js/loginfoValidation.js"></script>
 </head>
 <body>
+<div id="error"></div>
 	<center>
 		<b><font size="5" face="verdana" color="black">Log-in
 				information</font></b> <br> <br> <br> <br>
-		<form action="LogInfoController" method="post">
+		<form action="LogInfoController" method="post" onsubmit="return validate()">
 			<input type="text" name="customerId" value="${customerId}" style="display:none"></input>
 			<table border="1" width="20%" cellpadding="3">
 				<tr>
-					<td><b>User_Id* </b><input type="text" name="username"
+					<td><b>User_name* </b><input type="text" name="username"
 						size="40"></td>
 				</tr>
 				<tr>

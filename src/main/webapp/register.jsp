@@ -4,12 +4,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Registration Page</title>
+<script type="text/javascript" src="js/registerValidator.js"></script>
 </head>
 <body>
+<div id="error"></div>
 	<center>
 		<b><font size="6" face="verdana" color="black">Registration
 				Page</font></b> <br> <br>
-		<form action="RegisterController" method="post">
+		<form action="RegisterController" method="post" onsubmit="return validate()">
 
 
 			<br> <br>

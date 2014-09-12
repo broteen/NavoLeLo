@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 	${requestScope.message}
 	<form action="transferFund.jsp" method="post">
 		<input type="submit" value="OK" />

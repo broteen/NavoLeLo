@@ -73,14 +73,14 @@ public class WithdrawAmountController extends HttpServlet {
                 request.setAttribute("message", "Amount has been dispatched");
 
             rd.forward(request, response);
-        } catch(BankingException|ServletException| IOException e) {
+        } catch(BankingException e) {
             try {
                 con.rollback();
                 logger.error(" Exception Thrown="+e.getMessage());
             } catch(SQLException e1) {
                 logger.error("Rollback error="+e1.getMessage());
             }
-            request.setAttribute("errorMsg","Transaction is Not Successfull"); //There should be an error block on around the top of every jsp page
+            request.setAttribute("errorMsg",e.getMessage()); //There should be an error block on around the top of every jsp page
             request.getRequestDispatcher("withdrawAmt.jsp").forward(request,response);
         }
     }

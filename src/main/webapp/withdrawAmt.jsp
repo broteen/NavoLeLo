@@ -9,7 +9,7 @@
 <script type="text/javascript" src="js/withdrawFormValidator.js"></script>
 </head>
 <body>
-	<div id="error"></div>
+	<div id="error">${errorMsg}</div>
 	<h3>Fill in the account number and amount to proceed:</h3>
 	<form name="withdrawAmt" action="WithdrawalAuthorizationController"
 		method="post" onsubmit="return validate()">

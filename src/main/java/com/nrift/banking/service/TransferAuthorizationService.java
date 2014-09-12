@@ -25,7 +25,7 @@ public class TransferAuthorizationService {
      * @throws SQLException the SQL exception
      * @throws BankingException 
      */
-    public TransferAmountDTO validate(Connection connection,long senderAccount,long receiverAccount,long amount) throws SQLException, BankingException {
+    public TransferAmountDTO validate(Connection connection,long senderAccount,long receiverAccount,long amount) throws BankingException {
         AccountService acc=new AccountService();
         AccountDTO senderAccountDetails= acc.getAccountDetails(connection, senderAccount);
         AccountDTO receiverAccountDetails= acc.getAccountDetails(connection, receiverAccount);

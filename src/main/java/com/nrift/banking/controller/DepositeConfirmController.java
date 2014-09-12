@@ -50,14 +50,14 @@ public class DepositeConfirmController extends HttpServlet {
 			logger.info("Deposite is Successfull");
 			request.setAttribute("message", "Deposite is Successfull");
 			rd.forward(request, response);
-		}catch(BankingException|ServletException| IOException e) {
+		}catch(BankingException e) {
 			try {
 				con.rollback();
 				logger.error(" Exception Thrown =" + e.getMessage());
 			} catch(SQLException e1) {
 				logger.error("Rollback error" + e1.getMessage());
 			}
-			request.setAttribute("errorMsg", "Sorry!!! Deposite is Not Successfull");  //There should be an error block on around the top of every jsp page
+			request.setAttribute("errorMsg", e.getMessage());  //There should be an error block on around the top of every jsp page
 			request.getRequestDispatcher("confirmDeposit.jsp").forward(request,response);
 		}
 	}

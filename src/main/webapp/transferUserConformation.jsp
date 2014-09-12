@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 	<form action="TransferAmountController" method="post">
 		<table>
 			<tr>

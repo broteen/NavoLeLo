@@ -7,7 +7,7 @@
 <script type="text/javascript" src="js/loginfoValidation.js"></script>
 </head>
 <body>
-<div id="error"></div>
+<div id="error">${errorMsg}</div>
 	<center>
 		<b><font size="5" face="verdana" color="black">Log-in
 				information</font></b> <br> <br> <br> <br>

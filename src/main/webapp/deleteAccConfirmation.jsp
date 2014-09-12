@@ -8,6 +8,7 @@
 <title>Delete Successfully</title>
 </head>
 <body>
+	<div id="error">${errorMsg}</div>
 	<strong>Account Number  ${AccountClosed}  is  deleted successfully.
 	</strong>
 	<br />

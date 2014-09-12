@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.nrift.banking.dao.CustomerDAO;
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.utility.DBConnectionManager;
 
 public class CustomerDAOTest {
@@ -37,7 +38,7 @@ public class CustomerDAOTest {
         try {
             CustomerDTO customerDTO = customerDAO.getCustomerDetailsByCustomerId(1);
             assertEquals("Zeeshan Khan", customerDTO.getName());   
-        } catch (SQLException e) {
+        } catch (SQLException | BankingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -49,7 +50,7 @@ public class CustomerDAOTest {
         try {
             CustomerDTO customerDTO = customerDAO.getCustomerDetailsByUserId(5);
             assertEquals("kolkata", customerDTO.getAddress());   
-        } catch (SQLException e) {
+        } catch (SQLException | BankingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 
 
+
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
@@ -24,6 +25,7 @@ import com.nrift.banking.dao.AdminDAO;
 import com.nrift.banking.dao.CustomerDAO;
 import com.nrift.banking.dto.AdminDTO;
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.utility.DBConnectionManager;
 
 public class AdminDAOTest {
@@ -48,7 +50,7 @@ public class AdminDAOTest {
         try {
             AdminDTO adminDTO = AdminDAO.getAdminDetails(1);
             assertEquals("Rick Riordan", adminDTO.getName());   
-        } catch (SQLException e) {
+        } catch (SQLException | BankingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

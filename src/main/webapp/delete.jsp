@@ -9,6 +9,7 @@
 <script type="text/javascript" src="js/closeAccountValidator.js"></script>
 </head>
 <body>
+	<div id="error">${errorMsg}</div>
 	<h3>Enter account number to be deleted  </h3>
 	<form name="deleteAccountNumber" action="CloseAccountController"
 		method="post">

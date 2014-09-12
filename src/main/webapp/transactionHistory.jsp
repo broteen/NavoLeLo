@@ -12,7 +12,7 @@
 <link href="css\footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-
+<div id="error">${errorMsg}</div>
 		<div id="header" div class="topcorner">
 		
 		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="login.html">Logout</a></div>

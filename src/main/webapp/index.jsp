@@ -8,11 +8,6 @@
 <head>
 <meta charset="US-ASCII">
 <title>Home Page</title>
-<link href="css\header.css" rel="stylesheet" type="text/css"/>
-<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/>
-
 </head>
 <body>
 <div align="right">

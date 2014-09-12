@@ -95,14 +95,14 @@ public class CloseAccountController extends HttpServlet {
 					out.println("<font color=red>Transaction Failed due to authorization failure</font>");
 					rd.include(request, response);
 				 */
-			}catch(BankingException|ServletException| IOException e) {
+			}catch(BankingException e) {
 				try {
 					con.rollback();
 					logger.error(" Exception Thrown"+e.getMessage());
 				} catch(SQLException e1) {
 					logger.error("Rollback error=" + e1.getMessage());
 				}
-				request.setAttribute("errorMsg", "Account is not closed"); //There should be an error block on around the top of every jsp page
+				request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
 				request.getRequestDispatcher("delete.jsp").forward(request,response);
 			}
 		}

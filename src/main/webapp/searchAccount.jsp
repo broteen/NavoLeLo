@@ -13,6 +13,7 @@
 <link href="/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<<<<<<< Upstream, based on master
 	<div align="right" >
 <div id="header">
 		<form action="logout" method="post">
@@ -22,6 +23,9 @@
 
 	</div>
 <div align="center">
+=======
+<div id="error">${errorMsg}</div>
+>>>>>>> 743a215 commit
 		
 <div id="content">
 					<form method="post" action="searchAccountController" name="adminHome">

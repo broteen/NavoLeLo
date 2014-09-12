@@ -57,14 +57,14 @@ public class TransactionHistoryController extends HttpServlet {
 				//out.println("<font color=red>No user found with given email id, please register first.</font>");
 				rd.include(request, response);
 			 */
-		}catch(BankingException|ServletException|IOException e){
+		}catch(BankingException e){
 			try {
 				con.rollback();
 				logger.error(" Exception Thrown"+e.getMessage());
 			} catch(SQLException e1) {
 				logger.error("Rollback error=" + e1.getMessage());
 			}
-			request.setAttribute("errorMsg", "Transaction Histroy can't be fetched"); //There should be an error block on around the top of every jsp page
+			request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
 			request.getRequestDispatcher("searchAccount.jsp").forward(request,response);
 		}
 	}

@@ -28,87 +28,86 @@ import com.nrift.banking.service.TransferAuthorizationService;
 @WebServlet("/TransactionAuthorisationController")
 public class TransferAuthorizationController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    static Logger logger = Logger.getLogger(TransferAuthorizationController.class);
+	static Logger logger = Logger.getLogger(TransferAuthorizationController.class);
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TransferAuthorizationController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public TransferAuthorizationController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        long senderAccount = Long.parseLong(request.getParameter("senderAccountNumber"));
-        long receiverAccount = Long.parseLong(request.getParameter("receiverAccountNumber"));
-        long amount = Long.parseLong(request.getParameter("amount"));
-        String errorMsg = null;
-        if (senderAccount==0L) {
-            errorMsg = "Sender's Account Number can't be null or empty";
-        }
-        if (receiverAccount==0L) {
-            errorMsg = "Receiver's Account Number can't be null or empty";
-        }
-        if(senderAccount==receiverAccount){
-            errorMsg = "Sender's and Receiver's Account Number can't be same";
-        }
-        if(amount==0L){
-            errorMsg = "Amount can't be null or empty or zero";
-        }
+		long senderAccount = Long.parseLong(request.getParameter("senderAccountNumber"));
+		long receiverAccount = Long.parseLong(request.getParameter("receiverAccountNumber"));
+		long amount = Long.parseLong(request.getParameter("amount"));
+		String errorMsg = null;
+		if (senderAccount==0L) {
+			errorMsg = "Sender's Account Number can't be null or empty";
+		}
+		if (receiverAccount==0L) {
+			errorMsg = "Receiver's Account Number can't be null or empty";
+		}
+		if(senderAccount==receiverAccount){
+			errorMsg = "Sender's and Receiver's Account Number can't be same";
+		}
+		if(amount==0L){
+			errorMsg = "Amount can't be null or empty or zero";
+		}
 
-        if (errorMsg != null) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/transferFund.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>" + errorMsg + "</font>");
-            rd.include(request, response);
-        } else {
+		if (errorMsg != null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					"/transferFund.jsp");
+			PrintWriter out = response.getWriter();
+			out.println("<font color=red>" + errorMsg + "</font>");
+			rd.include(request, response);
+		} else {
 
-            Connection con = (Connection) getServletContext().getAttribute(
-                    "connection");
-            TransferAuthorizationService trancAuthorise = new TransferAuthorizationService();
+			Connection con = (Connection) getServletContext().getAttribute(
+					"connection");
+			TransferAuthorizationService trancAuthorise = new TransferAuthorizationService();
 
-            try{
-                TransferAmountDTO transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);
-                HttpSession session= request.getSession(false);
-                if (transferAmountDetails!=null) {
-                    logger.info("Transaction is Authorised");
-                    session.setAttribute("transferAmountDetails", transferAmountDetails);
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferUserConformation.jsp");
-                    rd.forward(request, response);
-                } else {
+			try{
+				TransferAmountDTO transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);
+				HttpSession session= request.getSession(false);
+				logger.info("Transaction is Authorised");
+				session.setAttribute("transferAmountDetails", transferAmountDetails);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferUserConformation.jsp");
+				rd.forward(request, response);
+				/*
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferFund.jsp");
                     PrintWriter out = response.getWriter();
                     logger.error("Transaction is Not Authorised");
                     out.println("<font color=red>Transaction Failed At Authorization</font>");
                     rd.include(request, response);
-                }
-            }catch(BankingException |ServletException| IOException e) {
-                try {
-                    con.rollback();
-                    logger.error(" Exception Thrown="+e.getMessage());
-                } catch(SQLException e1) {
-                    logger.error("Rollback error="+e1.getMessage());
-                }
-                request.setAttribute("errorMsg", "Transaction is not Authorised");    //There should be an error block on around the top of every jsp page
-                request.getRequestDispatcher("transferFund.jsp").forward(request,response);
-            }
-        }
+				 */
+			}catch(BankingException e) {
+				try {
+					con.rollback();
+					logger.error(" Exception Thrown="+e.getMessage());
+				} catch(SQLException e1) {
+					logger.error("Rollback error="+e1.getMessage());
+				}
+				request.setAttribute("errorMsg", e.getMessage());    //There should be an error block on around the top of every jsp page
+				request.getRequestDispatcher("transferFund.jsp").forward(request,response);
+			}
+		}
 
-    }
+	}
 
 }
 

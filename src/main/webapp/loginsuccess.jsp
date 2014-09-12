@@ -6,6 +6,7 @@
 <title>Log-in successful message</title>
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 	<center>
 		<b><font size="5" face="verdana" color="black">Registration
 				is Successful!!!</font></b> <br> <br> <br> Please log-in here <a

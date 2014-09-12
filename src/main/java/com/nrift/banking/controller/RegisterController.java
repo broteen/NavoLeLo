@@ -112,7 +112,7 @@ public class RegisterController extends HttpServlet {
                 }
                 logger.error(" Exception Thrown");
                 //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg", "Exception Occured!");
+                request.setAttribute("errorMsg",e.getMessage());
                 request.getRequestDispatcher("/register.jsp").forward(request,response);
             }
         }

@@ -6,6 +6,7 @@
 <title>Error Page</title>
 </head>
 <body bgcolor="#DCDCDC">
+<div id="error">${errorMsg}</div>
 	<br>
 	<br>
 	<br>

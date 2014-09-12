@@ -5,7 +5,8 @@
 <script type="text/javascript" src="js/loginValidator.js"></script>
 </head>
 <body>
-	<div id="error"></div>
+	<div id="error">${errorMsg}</div>
+	<div id="error">${errorMsg}</div>
 	<h3>Login with email and password</h3>
 	<form name="login" action="login" method="post"
 		onsubmit="return validate()">

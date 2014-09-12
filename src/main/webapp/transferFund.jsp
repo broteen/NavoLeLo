@@ -9,6 +9,7 @@
 <script type="text/javascript" src="js/loginValidator.js"></script>
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 	<div id="error"></div>
 	<h3>Enter Sender's and Receiver's account number and amount to be
 		sent</h3>

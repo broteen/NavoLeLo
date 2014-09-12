@@ -7,6 +7,7 @@
 <title>Transaction Confirmation</title>
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 	${requestScope.message}
 	<form action="withdrawAmt.jsp" method="post">
 		<input type="submit" value="OK" />

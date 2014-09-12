@@ -8,6 +8,7 @@
 <title>Withdrawal Confirmation</title>
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 	<h3>Please confirm the details to proceed with the transaction:</h3>
 	<form name="withdrawUserConfirmation" action="WithdrawAmountController"
 		method="post">

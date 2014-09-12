@@ -7,7 +7,7 @@
 <script type="text/javascript" src="js/registerValidator.js"></script>
 </head>
 <body>
-<div id="error"></div>
+<div id="error">${errorMsg}</div>
 	<center>
 		<b><font size="6" face="verdana" color="black">Registration
 				Page</font></b> <br> <br>

@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
 
         if (errorMsg != null) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/login.html");
+                    "/login.jsp");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>" + errorMsg + "</font>");
             rd.include(request, response);
@@ -76,14 +76,14 @@ public class LoginController extends HttpServlet {
                     out.println("<font color=red>No user found with given email id, please register first.</font>");
                     rd.include(request, response);
                     */
-                }catch(BankingException|ServletException| IOException e) {
+                }catch(BankingException e) {
                 try {
                     con.rollback();
                     logger.error(" Exception Thrown="+ e.getMessage());
                 } catch(SQLException e1) {
                     logger.error("Rollback error" +e1.getMessage());
                 }
-                request.setAttribute("errorMsg", "Cannot logged in!");  //There should be an error block on around the top of every jsp page
+                request.setAttribute("errorMsg",e.getMessage());  //There should be an error block on around the top of every jsp page
                 request.getRequestDispatcher("login.jsp").forward(request,response);
             }
         }

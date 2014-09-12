@@ -6,7 +6,7 @@
 <script type="text/javascript" src="js/loginValidator.js"></script>
 </head>
 <body>
-
+	<div id="error">${errorMsg}</div>
 	<div id="container" style="width: 500px"></div>
 
 	<div id="header">

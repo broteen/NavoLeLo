@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.dto.WithdrawAmountDTO;
 import com.nrift.banking.service.WithdrawAmountService;
+import com.nrift.banking.utility.UserInstantiation;
 
 /**
  * Servlet implementation class withdrawAmountController
@@ -66,6 +67,8 @@ public class WithdrawAmountController extends HttpServlet {
         try {
             if (withdrawAmount
                     .IsWithdrawSuccessfull(con, withdrawAmountDetails, user.getUserId())) {
+            	user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
+                session.setAttribute("user", user);
                 session.removeAttribute("transferAmountDetails");
                 logger.info("Withdraw Successfull");
                 request.setAttribute("message", "Amount has been dispatched");

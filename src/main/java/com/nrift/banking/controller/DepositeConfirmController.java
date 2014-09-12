@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.service.DepositeConfirmService;
+import com.nrift.banking.utility.UserInstantiation;
 
 /**
  * The Class DepositeConfirmController.
@@ -44,6 +45,8 @@ public class DepositeConfirmController extends HttpServlet {
 
             if (depositeConfirm.IsDeposited(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount(),user.getUserId())) {
                 {
+                	user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
+                    session.setAttribute("user", user);
                     logger.info("Deposite is Successfull");
                     request.setAttribute("message", "Deposite is Successfull");
                 }

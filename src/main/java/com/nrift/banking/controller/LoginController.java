@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
                     if(!user.isAdmin())
                     	response.sendRedirect("index.jsp");
                     else
-                    	response.sendRedirect("searchAccount.jsp");
+                    	response.sendRedirect("index.jsp");
                 } else {
                     RequestDispatcher rd = getServletContext()
                             .getRequestDispatcher("/login.html");

@@ -7,32 +7,22 @@
 <html>
 <head>
 <meta charset="US-ASCII">
-<title>Home Page</title>
+<link href="/header.css" rel="stylesheet" type="text/css"/>
+<link href="/content.css" rel="stylesheet" type="text/css"/>
+<link href="/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
-	<div id="options" div class="topcorner">
+	<div align="right">
+	<div id="header" div class="topcorner">
 
 		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-			href="login.html">Logout</a>
+			href="login.jsp">Logout</a>
 	</div>
 
-
-	<div id="navbar">
-
-
-		<ul id=a>
-			<li><a href="index.jsp">Home</a></li>
-			<li><a href="">Transactions</a>
-				<ul id=b>
-					<li><a href="transferFund.jsp">Transfer</a></li>
-					<li><a href="Withdraw.jsp">Withdraw</a></li>
-					<li><a href="Deposit.jsp">Deposit</a></li>
-					<li><a href="searchAccount.jsp">Deposit</a></li>
-				</ul></li>
-			<li><a href="Update_details.jsp">Update details</a></li>
-
-		</ul>
+</div>
+	
+		<div align="center">
 <div id="content">
 
 		<table border="1" width="30%" cellpadding="5">
@@ -58,13 +48,13 @@
 			</c:forEach>
 		</table>
 		
-
+</div>
 		
-
-		<table id="footer">
+</div>
+		<div id="footer">
 			<tr>
 				<td>&copy; Copyright : All Right reserved to NRI FinTech</td>
 			</tr>
-		</table>
+		</div>
 </body>
 </html>

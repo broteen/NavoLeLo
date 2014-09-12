@@ -8,13 +8,23 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!--  <script type="text/javascript" src="js/searchValidator.js"></script> -->
-
+<link href="/header.css" rel="stylesheet" type="text/css"/>
+<link href="/content.css" rel="stylesheet" type="text/css"/>
+<link href="/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+	<div align="right" >
+<div id="header">
+		<form action="logout" method="post">
+		Hi,&nbsp;${user.userName}&nbsp;&nbsp;<input type="submit" value="Logout" >
+		</form>
+	</div>
 
+	</div>
+<div align="center">
 		
-
-					<form method="post" action="searchAccountController" name="searchAccount">
+<div id="content">
+					<form method="post" action="searchAccountController" name="adminHome">
 						<strong>Customer Name</strong>:<input type="text" name="customerName"/><br/>
 						<strong>Customer ID</strong>:<input type="text" name="customerId" /><br/>
 						<strong>Account No</strong>:<input type="text" name="accountNo" /><br/>
@@ -22,7 +32,15 @@
 								
 					<input type="submit" value="Search"/> 
 		          	</form>
-				
+				</div>
+</div>
+		<div id="footer">
+		<table>
+			<tr>
+				<td>&copy; Copyright : All Right reserved to NRI FinTech</td>
+			</tr>
+		</table>
+		</div>
 </body>
 </html>
  

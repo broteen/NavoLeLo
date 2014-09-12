@@ -1,13 +1,17 @@
-#navbar
-{
-display: block;
-border: 1px solid;
+#navbar{
+padding:30px;
+ display: block; width: auto; height:100px;
+
+}li  {
+    float: left;
+    list-style-type: none;
+   
 }
 #navbar  a {
     display: block;
     text-decoration: none;
  
-     height: 20px;
+      height: 30px;
     width: 400px;
     }
  

@@ -1,9 +1,5 @@
- #header { padding: 20px 1000px; 
+ #header {  padding:auto;
 }
 
 
- li  {
-    float: left;
-    list-style-type: none;
-   
-}
+ 

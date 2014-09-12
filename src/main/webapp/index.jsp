@@ -13,10 +13,8 @@
 
 	<div id="options" div class="topcorner">
 
-		<form action="logout" method="post">
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="submit" value="Logout" >
-		</form>
+		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;<a
+			href="login.jsp">Logout</a>
 	</div>
 
 
@@ -28,18 +26,15 @@
 			<li><a href="">Transactions</a>
 				<ul id=b>
 					<li><a href="transferFund.jsp">Transfer</a></li>
-					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
-					<li><a href="deposite.jsp">Deposit</a></li>
-					<li><a href="searchAccount.jsp">search result</a></li>
-					<li><a href="delete.jsp">Delete Account</a></li>
+					<li><a href="Withdraw.jsp">Withdraw</a></li>
+					<li><a href="Deposit.jsp">Deposit</a></li>
 				</ul></li>
 			<li><a href="Update_details.jsp">Update details</a></li>
-
+			<li><a href="accountDetails.jsp">account details</a></li>
+			<li><a href="searchAccount.jsp">search account</a></li>
+            <li><a href="searchResult.jsp">search result</a></li>
 		</ul>
-		<strong>Customer Name is</strong>: ${user.customerDetails.name}<br />
 
-		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
-		
 		<table border="1" width="30%" cellpadding="5">
 			<th>Account No</th>
 			<th>Balance</th>
@@ -53,7 +48,9 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
 
+		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
 
 		<table id="footer">
 			<tr>

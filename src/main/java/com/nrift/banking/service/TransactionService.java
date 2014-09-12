@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.nrift.banking.dao.TransactionDAO;
+import com.nrift.banking.exception.BankingException;
+import com.nrift.banking.exception.OptimisticLockException;
 
 
 /**
@@ -21,8 +23,12 @@ public class TransactionService {
      * @return the int
      * @throws SQLException the SQL exception
      */
-    public int insertRowForTransferAmount(Connection connection,long senderAccountNo,long receiverAccountNo,long amount ) throws SQLException {
-        return new TransactionDAO(connection).insertRowForTransferAmount(senderAccountNo,receiverAccountNo,amount);
+    public void insertRowForTransferAmount(Connection connection,long senderAccountNo,long receiverAccountNo,long amount ) throws BankingException{
+    	try{
+        new TransactionDAO(connection).insertRowForTransferAmount(senderAccountNo,receiverAccountNo,amount);
+    	}catch(SQLException | OptimisticLockException e){
+    		throw new BankingException(e);
+    	}
     }
 
     /**

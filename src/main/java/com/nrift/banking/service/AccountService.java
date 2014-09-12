@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 
 import com.nrift.banking.dao.AccountDAO;
 import com.nrift.banking.dto.AccountDTO;
+import com.nrift.banking.exception.BankingException;
+import com.nrift.banking.exception.OptimisticLockException;
 
 /**
  * The Class AccountService.
@@ -64,9 +66,14 @@ public class AccountService {
      * @param accountNo the account no
      * @return the update time
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public Timestamp getUpdateTime(Connection connection,long accountNo) throws SQLException{
+    public Timestamp getUpdateTime(Connection connection,long accountNo) throws BankingException{
+    	try{
         return new AccountDAO(connection).getUpdatedTime(accountNo);
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
     }
 
     /**
@@ -98,12 +105,15 @@ public class AccountService {
      * @param userID the user id
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
-        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime)==0)
-            return false;
-        else
-            return true;
+    public void withdrawAmount(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime) throws BankingException {
+    	try{
+    	new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime);
+    	}catch(SQLException | OptimisticLockException e){
+    		throw new BankingException(e);
+    	}
+        
     }
 
     /**
@@ -115,11 +125,12 @@ public class AccountService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
-        if (new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount,recentUpdatedTime)==0)
-            return false;
-        else
-            return true;
+    public void depositAmount(Connection connection,long receiverAccountNo, long amount, Timestamp recentUpdatedTime) throws BankingException {
+    	try{
+        new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount,recentUpdatedTime);
+    	}catch(SQLException | OptimisticLockException e){
+    		throw new BankingException(e);
+    	}
     }
 
     /**
@@ -130,13 +141,14 @@ public class AccountService {
      * @param userId the user id
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws OptimisticLockException 
      */
-    public boolean setUpdatedByandUpdatedTime(Connection connection, long accountNo,long userId) throws SQLException{
-        if (new AccountDAO(connection).setUpdatedByandUpdatedTime(accountNo,userId)==0)
-            return false;
-        else
-            return true;
-
+    public void setUpdatedByandUpdatedTime(Connection connection, long accountNo,long userId) throws BankingException{
+    	try{
+        new AccountDAO(connection).setUpdatedByandUpdatedTime(accountNo,userId);
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
     }
     public boolean IsAccountClosed(Connection connection, long accountNo) throws SQLException {
 		if (new AccountDAO(connection).CloseAccount(accountNo) == 0)

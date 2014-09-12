@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransactionService;
 
 /**
@@ -22,22 +23,20 @@ public class DepositeConfirmService {
      * @param userId the user id
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public boolean IsDeposited(Connection connection,long receiverAccountNo, long amount, long userId) throws SQLException{
+    public void makeDeposit(Connection connection,long receiverAccountNo, long amount, long userId) throws BankingException{
+    	try{
         AccountService accountManager= new AccountService();
         TransactionService transaction= new TransactionService();
         Timestamp updatedTime= accountManager.getUpdateTime(connection, receiverAccountNo);
-        if(updatedTime!=null && accountManager.IsAmountDeposited(connection,receiverAccountNo,amount,updatedTime)){
-            if(transaction.insertRowForDepositeAmount(connection,receiverAccountNo,amount)!=0){
-
-                if(accountManager.setUpdatedByandUpdatedTime(connection,receiverAccountNo, userId)){
-                    connection.commit();
-                    return true;
-                }
-            }
-        }
-        connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
-        return false;
+        accountManager.depositAmount(connection,receiverAccountNo,amount,updatedTime);
+        transaction.insertRowForDepositeAmount(connection,receiverAccountNo,amount);
+        accountManager.setUpdatedByandUpdatedTime(connection,receiverAccountNo, userId);
+        connection.commit();
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}    
     }	
 }
 

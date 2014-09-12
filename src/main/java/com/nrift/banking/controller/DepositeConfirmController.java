@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.DepositeConfirmService;
 import com.nrift.banking.utility.UserInstantiation;
 
@@ -25,49 +26,40 @@ import com.nrift.banking.utility.UserInstantiation;
  */
 @WebServlet(name = "DepositeConfirm", urlPatterns = { "/DepositeConfirmController" })
 public class DepositeConfirmController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    static Logger logger = Logger.getLogger(DepositeConfirmController.class);
+	static Logger logger = Logger.getLogger(DepositeConfirmController.class);
 
-    /**
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Inside Deposite Controller Class");
-        Connection con = (Connection) getServletContext().getAttribute("connection");
-        DepositeConfirmService depositeConfirm = new DepositeConfirmService ();
-        HttpSession session= request.getSession(false);
-        UserDTO user = (UserDTO)session.getAttribute("user"); 
-        TransferAmountDTO depositeAmountDetails = (TransferAmountDTO)session.getAttribute("depositeAmountDetails");
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositeSuccessReport.jsp");
+	/**
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Inside Deposite Controller Class");
+		Connection con = (Connection) getServletContext().getAttribute("connection");
+		DepositeConfirmService depositeConfirm = new DepositeConfirmService ();
+		HttpSession session= request.getSession(false);
+		UserDTO user = (UserDTO)session.getAttribute("user"); 
+		TransferAmountDTO depositeAmountDetails = (TransferAmountDTO)session.getAttribute("depositeAmountDetails");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositeSuccessReport.jsp");
 
-        try{
+		try{
 
-            if (depositeConfirm.IsDeposited(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount(),user.getUserId())) {
-                {
-                	user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
-                    session.setAttribute("user", user);
-                    logger.info("Deposite is Successfull");
-                    request.setAttribute("message", "Deposite is Successfull");
-                }
-
-            } else {
-                con.rollback();
-                logger.error("Deposite is Not Successfull...Rollling Back");
-                request.setAttribute("message", "Sorry!!! Deposite is Not Successfull");
-            }
-            rd.forward(request, response);
-        }catch(SQLException |ServletException| IOException e) {
-            try {
-                con.rollback();
-            } catch(SQLException e1) {
-                logger.error("Rollback error");
-            }
-            logger.error(" Exception Thrown");
-            //There should be an error block on around the top of every jsp page
-            request.setAttribute("errorMsg", "Exception Occured!");
-            request.getRequestDispatcher("confirmDeposit.jsp").forward(request,response);
-        }
-    }
+			depositeConfirm.makeDeposit(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount(),user.getUserId());
+			user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
+			session.setAttribute("user", user);
+			logger.info("Deposite is Successfull");
+			request.setAttribute("message", "Deposite is Successfull");
+			rd.forward(request, response);
+		}catch(BankingException|SQLException |ServletException| IOException e) {
+			try {
+				con.rollback();
+				logger.error(" Exception Thrown =" + e.getMessage());
+			} catch(SQLException e1) {
+				logger.error("Rollback error");
+			}
+			request.setAttribute("errorMsg", "Sorry!!! Deposite is Not Successfull");  //There should be an error block on around the top of every jsp page
+			request.getRequestDispatcher("confirmDeposit.jsp").forward(request,response);
+		}
+	}
 
 }

@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.dto.WithdrawAmountDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.WithdrawAmountService;
 import com.nrift.banking.utility.UserInstantiation;
 
@@ -54,8 +55,7 @@ public class WithdrawAmountController extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
-        Connection con = (Connection) getServletContext().getAttribute(
-                "connection");
+        Connection con = (Connection) getServletContext().getAttribute("connection");
         WithdrawAmountService withdrawAmount = new WithdrawAmountService();
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO)session.getAttribute("user");
@@ -65,29 +65,22 @@ public class WithdrawAmountController extends HttpServlet {
                 "/withdrawSystemConfirmation.jsp");
 
         try {
-            if (withdrawAmount
-                    .IsWithdrawSuccessfull(con, withdrawAmountDetails, user.getUserId())) {
+        	withdrawAmount.makeWithdraw(con, withdrawAmountDetails, user.getUserId()); 
             	user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
                 session.setAttribute("user", user);
                 session.removeAttribute("transferAmountDetails");
                 logger.info("Withdraw Successfull");
                 request.setAttribute("message", "Amount has been dispatched");
 
-            } else {
-                logger.error("Withdraw Unsuccessfull");
-                request.setAttribute("message",
-                        "Transaction is Not Successfull");
-            }
             rd.forward(request, response);
-        } catch(SQLException |ServletException| IOException e) {
+        } catch(BankingException|SQLException |ServletException| IOException e) {
             try {
                 con.rollback();
+                logger.error(" Exception Thrown="+e.getMessage());
             } catch(SQLException e1) {
-                logger.error("Rollback error");
+                logger.error("Rollback error="+e1.getMessage());
             }
-            logger.error(" Exception Thrown");
-            //There should be an error block on around the top of every jsp page
-            request.setAttribute("errorMsg", "Exception Occured!");
+            request.setAttribute("errorMsg","Transaction is Not Successfull"); //There should be an error block on around the top of every jsp page
             request.getRequestDispatcher("withdrawAmt.jsp").forward(request,response);
         }
     }

@@ -7,10 +7,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.AccountDTO;
+import com.nrift.banking.exception.BankingException;
+import com.nrift.banking.exception.OptimisticLockException;
 import com.nrift.banking.utility.DBHelper;
 
 /**
@@ -159,20 +160,21 @@ public class AccountDAO {
      * @param accountNo the account no
      * @return the updated time
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public Timestamp getUpdatedTime(long accountNo) throws SQLException {
-        Timestamp timestamp=null;
+    public Timestamp getUpdatedTime(long accountNo) throws SQLException, BankingException {
         ResultSet rs = null;
         try {
 
             rs = DBHelper.getResultSetFromSQL(connection,UPDATED_TIME_QUERY_STRING, accountNo,"normal");
             if(rs !=null && rs.next())
-                timestamp=rs.getTimestamp("UPDATED_TIME");
+                return rs.getTimestamp("UPDATED_TIME");
+            else
+            	throw new BankingException("Updated Time is NULL");
         }
         finally{
             DBHelper.closeResultSet(rs);
         }
-        return timestamp;
     }
 
     /**
@@ -184,15 +186,15 @@ public class AccountDAO {
      * @param userID the user id
      * @return the value returned after the query execution
      * @throws SQLException the SQL exception
+     * @throws OptimisticLockException 
      */
-    public int WithdrawAmount(long accountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
-        int updatedRows=0;
+    public void WithdrawAmount(long accountNo, long amount, Timestamp recentUpdatedTime) throws SQLException, OptimisticLockException {
             try {
-                updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal",recentUpdatedTime);
-
+                int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal",recentUpdatedTime);
+                if(updatedRows==0)
+                	throw new OptimisticLockException("Error in Withdrawing");
             }finally{
             }
-            return updatedRows;
     }
 
     /**
@@ -219,14 +221,13 @@ public class AccountDAO {
      * @return the int
      * @throws SQLException the SQL exception
      */
-    public int DepositeAmount(long accountNo, long amount,Timestamp recentUpdatedTime) throws SQLException{
-        int updatedRows=0;
-        try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, DEPOSITE_QUERY_STRING, amount,accountNo,"normal",recentUpdatedTime);
-
+    public void DepositeAmount(long accountNo, long amount,Timestamp recentUpdatedTime) throws SQLException,OptimisticLockException{
+    	try {
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, DEPOSITE_QUERY_STRING, amount,accountNo,"normal",recentUpdatedTime);
+            if(updatedRows==0)
+            	throw new OptimisticLockException("Error in Depositing");
         }finally{
         }
-        return updatedRows;
     }
 
     /**
@@ -234,17 +235,16 @@ public class AccountDAO {
      *
      * @param accountNo the account no
      * @param userId the user id
-     * @return the int
      * @throws SQLException the SQL exception
+     * @throws OptimisticLockException 
      */
-    public int setUpdatedByandUpdatedTime(long accountNo,long userId) throws SQLException{
-        int updatedRows=0;
+    public void setUpdatedByandUpdatedTime(long accountNo,long userId) throws SQLException, OptimisticLockException{
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, UPDATED_BY_AND_TIME_QUERY_STRING, userId,new Timestamp(new java.util.Date().getTime()),accountNo,"normal");
-
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, UPDATED_BY_AND_TIME_QUERY_STRING, userId,new Timestamp(new java.util.Date().getTime()),accountNo,"normal");
+            if(updatedRows==0)
+            	throw new OptimisticLockException("Error in Depositing");
         }finally{
         }
-        return updatedRows;
-    }
     
+    }
 }

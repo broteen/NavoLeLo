@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+import com.nrift.banking.exception.OptimisticLockException;
 import com.nrift.banking.utility.DBHelper;
 import com.nrift.banking.utility.TransactionRefGenerator;
 
@@ -56,17 +57,18 @@ public class TransactionDAO {
      * @param amount the amount
      * @return the int
      * @throws SQLException the SQL exception
+     * @throws OptimisticLockException 
      */
-    public int insertRowForTransferAmount(long senderAccountNo,long receiverAccountNo, long amount) throws SQLException {
+    public void insertRowForTransferAmount(long senderAccountNo,long receiverAccountNo, long amount) throws SQLException, OptimisticLockException {
 
-        int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_TRANSFER_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),receiverAccountNo,
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_TRANSFER_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),receiverAccountNo,
                     senderAccountNo,amount,TransactionRefGenerator.getInstance().getCounter());
+            if(updatedRows==0)
+            	throw new OptimisticLockException("Error in inserting rows in transaction table");
 
         }finally{
         }
-        return updatedRows;
     }
 
     /**

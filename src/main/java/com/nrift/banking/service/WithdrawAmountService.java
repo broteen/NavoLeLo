@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import com.nrift.banking.dto.WithdrawAmountDTO;
+import com.nrift.banking.exception.BankingException;
 
 /**
  * The Class WithdrawAmountService.
@@ -21,25 +22,22 @@ public class WithdrawAmountService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsWithdrawSuccessfull(Connection connection,WithdrawAmountDTO withdrawAmountDetails,long userId) throws SQLException{
-        AccountService accountManager= new AccountService();
+    public void makeWithdraw(Connection connection,WithdrawAmountDTO withdrawAmountDetails,long userId) throws BankingException{
+        try{
+    	AccountService accountManager= new AccountService();
         TransactionService transaction= new TransactionService();
         long AccountNo=withdrawAmountDetails.getAccountNo();
         long amount=withdrawAmountDetails.getAmount();
 
         Timestamp updatedTime= accountManager.getUpdateTime(connection, withdrawAmountDetails.getAccountNo());
-        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount,updatedTime)){
-
-            if(transaction.insertRowForWithdrawAmount(connection,AccountNo,amount)!=0){
-            	if(accountManager.setUpdatedByandUpdatedTime(connection, withdrawAmountDetails.getAccountNo(),userId)){
-                    connection.commit();
-                    return true;
-                }
-            }
-                		
-        }
-        connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
-        return false;
+        accountManager.withdrawAmount(connection,AccountNo,amount,updatedTime);
+        transaction.insertRowForWithdrawAmount(connection,AccountNo,amount);
+        accountManager.setUpdatedByandUpdatedTime(connection, withdrawAmountDetails.getAccountNo(),userId);
+        connection.commit();
+        }catch(SQLException e){
+    		throw new BankingException(e);
+    	} 
+                
     }
 
 }

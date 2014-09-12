@@ -27,21 +27,16 @@ public class DepositeConfirmService {
         AccountService accountManager= new AccountService();
         TransactionService transaction= new TransactionService();
         Timestamp updatedTime= accountManager.getUpdateTime(connection, receiverAccountNo);
-        if(updatedTime!=null && accountManager.IsAmountDeposited(connection,receiverAccountNo,amount)){
-            if(transaction.insertRowForDepositeAmount(connection,receiverAccountNo,amount)!=0 && 
-                    updatedTime.equals(accountManager.getUpdateTime(connection, receiverAccountNo))){
+        if(updatedTime!=null && accountManager.IsAmountDeposited(connection,receiverAccountNo,amount,updatedTime)){
+            if(transaction.insertRowForDepositeAmount(connection,receiverAccountNo,amount)!=0){
 
                 if(accountManager.setUpdatedByandUpdatedTime(connection,receiverAccountNo, userId)){
                     connection.commit();
-                    connection.setAutoCommit(true);
                     return true;
                 }
             }
-        }else{
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
         }
+        connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
         return false;
     }	
 }

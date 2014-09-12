@@ -106,10 +106,11 @@ public class CustomerDAO {
             rs = DBHelper.getResultSetFromSQL(connection, CHECK_USER_ID_QUERY_STRING, customerId);
             if (rs != null && rs.next()) 
             {
-                String userId = rs.getString("USER_ID");
-                if(userId==null)
+               long userId = rs.getLong("USER_ID");
+                if(userId==0){
                     logger.info("new customer please go to log info page");
                 result=true;
+                }
             }
         }finally{
             DBHelper.closeResultSet(rs);       

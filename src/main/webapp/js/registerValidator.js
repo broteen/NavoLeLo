@@ -17,7 +17,7 @@ function validate(){
 		return false;
 	}
 	if(accountNumber.length > 10){
-		document.getElementById('error').innerHTML="Account Number is too long. Account Number should be of 10 characters";
+		document.getElementById('error').innerHTML="Account Number is too long. ";
 		return false;
 	}
 	if(contactNum.length > 10){

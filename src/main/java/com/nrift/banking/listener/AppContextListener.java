@@ -46,7 +46,9 @@ public class AppContextListener implements ServletContextListener {
 
         try {
             DBConnectionManager dbConnectionManager = new DBConnectionManager(dburl, dbusername, dbpassword);
-            servletContext.setAttribute("connection", dbConnectionManager.getConnection());
+            Connection connection= dbConnectionManager.getConnection();
+            connection.setAutoCommit(false);
+            servletContext.setAttribute("connection",connection);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

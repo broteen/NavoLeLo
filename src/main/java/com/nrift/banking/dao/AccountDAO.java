@@ -72,14 +72,14 @@ public class AccountDAO {
      * @param customerId the customer id
      * @return the all account details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public List<AccountDTO> getAllAccountDetails(long customerId) throws SQLException{
-
-        List<AccountDTO> list = new ArrayList<AccountDTO>();
-        ResultSet rs = null;
+    public List<AccountDTO> getAllAccountDetails(long customerId) throws SQLException, BankingException{
+    	ResultSet rs = null;
         try {
             rs = DBHelper.getResultSetFromSQL(connection, ALL_ACCOUNT_QUERY_STRING, customerId,"normal");
             if(rs != null) {
+            	List<AccountDTO> list = new ArrayList<AccountDTO>();
                 while(rs.next()) {
                     AccountDTO validAccount = new AccountDTO(
                             rs.getLong("ACCOUNT_NUMBER"),
@@ -89,12 +89,14 @@ public class AccountDAO {
                     logger.info("Customer found with details=" + validAccount);
                     list.add(validAccount);
                 }
+                if(!list.isEmpty())
+                	return list;  	
             }
-        } finally {
+            throw new BankingException("All Account Details are Empty");
+            
+        }finally {
             DBHelper.closeResultSet(rs);
         }
-        return list;
-
     }
 
 
@@ -105,27 +107,24 @@ public class AccountDAO {
      * @param accountNo the account no
      * @return the account details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public AccountDTO getAccountDetails(long accountNo ) throws SQLException {
-
-        AccountDTO accountDetails = null;
-        ResultSet rs = null;
+    public AccountDTO getAccountDetails(long accountNo ) throws SQLException, BankingException {
+    	ResultSet rs = null;
         try {
-
-
-            rs = DBHelper.getResultSetFromSQL(connection, ACCOUNT_QUERY_STRING, accountNo,"normal");
-            if(rs !=null && rs.next())
-            {
-                accountDetails = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
-                logger.info("Customer found with details="+accountDetails);
-            }
-            return accountDetails;
+        	rs = DBHelper.getResultSetFromSQL(connection, ACCOUNT_QUERY_STRING, accountNo,"normal");
+        	if(rs !=null && rs.next())
+        	{
+        		AccountDTO accountDetails = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));
+        		logger.info("Customer found with details="+accountDetails);
+        		return accountDetails;
+        	}
+        	throw new BankingException("Account Details is Empty");
         }finally{
-            DBHelper.closeResultSet(rs);
+        	DBHelper.closeResultSet(rs);
         }
 
     }
-
 
     /**
      * Gets the customer id.
@@ -133,25 +132,24 @@ public class AccountDAO {
      * @param accountNumber the account number
      * @return the customer id
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public long getCustomerId(long accountNumber) throws SQLException
-    {
-        long customerID=0L; 
+    public long getCustomerId(long accountNumber) throws SQLException{     //Couldn't understand this method kindly change it.
         ResultSet rs = null;
-
+        long customerId=0L;
         try {
             rs=DBHelper.getResultSetFromSQL(connection, CUSTOMER_QUERY_STRING, accountNumber);
             if(rs !=null && rs.next()){
-                customerID=rs.getLong("CUSTOMER_ID");
+            	customerId=rs.getLong("CUSTOMER_ID");
                 String status=rs.getString("STATUS");
                 if(status.equals("cancel")){
-                    customerID=0L;
+                    customerId=0L;
                 }
             }
         }finally{
             DBHelper.closeResultSet(rs);
         }
-        return customerID;
+        return customerId;
     }
 
     /**
@@ -203,14 +201,15 @@ public class AccountDAO {
      * @param accountNo the account no
      * @return the int
      * @throws SQLException the SQL exception
+     * @throws  
      */
-    public int CloseAccount(long accountNo)throws SQLException {
-        int updatedRows=0;
+    public void CloseAccount(long accountNo)throws SQLException,BankingException{
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, CLOSE_ACCOUNT_QUERY_STRING,"cancel",accountNo);
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, CLOSE_ACCOUNT_QUERY_STRING,"cancel",accountNo);
+            if(updatedRows==0)
+            	throw new BankingException("Error in Withdrawing");
         }finally{
         }
-        return updatedRows;
     }
 
     /**

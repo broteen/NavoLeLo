@@ -1,17 +1,15 @@
 package com.nrift.banking.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
-
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.TransactionHistoryDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.utility.DBHelper;
 
 /**
@@ -44,25 +42,26 @@ public class TransactionHistoryDAO {
      * @param accountNo the account no
      * @return the transaction history details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public List<TransactionHistoryDTO> getTransactionHistoryDetails(long accountNo) throws SQLException{
-
-        List<TransactionHistoryDTO> list= null;
+    public List<TransactionHistoryDTO> getTransactionHistoryDetails(long accountNo) throws SQLException, BankingException{
         ResultSet rs = null;
         try {
             rs = DBHelper.getResultSetFromSQL(connection, TRANSACTION_HISTORY_QUERY_STRING,accountNo,accountNo);
             if(rs !=null){
-                list= new ArrayList<TransactionHistoryDTO>();
+            	List<TransactionHistoryDTO> list= new ArrayList<TransactionHistoryDTO>();
                 while (rs.next()){
                     TransactionHistoryDTO transaction = new TransactionHistoryDTO(rs.getLong("TRANSACTION_REF"),rs.getTimestamp("TRANSACTION_TIME"),rs.getLong("CR_ACCNUM"), rs.getLong("DR_ACCNUM"), rs.getLong("AMOUNT"));
                     logger.info("Transaction is shown="+transaction);
                     list.add(transaction);
                 }
+                if(!list.isEmpty())
+                	return list; 
             }
+            throw new BankingException("Transaction History Details are Empty");
         }finally{
             DBHelper.closeResultSet(rs);
         }
-        return list;
     }
 
 }

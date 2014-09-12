@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.utility.DBHelper;
 
 // TODO: Auto-generated Javadoc
@@ -49,22 +50,23 @@ public class CustomerDAO {
      * @param userId the user id
      * @return the customer details by user id
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public CustomerDTO getCustomerDetailsByUserId(long userId) throws SQLException {
+    public CustomerDTO getCustomerDetailsByUserId(long userId) throws SQLException, BankingException {
 
-        CustomerDTO customerDetails=null;
         ResultSet rs = null;
         try {
             rs = DBHelper.getResultSetFromSQL(connection, CUSTOMER_BY_USER_ID_QUERY_STRING, userId);
             if (rs != null && rs.next()) 
             {
-                customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
+            	 CustomerDTO customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
                 logger.info("Customer found with details="+customerDetails);
-            }
+                return customerDetails;
+        	}
+        	throw new BankingException("Customer Details is Empty");
         }finally{
-            DBHelper.closeResultSet(rs);  
+        	DBHelper.closeResultSet(rs);
         }
-        return customerDetails;
     }
 
     /**
@@ -73,8 +75,9 @@ public class CustomerDAO {
      * @param customerId the customer id
      * @return the customer details by customer id
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public CustomerDTO getCustomerDetailsByCustomerId(long customerId) throws SQLException {
+    public CustomerDTO getCustomerDetailsByCustomerId(long customerId) throws SQLException, BankingException {
 
         CustomerDTO customerDetails=null;
         ResultSet rs = null;
@@ -84,11 +87,12 @@ public class CustomerDAO {
             {
                 customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
                 logger.info("Customer found with details="+customerDetails);
-            }
+                return customerDetails;
+        	}
+        	throw new BankingException("Customer Details is Empty");
         }finally{
-            DBHelper.closeResultSet(rs);  
+        	DBHelper.closeResultSet(rs);
         }
-        return customerDetails;
 
     }
 
@@ -96,10 +100,11 @@ public class CustomerDAO {
      * Check user id.
      *
      * @param customerId the customer id
+     * @return 
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean checkUserId(long customerId) throws SQLException {
+    public boolean checkUserId(long customerId) throws SQLException {        //Couldn't understand this method kindly change it.
         boolean result=false;
         ResultSet rs = null;
         try {

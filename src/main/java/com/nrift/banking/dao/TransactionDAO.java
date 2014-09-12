@@ -1,18 +1,8 @@
 
 package com.nrift.banking.dao;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-
-import javax.servlet.ServletException;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-
-import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
@@ -65,7 +55,7 @@ public class TransactionDAO {
             int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_TRANSFER_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),receiverAccountNo,
                     senderAccountNo,amount,TransactionRefGenerator.getInstance().getCounter());
             if(updatedRows==0)
-            	throw new OptimisticLockException("Error in inserting rows in transaction table");
+            	throw new OptimisticLockException("Error in inserting rows in transaction table while transferring amount");
 
         }finally{
         }
@@ -78,17 +68,18 @@ public class TransactionDAO {
      * @param amount the amount
      * @return the int
      * @throws SQLException the SQL exception
+     * @throws OptimisticLockException 
      */
-    public int insertRowForWithdrawAmount(long accountNo, long amount) throws SQLException {
+    public void insertRowForWithdrawAmount(long accountNo, long amount) throws SQLException, OptimisticLockException {
 
-        int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_WITHDRAW_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),accountNo,
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_WITHDRAW_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),accountNo,
                     amount,TransactionRefGenerator.getInstance().getCounter());
+            if(updatedRows==0)
+            	throw new OptimisticLockException("Error in inserting rows in transaction table while withdrawing amount");
 
         }finally{
         }
-        return updatedRows;
     }
 
     /**
@@ -96,17 +87,17 @@ public class TransactionDAO {
      *
      * @param accountNo the account no
      * @param amount the amount
-     * @return the int
      * @throws SQLException the SQL exception
+     * @throws OptimisticLockException 
      */
-    public int insertRowForDepositeAmount(long accountNo, long amount) throws SQLException {
-        int updatedRows=0;
+    public void insertRowForDepositeAmount(long accountNo, long amount) throws SQLException, OptimisticLockException {     
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_DEPOSITE_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),accountNo,
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, INSERT_ROW_FOR_DEPOSITE_QUERY_STRING,new Timestamp(new java.util.Date().getTime()),accountNo,
                     amount,TransactionRefGenerator.getInstance().getCounter());	
+            if(updatedRows==0)
+            	throw new OptimisticLockException("Error in inserting rows in transaction table while depositing amount");
         }finally{
         }
-        return updatedRows;
     }
 }
 

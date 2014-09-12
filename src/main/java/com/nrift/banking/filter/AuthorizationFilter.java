@@ -2,7 +2,6 @@ package com.nrift.banking.filter;
 
 import java.io.IOException;
 
-import javax.mail.Session;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.nrift.banking.dao.UserValidationDAO;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.CustomException;
 
@@ -47,14 +45,14 @@ public class AuthorizationFilter implements Filter {
         HttpSession session = req.getSession(false);
         UserDTO checkUser = (UserDTO)session.getAttribute("user");
 
-        if(uri.contains("userAdmin")){
+        if(session!=null && uri.contains("userAdmin")){
             if(!checkUser.isAdmin()){
                 logger.error("Unauthorized access request");
                 //custom exception to be thrown
                 res.sendRedirect("index.html");
             }
         }
-        else if(uri.contains("userCustomer")){
+        else if(session!=null && uri.contains("userCustomer")){
             if(checkUser.isAdmin()){
                 logger.error("Unauthorized access request");
                 //custom exception to be thrown

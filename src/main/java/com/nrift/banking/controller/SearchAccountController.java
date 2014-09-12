@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.SearchAccountService;
 
 /**
@@ -50,28 +51,27 @@ public class SearchAccountController extends HttpServlet {
         SearchAccountService searchAccountService = new SearchAccountService();
         try{
             List<CustomerDTO> customerList=searchAccountService.searchCustomerDetails(con,reqParams);
-            if (customerList != null) {
                 logger.info("Customer found with details=" + customerList);
                 HttpSession session = request.getSession(false);
                 session.setAttribute("customerList", customerList);				
                 response.sendRedirect("searchResult.jsp");
-            } else {
+                
+                /*
                 RequestDispatcher rd = getServletContext()
                         .getRequestDispatcher("/searchAccount.jsp");
                 PrintWriter out = response.getWriter();
                 logger.info("Customer Not found with details=");
                 out.println("<font color=red>No Customer found with given Details</font>");
                 rd.include(request, response);
-            }
-        }catch(SQLException |ServletException| IOException e) {
+                */
+        }catch(BankingException |ServletException| IOException e) {
             try {
                 con.rollback();
+                logger.error(" Exception Thrown="+ e.getMessage());
             } catch(SQLException e1) {
-                logger.error("Rollback error");
+                logger.error("Rollback error="+e1.getMessage());
             }
-            logger.error(" Exception Thrown");
-            //There should be an error block on around the top of every jsp page
-            request.setAttribute("errorMsg", "Exception Occured!");
+            request.setAttribute("errorMsg", "Exception Occured while search for accounts"); //There should be an error block on around the top of every jsp page
             request.getRequestDispatcher("login.html").forward(request,response);
         }
     }

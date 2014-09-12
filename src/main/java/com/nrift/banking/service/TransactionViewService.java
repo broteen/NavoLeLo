@@ -17,7 +17,7 @@ import com.nrift.banking.exception.BankingException;
 
 public class TransactionViewService {
 
-	public TransactionViewDTO getTransactionViewDetails(Connection connection,long accountNo) throws ServletException, SQLException, BankingException {
+	public TransactionViewDTO getTransactionViewDetails(Connection connection,long accountNo) throws ServletException,BankingException {
 		
 		//TransactionViewDetails transactionViewDetails= 
 		AccountDTO accountDetails = new AccountService().getAccountDetails(connection,accountNo);

@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransferAuthorizationService;
 
 /**
@@ -95,15 +96,14 @@ public class TransferAuthorizationController extends HttpServlet {
                     out.println("<font color=red>Transaction Failed At Authorization</font>");
                     rd.include(request, response);
                 }
-            }catch(SQLException |ServletException| IOException e) {
+            }catch(BankingException |ServletException| IOException e) {
                 try {
                     con.rollback();
+                    logger.error(" Exception Thrown="+e.getMessage());
                 } catch(SQLException e1) {
-                    logger.error("Rollback error");
+                    logger.error("Rollback error="+e1.getMessage());
                 }
-                logger.error(" Exception Thrown");
-                //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg", "Exception Occured!");
+                request.setAttribute("errorMsg", "Transaction is not Authorised");    //There should be an error block on around the top of every jsp page
                 request.getRequestDispatcher("transferFund.jsp").forward(request,response);
             }
         }

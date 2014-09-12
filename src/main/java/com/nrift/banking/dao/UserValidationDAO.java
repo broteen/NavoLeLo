@@ -70,6 +70,7 @@ public class UserValidationDAO {
 					isAdmin=true;
 				UserDTO userDetails = new UserDTO(rs.getLong("USER_ID"),username,isAdmin,rs.getTimestamp("LAST_LOGGED_ON"));
 				logger.info("User found with details="+userDetails);
+				return userDetails;
 			}
 			throw new BankingException("User Details is Empty");
 		}finally{

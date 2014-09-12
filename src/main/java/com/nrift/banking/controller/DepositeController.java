@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.TransferAmountDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.DepositeService;
 
 /**
@@ -94,16 +94,15 @@ public class DepositeController extends HttpServlet {
                     out.println("<font color=red>Invalid account number</font>");
                     rd.include(request, response);
                 }
-            }catch(SQLException |ServletException| IOException e) {
+            }catch(BankingException |ServletException| IOException e) {
                 try {
                     con.rollback();
+                    logger.error(" Exception Thrown="+e.getMessage());
                 } catch(SQLException e1) {
-                    logger.error("Rollback error");
+                    logger.error("Rollback error"+e1.getMessage());
                 }
-                logger.error(" Exception Thrown");
-                //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg", "Exception Occured!");
-                request.getRequestDispatcher("login.html").forward(request,response);
+                request.setAttribute("errorMsg", "Deposite Can't be performed!");//There should be an error block on around the top of every jsp page
+                request.getRequestDispatcher("deposite.jsp").forward(request,response);
             }
         }
     }

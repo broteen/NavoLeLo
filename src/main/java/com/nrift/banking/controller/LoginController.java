@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.UserValidationService;
 
 /**
@@ -58,7 +59,6 @@ public class LoginController extends HttpServlet {
 
             try{
                 UserDTO user = userValidation.validate(con, username,password);
-                if (user != null) {
                     logger.info("User found with details=" + user);
                     HttpSession session = request.getSession();
                     session.setAttribute("user", user);
@@ -68,24 +68,23 @@ public class LoginController extends HttpServlet {
                     	response.sendRedirect("index.jsp");
                     else
                     	response.sendRedirect("index.jsp");
-                } else {
+                    /*
                     RequestDispatcher rd = getServletContext()
                             .getRequestDispatcher("/login.html");
                     PrintWriter out = response.getWriter();
                     logger.error("User not found with username=" + username);
                     out.println("<font color=red>No user found with given email id, please register first.</font>");
                     rd.include(request, response);
-                }
-            }catch(SQLException |ServletException| IOException e) {
+                    */
+                }catch(BankingException|ServletException| IOException e) {
                 try {
                     con.rollback();
+                    logger.error(" Exception Thrown="+ e.getMessage());
                 } catch(SQLException e1) {
-                    logger.error("Rollback error");
+                    logger.error("Rollback error" +e1.getMessage());
                 }
-                logger.error(" Exception Thrown");
-                //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg", "Exception Occured!");
-                request.getRequestDispatcher("login.html").forward(request,response);
+                request.setAttribute("errorMsg", "Cannot logged in!");  //There should be an error block on around the top of every jsp page
+                request.getRequestDispatcher("login.jsp").forward(request,response);
             }
         }
     }

@@ -24,7 +24,7 @@ public class WithdrawAuthorizationService {
      * @throws BankingException 
      */
     public WithdrawAmountDTO validate(Connection connection, long account,
-            long amount) throws SQLException, BankingException  {
+            long amount) throws BankingException  {
         AccountService acc = new AccountService();
         AccountDTO AccountDetails = acc.getAccountDetails(connection,account);
         if (AccountDetails == null)

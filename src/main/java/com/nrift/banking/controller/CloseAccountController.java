@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.CloseAccountService;
 import com.nrift.banking.utility.UserInstantiation;
 
@@ -43,7 +44,7 @@ public class CloseAccountController extends HttpServlet {
 	}
 
 
-	
+
 	/**
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -78,35 +79,31 @@ public class CloseAccountController extends HttpServlet {
 			CloseAccountService closeAccountMgr = new CloseAccountService();
 			try {
 				HttpSession session = request.getSession(false);
-				if (account != 0) {
-					logger.info("Transaction is Authorised");
-					session.setAttribute("AccountClosed", account);
-					boolean isClosed = closeAccountMgr.closeAccount(con,
-							account);
-					if (isClosed == true) {
-						UserDTO user = (UserDTO) session
-								.getAttribute("user");
-						user.setCustomerDetails(UserInstantiation
-								.getCustomerDetails(con, user.getUserId()));
-						session.setAttribute("user", user);
-						RequestDispatcher rd = getServletContext()
-								.getRequestDispatcher(
-										"/deleteAccConfirmation.jsp");
-						rd.forward(request, response);
-					}
-
-				} else {
+				logger.info("Transaction is Authorised");
+				session.setAttribute("AccountClosed", account);
+				closeAccountMgr.closeAccount(con,account);
+				UserDTO user = (UserDTO) session.getAttribute("user");
+				user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
+				session.setAttribute("user", user);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/deleteAccConfirmation.jsp");
+				rd.forward(request, response);
+				/*
 					RequestDispatcher rd = getServletContext()
 							.getRequestDispatcher("/delete.jsp");
 					PrintWriter out = response.getWriter();
 					logger.error("Transaction is Not Authorised");
 					out.println("<font color=red>Transaction Failed due to authorization failure</font>");
 					rd.include(request, response);
+				 */
+			}catch(BankingException|ServletException| IOException e) {
+				try {
+					con.rollback();
+					logger.error(" Exception Thrown"+e.getMessage());
+				} catch(SQLException e1) {
+					logger.error("Rollback error=" + e1.getMessage());
 				}
-			} catch (ServletException | SQLException e) {
-				// To be Implemented later this is not the correct
-				// implementation
-				response.getWriter().print(e.getMessage() + "loginController");
+				request.setAttribute("errorMsg", "Account is not closed"); //There should be an error block on around the top of every jsp page
+				request.getRequestDispatcher("delete.jsp").forward(request,response);
 			}
 		}
 	}

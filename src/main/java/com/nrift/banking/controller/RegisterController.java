@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.RegistrationService;
 
 /**
@@ -103,7 +104,7 @@ public class RegisterController extends HttpServlet {
 				}
 				
 					
-			}catch(SQLException |ServletException| IOException e) {
+			}catch(SQLException|BankingException |ServletException| IOException e) {
                 try {
                     con.rollback();
                 } catch(SQLException e1) {

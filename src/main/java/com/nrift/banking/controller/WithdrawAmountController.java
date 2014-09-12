@@ -73,7 +73,7 @@ public class WithdrawAmountController extends HttpServlet {
                 request.setAttribute("message", "Amount has been dispatched");
 
             rd.forward(request, response);
-        } catch(BankingException|SQLException |ServletException| IOException e) {
+        } catch(BankingException|ServletException| IOException e) {
             try {
                 con.rollback();
                 logger.error(" Exception Thrown="+e.getMessage());

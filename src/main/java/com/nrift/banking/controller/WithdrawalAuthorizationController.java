@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.WithdrawAmountDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.WithdrawAuthorizationService;
 
 /**
@@ -90,15 +91,14 @@ public class WithdrawalAuthorizationController extends HttpServlet {
                     out.println("<font color=red>Transaction Failed due to authorization failure</font>");
                     rd.include(request, response);
                 }
-            }catch(SQLException |ServletException| IOException e) {
+            }catch(BankingException |ServletException| IOException e) {
                 try {
                     con.rollback();
+                    logger.error(" Exception Thrown="+e.getMessage());
                 } catch(SQLException e1) {
-                    logger.error("Rollback error");
+                    logger.error("Rollback error="+e1.getMessage());
                 }
-                logger.error(" Exception Thrown");
-                //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg", "Exception Occured!");
+                request.setAttribute("errorMsg", "Transaction is not Authorised!");      //There should be an error block on around the top of every jsp page
                 request.getRequestDispatcher("withdrawAmt.jsp").forward(request,response);
             }
         }

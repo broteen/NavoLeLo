@@ -6,10 +6,10 @@ package com.nrift.banking.utility;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.ServletException;
 
 import com.nrift.banking.dto.AdminDTO;
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.AdminService;
 import com.nrift.banking.service.CustomerService;
 
@@ -25,8 +25,9 @@ public class UserInstantiation {
      * @param userId the user id
      * @return the customer details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws SQLException {
+    public static CustomerDTO getCustomerDetails(Connection connection, long userId) throws BankingException {
 
         return(new CustomerService().getCustomerDetails(connection,userId));
 
@@ -39,8 +40,9 @@ public class UserInstantiation {
      * @param userId the user id
      * @return the admin details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public static AdminDTO getAdminDetails(Connection connection, long userId) throws SQLException {
+    public static AdminDTO getAdminDetails(Connection connection, long userId) throws BankingException {
 
         return(new AdminService().getAdminDetails(connection,userId));
     }

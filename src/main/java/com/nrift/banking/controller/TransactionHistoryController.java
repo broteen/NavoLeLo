@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.nrift.banking.dto.TransactionHistoryDTO;
 import com.nrift.banking.dto.TransactionViewDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransactionHistoryService;
 import com.nrift.banking.service.TransactionViewService;
 
@@ -44,27 +45,27 @@ public class TransactionHistoryController extends HttpServlet {
 
 		try{
 			TransactionViewDTO transactionViewDetails = (TransactionViewDTO) transactionViewManager.getTransactionViewDetails(con, accountNo);
-			if (transactionViewDetails != null) {
-				logger.info("Transaction history for account number=" + transactionViewDetails);
-				HttpSession session = request.getSession(false);
-				request.setAttribute("transactionHistory", transactionViewDetails);
-				System.out.print("hi");
-				response.sendRedirect("transactionHistory.jsp");
-			} else {
+			logger.info("Transaction history for account number=" + transactionViewDetails);
+			HttpSession session = request.getSession();
+			request.setAttribute("transactionHistory", transactionViewDetails);
+			response.sendRedirect("transactionHistory.jsp");
+			/*
 				RequestDispatcher rd = getServletContext()
 						.getRequestDispatcher("/index.jsp");
 				PrintWriter out = response.getWriter();
 				logger.error("Transaction not found for account number=" + accountNo);
 				//out.println("<font color=red>No user found with given email id, please register first.</font>");
 				rd.include(request, response);
+			 */
+		}catch(BankingException|ServletException|IOException e){
+			try {
+				con.rollback();
+				logger.error(" Exception Thrown"+e.getMessage());
+			} catch(SQLException e1) {
+				logger.error("Rollback error=" + e1.getMessage());
 			}
-		}catch(ServletException e)
-		{
-			//To be Implemented later this is not the correct implmentation
-			response.getWriter().print(e.getMessage()+"transactionHistoryController");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("errorMsg", "Transaction Histroy can't be fetched"); //There should be an error block on around the top of every jsp page
+			request.getRequestDispatcher("searchAccount.jsp").forward(request,response);
 		}
 	}
 }

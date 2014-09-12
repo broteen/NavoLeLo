@@ -51,10 +51,10 @@ public class AccountDAO {
 
 
     /** The Constant WITHDRAW_QUERY_STRING. */
-    private static final String WITHDRAW_QUERY_STRING="update account set balance=balance-? where account_number=? and status=?";
+    private static final String WITHDRAW_QUERY_STRING="update account set balance=balance-? where account_number=? and status=? and updated_time=?";
 
     /** The Constant DEPOSITE_QUERY_STRING. */
-    private static final String DEPOSITE_QUERY_STRING="update account set balance=balance+? where account_number=? and status=?";
+    private static final String DEPOSITE_QUERY_STRING="update account set balance=balance+? where account_number=? and status=? and updated_time=?";
 
 
     /** The Constant CLOSE_ACCOUNT_QUERY_STRING. */
@@ -185,19 +185,14 @@ public class AccountDAO {
      * @return the value returned after the query execution
      * @throws SQLException the SQL exception
      */
-    public int WithdrawAmount(long accountNo, long amount, Timestamp recentUpdatedTime,long userID) throws SQLException {
+    public int WithdrawAmount(long accountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
         int updatedRows=0;
-        if(recentUpdatedTime.equals(getUpdatedTime(accountNo)) && setUpdatedByandUpdatedTime(accountNo, userID)!=0){
             try {
-                updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal");
+                updatedRows=DBHelper.getUpdateInfoFromSQL(connection, WITHDRAW_QUERY_STRING, amount,accountNo,"normal",recentUpdatedTime);
 
             }finally{
             }
             return updatedRows;
-        }else{
-            return 0;
-        }
-
     }
 
     /**
@@ -224,10 +219,10 @@ public class AccountDAO {
      * @return the int
      * @throws SQLException the SQL exception
      */
-    public int DepositeAmount(long accountNo, long amount) throws SQLException{
+    public int DepositeAmount(long accountNo, long amount,Timestamp recentUpdatedTime) throws SQLException{
         int updatedRows=0;
         try {
-            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, DEPOSITE_QUERY_STRING, amount,accountNo,"normal");
+            updatedRows=DBHelper.getUpdateInfoFromSQL(connection, DEPOSITE_QUERY_STRING, amount,accountNo,"normal",recentUpdatedTime);
 
         }finally{
         }

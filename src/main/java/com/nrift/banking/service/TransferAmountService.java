@@ -29,24 +29,20 @@ public class TransferAmountService {
         long receiverAccountNo=transAmtDetails.getReceiverAccountNo();
         long amount=transAmtDetails.getAmount();
 
-        Timestamp updatedTime= accountManager.getUpdateTime(connection, transAmtDetails.getSenderAccountNo());
-        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,senderAccountNo,amount,updatedTime,userId) && 
-                accountManager.IsAmountDeposited(connection,receiverAccountNo,amount)){
+        Timestamp senderUpdatedTime= accountManager.getUpdateTime(connection, transAmtDetails.getSenderAccountNo());
+        Timestamp receiverUpdatedTime= accountManager.getUpdateTime(connection, transAmtDetails.getReceiverAccountNo());
+        if(senderUpdatedTime!=null && accountManager.IsAmountWithdrawn(connection,senderAccountNo,amount,senderUpdatedTime) && 
+                accountManager.IsAmountDeposited(connection,receiverAccountNo,amount,receiverUpdatedTime)){
 
-            if(transaction.insertRowForTransferAmount(connection,senderAccountNo,receiverAccountNo,amount)!=0 && 
-                    updatedTime.equals(accountManager.getUpdateTime(connection, transAmtDetails.getSenderAccountNo()))){
+            if(transaction.insertRowForTransferAmount(connection,senderAccountNo,receiverAccountNo,amount)!=0){
 
                 if(accountManager.setUpdatedByandUpdatedTime(connection, transAmtDetails.getSenderAccountNo(),userId)){
                     connection.commit();
-                    connection.setAutoCommit(true);
                     return true;
                 }
-            }else{
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
             }
         }
+        connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
         return false;
     }
 }

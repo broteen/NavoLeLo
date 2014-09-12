@@ -99,8 +99,8 @@ public class AccountService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime, long userID) throws SQLException {
-        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime, userID)==0)
+    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
+        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime)==0)
             return false;
         else
             return true;
@@ -115,8 +115,8 @@ public class AccountService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount) throws SQLException {
-        if (new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount)==0)
+    public boolean IsAmountDeposited(Connection connection,long receiverAccountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
+        if (new AccountDAO(connection).DepositeAmount(receiverAccountNo,amount,recentUpdatedTime)==0)
             return false;
         else
             return true;

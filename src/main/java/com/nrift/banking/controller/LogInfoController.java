@@ -67,7 +67,7 @@ public class LogInfoController  extends HttpServlet {
 					boolean insert=logInfo.insertUserIdInCustomer(con, customerID,username);
 					if(insert){
 					logger.info("Username registered");
-					HttpSession session = request.getSession();
+					HttpSession session = request.getSession(false);
 					session.setAttribute("user", user);
 					response.sendRedirect("loginsuccess.jsp");
 					}

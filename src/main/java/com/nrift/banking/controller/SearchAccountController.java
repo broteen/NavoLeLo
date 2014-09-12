@@ -52,7 +52,7 @@ public class SearchAccountController extends HttpServlet {
             List<CustomerDTO> customerList=searchAccountService.searchCustomerDetails(con,reqParams);
             if (customerList != null) {
                 logger.info("Customer found with details=" + customerList);
-                HttpSession session = request.getSession();
+                HttpSession session = request.getSession(false);
                 session.setAttribute("customerList", customerList);				
                 response.sendRedirect("searchResult.jsp");
             } else {

@@ -40,29 +40,29 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        logger.info("Requested Resource::"+uri);
+        //logger.info("Requested Resource::"+uri);
 
         HttpSession session = req.getSession(false);
-        UserDTO checkUser = (UserDTO)session.getAttribute("user");
+        /*UserDTO checkUser = (UserDTO)session.getAttribute("user");
 
         if(session!=null && uri.contains("userAdmin")){
             if(!checkUser.isAdmin()){
                 logger.error("Unauthorized access request");
                 //custom exception to be thrown
-                res.sendRedirect("index.jsp");
+                //res.sendRedirect("index.jsp");
             }
         }
         else if(session!=null && uri.contains("userCustomer")){
             if(checkUser.isAdmin()){
                 logger.error("Unauthorized access request");
                 //custom exception to be thrown
-                res.sendRedirect("searchAccount.jsp");
+                //res.sendRedirect("searchAccount.jsp");
             }
         }
         else{
             // pass the request along the filter chain
             chain.doFilter(request, response);
-        }
+        }*/
 
 
     }

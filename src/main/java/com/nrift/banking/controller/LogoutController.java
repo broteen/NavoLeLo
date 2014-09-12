@@ -26,7 +26,7 @@ public class LogoutController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        Cookie[] cookies = request.getCookies();
+        /*Cookie[] cookies = request.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
                 if(cookie.getName().equals("JSESSIONID")){
@@ -34,7 +34,7 @@ public class LogoutController extends HttpServlet {
                     break;
                 }
             }
-        }
+        }*/
         //invalidate the session if exists
         HttpSession session = request.getSession(false);
         logger.info("User="+session.getAttribute("user"));

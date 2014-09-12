@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.ServletException;
+
 import com.nrift.banking.dao.AccountDAO;
 import com.nrift.banking.dto.AccountDTO;
 
@@ -136,4 +138,11 @@ public class AccountService {
             return true;
 
     }
+    public boolean IsAccountClosed(Connection connection, long accountNo)
+			throws ServletException, SQLException {
+		if (new AccountDAO(connection).CloseAccount(accountNo) == 0)
+			return false;
+		else
+			return true;
+	}
 }

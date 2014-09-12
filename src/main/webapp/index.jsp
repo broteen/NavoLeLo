@@ -31,11 +31,12 @@
 					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
 					<li><a href="deposite.jsp">Deposit</a></li>
 					<li><a href="searchAccount.jsp">search result</a></li>
+					<li><a href="delete.jsp">Delete Account</a></li>
 				</ul></li>
 			<li><a href="Update_details.jsp">Update details</a></li>
 
 		</ul>
-		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
+		<strong>Customer Name is</strong>: ${user.customerDetails.name}<br />
 
 		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br><br><br><br><br><br>
 		

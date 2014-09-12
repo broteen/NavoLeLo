@@ -53,14 +53,17 @@ public class WithdrawalAuthorizationController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        long account = Long.parseLong(request.getParameter("AccountNumber"));
-        long amount = Long.parseLong(request.getParameter("Amount"));
+    	long account=0L;
+    	long amount=0L;
+    	if(request.getParameter("AccountNumber")!="")
+    		account = Long.parseLong(request.getParameter("AccountNumber"));
+    	if(request.getParameter("AccountNumber")!="")
+    		amount = Long.parseLong(request.getParameter("Amount"));
         String errorMsg = null;
         if (account==0L) {
             errorMsg = "Please enter a valid account number";
         }
-        if(amount==0L){
+        else if(amount==0L){
             errorMsg = "Please enter a valid amount";
         }
 

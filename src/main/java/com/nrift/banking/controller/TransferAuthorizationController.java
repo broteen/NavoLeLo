@@ -51,21 +51,25 @@ public class TransferAuthorizationController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		long senderAccount = Long.parseLong(request.getParameter("senderAccountNumber"));
-		long receiverAccount = Long.parseLong(request.getParameter("receiverAccountNumber"));
-		long amount = Long.parseLong(request.getParameter("amount"));
+		long receiverAccount=0L;
+		long amount =0L;
+		if(request.getParameter("receiverAccountNumber")!="")
+			receiverAccount = Long.parseLong(request.getParameter("receiverAccountNumber"));
+		if(request.getParameter("amount")!="")
+			amount = Long.parseLong(request.getParameter("amount"));
 		String errorMsg = null;
 		if (senderAccount==0L) {
 			errorMsg = "Sender's Account Number can't be null or empty";
 		}
-		if (receiverAccount==0L) {
+		else if (receiverAccount==0L) {
 			errorMsg = "Receiver's Account Number can't be null or empty";
 		}
-		if(senderAccount==receiverAccount){
+		else if(senderAccount==receiverAccount){
 			errorMsg = "Sender's and Receiver's Account Number can't be same";
 		}
-		if(amount==0L){
+		else if(amount==0L){
 			errorMsg = "Amount can't be null or empty or zero";
 		}
 

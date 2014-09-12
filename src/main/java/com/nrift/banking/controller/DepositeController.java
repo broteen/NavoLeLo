@@ -36,13 +36,17 @@ public class DepositeController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         logger.info("Inside deposite controller class");
-        long accountNumber= Long.parseLong(request.getParameter("accountNumber"));
-        long amount =Long.parseLong( request.getParameter("amount"));
+        long accountNumber=0L;
+        long amount=0L;
+        if(request.getParameter("accountNumber")!="")
+        	accountNumber= Long.parseLong(request.getParameter("accountNumber"));
+        if(request.getParameter("amount")!="")
+        	amount =Long.parseLong( request.getParameter("amount"));
         String errorMsg = null;
         if (accountNumber ==0L) {
             errorMsg = "Account Number can not be empty";
         }
-        if (amount == 0L) {
+        else if (amount == 0L) {
             errorMsg = "Amount can not be  empty";
         }
 

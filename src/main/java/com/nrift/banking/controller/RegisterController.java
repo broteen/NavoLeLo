@@ -59,7 +59,6 @@ public class RegisterController extends HttpServlet {
             out.println("<font color=red>" + errorMsg + "</font>");
             rd.include(request, response);
         } else {
-
         	Connection con = (Connection) getServletContext().getAttribute(
 					"connection");
 			RegistrationService registerValidation = new RegistrationService();
@@ -77,19 +76,14 @@ public class RegisterController extends HttpServlet {
 					rd.include(request, response);
 				}
 				CustomerDTO customer=registerValidation.validateCustomerDetails(con,customerId);
-					if(customer!=null){
-						
-						if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
+					if(customer!=null && customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
 							logger.info("customer found with details=" + customerId);
-						
-					
-					if(registerValidation.checkuserID(con,customerId)){
+						if(registerValidation.checkuserID(con,customerId)){
 						logger.error("new user.....");
 						request.setAttribute("customerId", customerId);
 						RequestDispatcher rd =getServletContext().getRequestDispatcher("/loginfo.jsp");
 						rd.forward(request, response);
-					//response.sendRedirect("loginfo.html");
-					}
+						}	
 					else{
 						RequestDispatcher rd = getServletContext()
 								.getRequestDispatcher("/register.jsp");
@@ -99,22 +93,12 @@ public class RegisterController extends HttpServlet {
 						rd.include(request, response);
 					}
 						}
-						else{
-							RequestDispatcher rd = getServletContext()
-									.getRequestDispatcher("/register.jsp");
-							PrintWriter out = response.getWriter();
-							logger.error("customer not found=" + name);
-							out.println("<font color=red>No customer found with given customer details, please fill correct details</font>");
-							rd.include(request, response);
-						}
-						
-				} 
 				else {
 					RequestDispatcher rd = getServletContext()
 							.getRequestDispatcher("/register.jsp");
 					PrintWriter out = response.getWriter();
 					logger.error("customer not found=" + name);
-					out.println("<font color=red>No customer found with given account number, please fill correct details</font>");
+					out.println("<font color=red>No customer found with given Details, please fill correct details</font>");
 					rd.include(request, response);
 				}
 				

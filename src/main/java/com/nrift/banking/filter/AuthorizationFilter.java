@@ -49,7 +49,7 @@ public class AuthorizationFilter implements Filter {
             if(!checkUser.isAdmin()){
                 logger.error("Unauthorized access request");
                 //custom exception to be thrown
-                res.sendRedirect("index.html");
+                res.sendRedirect("index.jsp");
             }
         }
         else if(session!=null && uri.contains("userCustomer")){

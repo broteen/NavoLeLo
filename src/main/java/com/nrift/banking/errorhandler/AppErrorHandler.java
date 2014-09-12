@@ -50,6 +50,8 @@ public class AppErrorHandler extends HttpServlet {
      */
     private void processError(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
+        logger.info("Error handler invoked!");
+        
         // Analyze the servlet exception
         Throwable throwable = (Throwable) request
                 .getAttribute("javax.servlet.error.exception");
@@ -75,13 +77,13 @@ public class AppErrorHandler extends HttpServlet {
         } else {
             appError.setStatusCode(statusCode);
             if (statusCode == 404) {
-                appError.setCustomText("Page Not Found");
+                appError.setCustomText("The requested URL could not be retrieved!");
             } else if (statusCode == 403) {
-                appError.setCustomText("Access Denied");
+                appError.setCustomText("Access is denied for the requested URL!");
             } else if (statusCode == 500) {
-                appError.setCustomText("Internal Server Error");
+                appError.setCustomText("Internal Server Error!");
             } else {
-                appError.setCustomText("Unknown error");
+                appError.setCustomText("Some error has occurred!");
             }
         }
 

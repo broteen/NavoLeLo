@@ -64,8 +64,10 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user", user);
                     //setting session expiry to 5mins
                     session.setMaxInactiveInterval(5*60);
-                    
-                    response.sendRedirect("index.jsp");
+                    if(!user.isAdmin())
+                    	response.sendRedirect("index.jsp");
+                    else
+                    	response.sendRedirect("searchAccount.jsp");
                 } else {
                     RequestDispatcher rd = getServletContext()
                             .getRequestDispatcher("/login.html");

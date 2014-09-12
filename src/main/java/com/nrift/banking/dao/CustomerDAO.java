@@ -59,7 +59,7 @@ public class CustomerDAO {
             rs = DBHelper.getResultSetFromSQL(connection, CUSTOMER_BY_USER_ID_QUERY_STRING, userId);
             if (rs != null && rs.next()) 
             {
-            	 CustomerDTO customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
+            	CustomerDTO customerDetails = new CustomerDTO(rs.getLong("CUSTOMER_ID"),rs.getString("NAME"),rs.getLong("CONTACT_NUMBER"),rs.getString("PAN_NUMBER"),rs.getString("EMAIL"),rs.getString("ADDRESS"));
                 logger.info("Customer found with details="+customerDetails);
                 return customerDetails;
         	}

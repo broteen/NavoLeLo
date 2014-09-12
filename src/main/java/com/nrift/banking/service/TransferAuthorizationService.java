@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 
 import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.TransferAmountDTO;
+import com.nrift.banking.exception.BankingException;
 
 /**
  * The Class TransferAuthorizationService.
@@ -22,8 +23,9 @@ public class TransferAuthorizationService {
      * @param amount the amount
      * @return the transfer amount dto
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public TransferAmountDTO validate(Connection connection,long senderAccount,long receiverAccount,long amount) throws SQLException {
+    public TransferAmountDTO validate(Connection connection,long senderAccount,long receiverAccount,long amount) throws SQLException, BankingException {
         AccountService acc=new AccountService();
         AccountDTO senderAccountDetails= acc.getAccountDetails(connection, senderAccount);
         AccountDTO receiverAccountDetails= acc.getAccountDetails(connection, receiverAccount);

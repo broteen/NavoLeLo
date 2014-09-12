@@ -81,7 +81,7 @@ public class CloseAccountController extends HttpServlet {
 				if (account != 0) {
 					logger.info("Transaction is Authorised");
 					session.setAttribute("AccountClosed", account);
-					boolean isClosed = closeAccountMgr.closedAccount(con,
+					boolean isClosed = closeAccountMgr.closeAccount(con,
 							account);
 					if (isClosed == true) {
 						UserDTO user = (UserDTO) session

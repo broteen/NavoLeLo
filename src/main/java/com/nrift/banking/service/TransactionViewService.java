@@ -13,10 +13,11 @@ import javax.servlet.ServletException;
 import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.TransactionHistoryDTO;
 import com.nrift.banking.dto.TransactionViewDTO;
+import com.nrift.banking.exception.BankingException;
 
 public class TransactionViewService {
 
-	public TransactionViewDTO getTransactionViewDetails(Connection connection,long accountNo) throws ServletException, SQLException {
+	public TransactionViewDTO getTransactionViewDetails(Connection connection,long accountNo) throws ServletException, SQLException, BankingException {
 		
 		//TransactionViewDetails transactionViewDetails= 
 		AccountDTO accountDetails = new AccountService().getAccountDetails(connection,accountNo);

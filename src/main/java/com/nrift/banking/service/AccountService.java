@@ -24,10 +24,14 @@ public class AccountService {
      * @param customerId the customer id
      * @return the all account details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public List<AccountDTO> getAllAccountDetails(Connection connection,long customerId) throws SQLException {
-
-        return new AccountDAO(connection).getAllAccountDetails(customerId);
+    public List<AccountDTO> getAllAccountDetails(Connection connection,long customerId) throws BankingException {
+    	try{
+    		return new AccountDAO(connection).getAllAccountDetails(customerId);
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
     }
 
     /**
@@ -38,11 +42,12 @@ public class AccountService {
      * @return the long
      * @throws SQLException the SQL exception
      */
-    public long validateAccount(Connection connection, long account_number) throws SQLException {
-
-        long customerId= new AccountDAO(connection).getCustomerId(account_number);
-
-        return customerId;
+    public long validateAccount(Connection connection, long account_number) throws BankingException { //Couldn't understand this method kindly change it.
+    	try{
+    	return new AccountDAO(connection).getCustomerId(account_number);
+    	}catch(SQLException  e){
+    		throw new BankingException(e);
+    	}
 
     }
 
@@ -53,10 +58,14 @@ public class AccountService {
      * @param receiverAccount the receiver account
      * @return the account details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public AccountDTO getAccountDetails(Connection connection,long receiverAccount) throws SQLException {
-
-        return new AccountDAO(connection).getAccountDetails(receiverAccount);
+    public AccountDTO getAccountDetails(Connection connection,long receiverAccount) throws BankingException {
+    	try{
+		return new AccountDAO(connection).getAccountDetails(receiverAccount);	
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
     }
 
     /**
@@ -83,15 +92,16 @@ public class AccountService {
      * @param accountNo the account no
      * @return the account history
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public  AccountDTO getAccountHistory(Connection connection, long accountNo) throws SQLException {
-
+    public AccountDTO getAccountHistory(Connection connection, long accountNo) throws BankingException {
+    	try{
         AccountDTO account= new AccountDAO(connection).getAccountDetails(accountNo);
-        if(account!=null)
-        {
-            account.setTransactionHistoryDetailsList(new TransactionHistoryService(). getTransactionHistoryDetails(connection,account.getAccountNo()));
-        }
+        account.setTransactionHistoryDetailsList(new TransactionHistoryService(). getTransactionHistoryDetails(connection,account.getAccountNo()));
         return account;
+    	}catch(SQLException e){
+    		throw new BankingException(e);      
+    	}
     }
 
  
@@ -150,10 +160,11 @@ public class AccountService {
     		throw new BankingException(e);
     	}
     }
-    public boolean IsAccountClosed(Connection connection, long accountNo) throws SQLException {
-		if (new AccountDAO(connection).CloseAccount(accountNo) == 0)
-			return false;
-		else
-			return true;
+    public void closeAccount(Connection connection, long accountNo) throws  BankingException {
+    	try{
+			new AccountDAO(connection).CloseAccount(accountNo);
+		}catch(SQLException e){
+			throw new BankingException(e);
+    	}
 	}
 }

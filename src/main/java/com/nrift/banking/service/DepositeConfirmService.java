@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import javax.servlet.ServletException;
 
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransactionService;

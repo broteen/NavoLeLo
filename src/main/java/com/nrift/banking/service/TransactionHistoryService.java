@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import com.nrift.banking.dao.TransactionHistoryDAO;
 import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.TransactionHistoryDTO;
+import com.nrift.banking.exception.BankingException;
 
 /**
  * The Class TransactionHistoryService.
@@ -22,8 +23,13 @@ public class TransactionHistoryService {
      * @param accountNo the account no
      * @return the transaction history details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws SQLException {
+    public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws BankingException {
+    	try{
         return new TransactionHistoryDAO(connection).getTransactionHistoryDetails(accountNo) ;
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
     }
 }

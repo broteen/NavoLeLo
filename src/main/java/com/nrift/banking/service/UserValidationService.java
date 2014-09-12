@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 
 import com.nrift.banking.dao.UserValidationDAO;
 import com.nrift.banking.dto.UserDTO;
+import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.utility.UserInstantiation;
 
 /**
@@ -22,22 +23,22 @@ public class UserValidationService {
      * @param password the password
      * @return the user details
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public UserDTO validate(Connection connection, String username,String password) throws SQLException {
+    public UserDTO validate(Connection connection, String username,String password) throws BankingException {
+    	try{
         UserDTO user= new UserValidationDAO(connection).validate(username, password);
 
-        if(user!=null)
-        {
+        if(user!=null){
             if(user.isAdmin()== true)
-            {
                 user.setAdminDetails(UserInstantiation.getAdminDetails(connection, user.getUserId()));
-            }
             else
-            {
                 user.setCustomerDetails(UserInstantiation.getCustomerDetails(connection, user.getUserId()));
-            }
         }
         return user;
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
 
     }
 
@@ -49,12 +50,12 @@ public class UserValidationService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean checkUserName(Connection connection, String username,String password) throws SQLException
+    public boolean checkUserName(Connection connection, String username,String password) throws SQLException //Couldn't understand this method kindly change it.
 	{
 		return(new UserValidationDAO(connection).validateUserName(username, password));
 	}
     
-    public boolean insertUserId(Connection connection, long customerId, String username) throws SQLException {
+    public boolean insertUserId(Connection connection, long customerId, String username) throws SQLException { //Couldn't understand this method kindly change it.
 		return (new UserValidationDAO(connection).insertInCustomerUserId(customerId,username));
 	}
 

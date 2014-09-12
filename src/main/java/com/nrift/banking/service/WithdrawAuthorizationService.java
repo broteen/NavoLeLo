@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.WithdrawAmountDTO;
+import com.nrift.banking.exception.BankingException;
 
 
 /**
@@ -20,9 +21,10 @@ public class WithdrawAuthorizationService {
      * @param amount the amount
      * @return the withdraw amount dto
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
     public WithdrawAmountDTO validate(Connection connection, long account,
-            long amount) throws SQLException  {
+            long amount) throws SQLException, BankingException  {
         AccountService acc = new AccountService();
         AccountDTO AccountDetails = acc.getAccountDetails(connection,account);
         if (AccountDetails == null)

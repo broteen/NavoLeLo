@@ -2,11 +2,9 @@ package com.nrift.banking.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import javax.servlet.ServletException;
-
 import com.nrift.banking.dao.CustomerDAO;
 import com.nrift.banking.dto.CustomerDTO;
+import com.nrift.banking.exception.BankingException;
 
 /**
  * The Class CustomerService.
@@ -19,16 +17,17 @@ public class CustomerService {
      * @param connection the connection
      * @param userId the user id
      * @return the customer details
+     * @throws BankingException 
      * @throws SQLException the SQL exception
      */
-    public  CustomerDTO getCustomerDetails(Connection connection, long userId) throws SQLException {
-
+    public  CustomerDTO getCustomerDetails(Connection connection, long userId) throws BankingException {
+    	try{
         CustomerDTO customer= new CustomerDAO(connection).getCustomerDetailsByUserId(userId);
-        if(customer!=null)
-        {
-            customer.setAccountList(new AccountService().getAllAccountDetails(connection,customer.getCustomerId()));
-        }
+        customer.setAccountList(new AccountService().getAllAccountDetails(connection,customer.getCustomerId()));
         return customer;
+    	}catch(SQLException e){
+    		throw new BankingException(e);      
+    	}
     }
 
     /**
@@ -37,12 +36,15 @@ public class CustomerService {
      * @param connection the connection
      * @param customerId the customer id
      * @return the customer dto
+     * @throws BankingException 
      * @throws SQLException the SQL exception
      */
-    public CustomerDTO validateCustomer(Connection connection,long customerId) throws SQLException
-    {
-        CustomerDTO customer=new CustomerDAO(connection).getCustomerDetailsByCustomerId(customerId);
-        return customer;
+    public CustomerDTO validateCustomer(Connection connection,long customerId) throws BankingException{
+    	try{
+        return new CustomerDAO(connection).getCustomerDetailsByCustomerId(customerId);
+    	}catch(SQLException e){
+    		throw new BankingException(e);      
+    	}
     }
 
     /**
@@ -55,8 +57,7 @@ public class CustomerService {
      */
     public boolean checkuser_ID(Connection connection,long customerId) throws SQLException
     {
-        boolean user_id=new CustomerDAO(connection).checkUserId(customerId);
-        return user_id;
+       return new CustomerDAO(connection).checkUserId(customerId); //Couldn't understand this method kindly change it.       
     }
 
 }

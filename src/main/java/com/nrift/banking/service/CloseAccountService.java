@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 
+import com.nrift.banking.exception.BankingException;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class CloseAccountService.
@@ -17,17 +19,17 @@ public class CloseAccountService extends AccountService {
 	 * @param connection the con
 	 * @param accountNumber the account number
 	 * @return true, if successful
+	 * @throws BankingException 
 	 * @throws SQLException 
 	 */
-	public boolean closedAccount(Connection connection, long accountNumber) throws SQLException {
-
-		
-			 if(new AccountService().IsAccountClosed(connection, accountNumber)){
+	public void closedAccount(Connection connection, long accountNumber) throws BankingException {
+			try{
+			 new AccountService().closeAccount(connection, accountNumber);
 				 connection.commit();
-                 return true;
-			 }
-			 connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
-		     return false;
+			 }catch(SQLException e){
+		    		throw new BankingException(e);
+		    }
+			 
 	}
 
 }

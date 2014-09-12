@@ -21,7 +21,7 @@ public class LogInfoService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-	public boolean validateUsername(Connection connection, String username,String password) throws SQLException{
+	public boolean validateUsername(Connection connection, String username,String password) throws SQLException{ //Couldn't understand this method kindly change it.
 		if(!(new UserValidationService().checkUserName(connection, username,password))){
 			 connection.commit();
              connection.setAutoCommit(true);
@@ -35,7 +35,7 @@ public class LogInfoService {
 
 
 	
-	public boolean insertUserIdInCustomer(Connection connection,long customerId, String username) throws SQLException{
+	public boolean insertUserIdInCustomer(Connection connection,long customerId, String username) throws SQLException{ //Couldn't understand this method kindly change it.
 		if(new UserValidationService().insertUserId(connection,customerId,username)){
 			 connection.commit();
              connection.setAutoCommit(true);

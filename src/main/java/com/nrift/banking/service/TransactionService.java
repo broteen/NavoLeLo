@@ -39,11 +39,15 @@ public class TransactionService {
      * @param amount the amount
      * @return the int
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public int insertRowForWithdrawAmount(Connection connection,
-            long accountNo, long amount) throws SQLException  {
-        // TODO Auto-generated method stub
-        return new TransactionDAO(connection).insertRowForWithdrawAmount(accountNo,amount);
+    public void insertRowForWithdrawAmount(Connection connection,
+            long accountNo, long amount) throws BankingException  {
+    	try{
+        new TransactionDAO(connection).insertRowForWithdrawAmount(accountNo,amount);
+    	}catch(SQLException | OptimisticLockException e){
+    		throw new BankingException(e);
+    	}
     }
 
     /**
@@ -55,9 +59,13 @@ public class TransactionService {
      * @return the int
      * @throws SQLException the SQL exception
      */
-    public int insertRowForDepositeAmount(Connection connection,
-            long accountNo, long amount)throws SQLException {
-        return new TransactionDAO(connection).insertRowForDepositeAmount(accountNo,amount);
+    public void insertRowForDepositeAmount(Connection connection,
+            long accountNo, long amount)throws BankingException {
+    	try{
+    	new TransactionDAO(connection).insertRowForDepositeAmount(accountNo,amount);
+    	}catch(SQLException | OptimisticLockException e){
+    		throw new BankingException(e);
+    	}
     }
 
 }

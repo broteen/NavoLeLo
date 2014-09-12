@@ -85,17 +85,20 @@ public class AccountService {
         return account;
     }
 
+ 
     /**
      * Checks if is amount withdrawn.
      *
      * @param connection the connection
      * @param AccountNo the account no
      * @param amount the amount
+     * @param recentUpdatedTime the recent updated time
+     * @param userID the user id
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime) throws SQLException {
-        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime)==0)
+    public boolean IsAmountWithdrawn(Connection connection,long AccountNo, long amount, Timestamp recentUpdatedTime, long userID) throws SQLException {
+        if (new AccountDAO(connection).WithdrawAmount(AccountNo,amount,recentUpdatedTime, userID)==0)
             return false;
         else
             return true;

@@ -30,7 +30,7 @@ public class TransferAmountService {
         long amount=transAmtDetails.getAmount();
 
         Timestamp updatedTime= accountManager.getUpdateTime(connection, transAmtDetails.getSenderAccountNo());
-        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,senderAccountNo,amount,updatedTime) && 
+        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,senderAccountNo,amount,updatedTime,userId) && 
                 accountManager.IsAmountDeposited(connection,receiverAccountNo,amount)){
 
             if(transaction.insertRowForTransferAmount(connection,senderAccountNo,receiverAccountNo,amount)!=0 && 

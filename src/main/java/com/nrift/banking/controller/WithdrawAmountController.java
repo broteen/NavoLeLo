@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.dto.WithdrawAmountDTO;
 import com.nrift.banking.service.WithdrawAmountService;
 
@@ -56,6 +57,7 @@ public class WithdrawAmountController extends HttpServlet {
                 "connection");
         WithdrawAmountService withdrawAmount = new WithdrawAmountService();
         HttpSession session = request.getSession(false);
+        UserDTO user = (UserDTO)session.getAttribute("user");
         WithdrawAmountDTO withdrawAmountDetails = (WithdrawAmountDTO) session
                 .getAttribute("withdrawAmountDetails");
         RequestDispatcher rd = getServletContext().getRequestDispatcher(
@@ -63,7 +65,8 @@ public class WithdrawAmountController extends HttpServlet {
 
         try {
             if (withdrawAmount
-                    .IsWithdrawSuccessfull(con, withdrawAmountDetails)) {
+                    .IsWithdrawSuccessfull(con, withdrawAmountDetails, user.getUserId())) {
+                session.removeAttribute("transferAmountDetails");
                 logger.info("Withdraw Successfull");
                 request.setAttribute("message", "Amount has been dispatched");
 

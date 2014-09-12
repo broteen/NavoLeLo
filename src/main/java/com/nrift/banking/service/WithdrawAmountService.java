@@ -21,26 +21,24 @@ public class WithdrawAmountService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean IsWithdrawSuccessfull(Connection connection,WithdrawAmountDTO withdrawAmountDetails,long userID) throws SQLException{
+    public boolean IsWithdrawSuccessfull(Connection connection,WithdrawAmountDTO withdrawAmountDetails,long userId) throws SQLException{
         AccountService accountManager= new AccountService();
         TransactionService transaction= new TransactionService();
         long AccountNo=withdrawAmountDetails.getAccountNo();
         long amount=withdrawAmountDetails.getAmount();
 
         Timestamp updatedTime= accountManager.getUpdateTime(connection, withdrawAmountDetails.getAccountNo());
-        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount,updatedTime,userID)){
+        if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount,updatedTime)){
 
             if(transaction.insertRowForWithdrawAmount(connection,AccountNo,amount)!=0){
-            	 connection.commit();
-                 connection.setAutoCommit(true);
-                 return true;
+            	if(accountManager.setUpdatedByandUpdatedTime(connection, withdrawAmountDetails.getAccountNo(),userId)){
+                    connection.commit();
+                    return true;
+                }
             }
                 		
-        }else{
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
         }
+        connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
         return false;
     }
 

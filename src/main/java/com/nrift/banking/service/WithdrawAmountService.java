@@ -30,8 +30,16 @@ public class WithdrawAmountService {
         Timestamp updatedTime= accountManager.getUpdateTime(connection, withdrawAmountDetails.getAccountNo());
         if(updatedTime!=null && accountManager.IsAmountWithdrawn(connection,AccountNo,amount,updatedTime,userID)){
 
-            if(transaction.insertRowForWithdrawAmount(connection,AccountNo,amount)!=0)
-                return true;		
+            if(transaction.insertRowForWithdrawAmount(connection,AccountNo,amount)!=0){
+            	 connection.commit();
+                 connection.setAutoCommit(true);
+                 return true;
+            }
+                		
+        }else{
+            connection.rollback();
+            connection.setAutoCommit(true);
+            return false;
         }
         return false;
     }

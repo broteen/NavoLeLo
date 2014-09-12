@@ -33,12 +33,12 @@ public class AccountDAO {
 
     /** The Constant ALL_ACCOUNT_QUERY_STRING. */
     private static final String ALL_ACCOUNT_QUERY_STRING="select b.account_number,a.account_type,b.balance,b.updated_time from account_type a "
-            + "inner join account b on a.account_type_id = b.account_type_id  where customer_id=?";
+            + "inner join account b on a.account_type_id = b.account_type_id  where customer_id=? and b.status=?";
 
 
     /** The Constant ACCOUNT_QUERY_STRING. */
-    private static final String ACCOUNT_QUERY_STRING = "SELECT B.ACCOUNT_NUMBER,A.ACCOUNT_TYPE,B.BALANCE,B.UPDATED_TIME FROM ACCOUNT_TYPE A "
-            + "INNER JOIN ACCOUNT B ON A.ACCOUNT_TYPE_ID = B.ACCOUNT_TYPE_ID  WHERE B.ACCOUNT_NUMBER=?";
+    private static final String ACCOUNT_QUERY_STRING = "select b.account_number,a.account_type,b.balance,b.updated_time from account_type a "
+            + "inner join account b on a.account_type_id = b.account_type_id  where b.account_number=? and b.status=?";
 
 
 
@@ -77,7 +77,7 @@ public class AccountDAO {
         List<AccountDTO> list = new ArrayList<AccountDTO>();
         ResultSet rs = null;
         try {
-            rs = DBHelper.getResultSetFromSQL(connection, ALL_ACCOUNT_QUERY_STRING, customerId);
+            rs = DBHelper.getResultSetFromSQL(connection, ALL_ACCOUNT_QUERY_STRING, customerId,"normal");
             if(rs != null) {
                 while(rs.next()) {
                     AccountDTO validAccount = new AccountDTO(
@@ -112,7 +112,7 @@ public class AccountDAO {
         try {
 
 
-            rs = DBHelper.getResultSetFromSQL(connection, ACCOUNT_QUERY_STRING, accountNo);
+            rs = DBHelper.getResultSetFromSQL(connection, ACCOUNT_QUERY_STRING, accountNo,"normal");
             if(rs !=null && rs.next())
             {
                 accountDetails = new AccountDTO(rs.getLong("ACCOUNT_NUMBER"),rs.getString("ACCOUNT_TYPE"),rs.getLong("BALANCE"),rs.getTimestamp("UPDATED_TIME"));

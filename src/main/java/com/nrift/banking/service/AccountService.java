@@ -138,8 +138,7 @@ public class AccountService {
             return true;
 
     }
-    public boolean IsAccountClosed(Connection connection, long accountNo)
-			throws ServletException, SQLException {
+    public boolean IsAccountClosed(Connection connection, long accountNo) throws SQLException {
 		if (new AccountDAO(connection).CloseAccount(accountNo) == 0)
 			return false;
 		else

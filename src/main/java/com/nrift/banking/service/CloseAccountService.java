@@ -14,29 +14,20 @@ public class CloseAccountService extends AccountService {
 	/**
 	 * Closed account.
 	 *
-	 * @param con the con
+	 * @param connection the con
 	 * @param accountNumber the account number
 	 * @return true, if successful
 	 * @throws SQLException 
 	 */
-	public boolean closedAccount(Connection con, long accountNumber) throws SQLException {
+	public boolean closedAccount(Connection connection, long accountNumber) throws SQLException {
 
-		try {
-			 if(new AccountService().IsAccountClosed(con, accountNumber)){
-				 con.commit();
-				 con.setAutoCommit(true);
+		
+			 if(new AccountService().IsAccountClosed(connection, accountNumber)){
+				 connection.commit();
                  return true;
-			 }else{
-				 con.rollback();
-		            con.setAutoCommit(true);
-		            return false;
 			 }
-		}
-
-		catch (ServletException e) {
-			// To be Implemented later this is not the correct implementation
-			return false;
-		}
+			 connection.rollback();         //See if we need to throw an exception here and remove con.rollback() from here
+		     return false;
 	}
 
 }

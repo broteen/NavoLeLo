@@ -22,9 +22,19 @@ public class LogInfoService {
      * @throws SQLException the SQL exception
      */
 	public boolean validateUsername(Connection connection, String username,String password) throws SQLException{
-		return(new UserValidationService().checkUserName(connection, username,password));
+		connection.setAutoCommit(false);
+		if(new UserValidationService().checkUserName(connection, username,password)){
+			 connection.commit();
+             connection.setAutoCommit(true);
+             return true;
+		}else{
+			connection.rollback();
+            connection.setAutoCommit(true);
+            return false;
+        }
+		}
 
-}
+
 	
 	public boolean insertUserIdInCustomer(Connection connection,long customerId, String username) throws SQLException{
 		return(new UserValidationService().insertUserId(connection,customerId,username));

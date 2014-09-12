@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript" src="js/loginValidator.js"></script>
 </head>
 <body>
 	<div id="error"></div>
@@ -13,7 +14,7 @@
 		sent</h3>
 
 	<form name="transferFund" action="TransactionAuthorisationController"
-		method="post">
+		method="post" onsubmit="return validate()">
 		<strong>Sender's Account Number</strong>: <select
 			name="senderAccountNumber">
 			<c:forEach var="account" items="${user.customerDetails.accountList}">

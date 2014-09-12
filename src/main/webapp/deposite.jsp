@@ -2,7 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
+<head>
+<script type="text/javascript" src="js/loginValidator.js"></script>
+</head>
 <body>
 
 	<div id="container" style="width: 500px"></div>
@@ -14,7 +16,7 @@
 
 		<div id="content">
 			<center>
-				<form action="DepositeController" method="post">
+				<form name=deposite action="DepositeController" method="post" onsubmit="return validate()">
 					<br> <br>
 					<table border="1" width="30%" cellpadding="3">
 						<thead>

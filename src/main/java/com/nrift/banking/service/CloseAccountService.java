@@ -22,7 +22,15 @@ public class CloseAccountService extends AccountService {
 	public boolean closedAccount(Connection con, long accountNumber) throws SQLException {
 
 		try {
-			return new AccountService().IsAccountClosed(con, accountNumber);
+			 if(new AccountService().IsAccountClosed(con, accountNumber)){
+				 con.commit();
+				 con.setAutoCommit(true);
+                 return true;
+			 }else{
+				 con.rollback();
+		            con.setAutoCommit(true);
+		            return false;
+			 }
 		}
 
 		catch (ServletException e) {

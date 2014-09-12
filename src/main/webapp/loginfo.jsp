@@ -11,7 +11,7 @@
 	<center>
 		<b><font size="5" face="verdana" color="black">Log-in
 				information</font></b> <br> <br> <br> <br>
-		<form action="LogInfoController" method="post" onsubmit="return validate()">
+		<form name=loginfo action="LogInfoController" method="post" onsubmit="return validate()">
 			<input type="text" name="customerId" value="${customerId}" style="display:none"></input>
 			<table border="1" width="20%" cellpadding="3">
 				<tr>

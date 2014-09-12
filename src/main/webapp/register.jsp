@@ -11,7 +11,7 @@
 	<center>
 		<b><font size="6" face="verdana" color="black">Registration
 				Page</font></b> <br> <br>
-		<form action="RegisterController" method="post" onsubmit="return validate()">
+		<form name=register action="RegisterController" method="post" onsubmit="return validate()">
 
 
 			<br> <br>

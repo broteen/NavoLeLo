@@ -4,12 +4,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Log-in Information</title>
-<script type="text/javascript" src="js/loginfoValidation.js"></script>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/><script type="text/javascript" src="js/loginfoValidation.js"></script>
 </head>
 <body>
 <div id="error">${errorMsg}</div>
-	<center>
-		<b><font size="5" face="verdana" color="black">Log-in
+	<div align="center">
+		<div id="content">		<b><font size="5" face="verdana" color="black">Log-in
 				information</font></b> <br> <br> <br> <br>
 		<form name=loginfo action="LogInfoController" method="post" onsubmit="return validate()">
 			<input type="text" name="customerId" value="${customerId}" style="display:none"></input>
@@ -27,6 +28,10 @@
 				name="register" style="height: 30px; width: 100px">
 
 		</form>
-	</center>
+	</div>
+</div>
+		<div id="footer">
+		<%@include file="footer.jsp" %>
+		</div>
 </body>
 </html>

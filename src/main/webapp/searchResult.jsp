@@ -13,21 +13,7 @@
 </head>
 <body>
 
-	<div align="right">
-	<div id="header" div class="topcorner">
-
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-			href="login.jsp">Logout</a>
-	</div>
-
-</div>
 	
-		<div align="center">
-<div id="content"><link href="/header.css" rel="stylesheet" type="text/css"/>
-<link href="/content.css" rel="stylesheet" type="text/css"/>
-<link href="/footer.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
 
 <div align="right">
 	<div id="header" div class="topcorner">

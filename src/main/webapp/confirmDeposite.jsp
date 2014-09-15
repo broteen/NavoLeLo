@@ -5,16 +5,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="css\header.css" rel="stylesheet" type="text/css"/>
+<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
-	<div id="error">${errorMsg}</div>
-	<div id="container" style="width: 500px"></div>
+<div align="right">
+	<div id="header" div class="topcorner">
+<%@include file="header.jsp" %>
+		
+	
+	</div>
+	</div>
+<div align="center">
+	<div id="navbar">
 
-	<div id="header">
 
+		<%@include file="navbar.jsp" %>
+		</div>
+		</div>
+<div id="error">${errorMsg}</div>
+		<div align="center">
 		<div id="content">
-			<center>
-				<form action="DepositeConfirmController" method="post">
+		<br></br>			<form action="DepositeConfirmController" method="post">
 					<br> <br>
 					<table border="1" width="30%" cellpadding="3">
 						<thead>
@@ -41,14 +56,11 @@
 						onclick="history.go(-1);" value="Back"
 						style="height: 40px; width: 80px" /> <br> <br>
 				</form>
-			</center>
-		</div>
-
+			</div>
+</div>
 		<div id="footer">
-			<br> <br> <br> Copyright © nrifintech.com
+		<%@include file="footer.jsp" %>
 		</div>
-
-	</div>
 
 </body>
 </html>

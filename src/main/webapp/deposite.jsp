@@ -1,22 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<script type="text/javascript" src="js/loginValidator.js"></script>
+<html><head>		<link href="css\header.css" rel="stylesheet" type="text/css"/>
+<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
-	<div id="error">${errorMsg}</div>
-	<div id="container" style="width: 500px"></div>
+<div align="right">
+	<div id="header" div class="topcorner">
+<%@include file="header.jsp" %>
+		
+	
+	</div>
+	</div>
+<div align="center">
+	<div id="navbar">
 
-	<div id="header">
 
-
-
-
+		<%@include file="navbar.jsp" %>
+		</div>
+		</div>
+<div id="error">${errorMsg}</div>
+		<div align="center">
 		<div id="content">
-			<center>
-				<form name=deposite action="DepositeController" method="post" onsubmit="return validate()">
+		<br></br>			<form action="DepositeController" method="post">
 					<br> <br>
 					<table border="1" width="30%" cellpadding="3">
 						<thead>
@@ -40,14 +49,11 @@
 						size="50" value="Reset" name="reset"
 						style="height: 40px; width: 80px"> <br> <br>
 				</form>
-			</center>
-		</div>
-
-		<div id="footer">
-			<br> <br> <br> Copyright © nrifintech.com
-		</div>
-
 	</div>
+</div>
+		<div id="footer">
+		<%@include file="footer.jsp" %>
+		</div>
 
 </body>
 

@@ -13,7 +13,7 @@
 <link href="/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<div id="error">${errorMsg}</div>
+
 <div align="right">
 	<div id="header" div class="topcorner">
 <%@include file="header.jsp" %>
@@ -21,6 +21,7 @@
 	
 	</div>
 	</div>
+	<div id="error">${errorMsg}</div>
 <div align="center">
 		
 <div id="content">

@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div id="error">${errorMsg}</div>
+
 <div align="right">
 	<div id="header" div class="topcorner">
 <%@include file="header.jsp" %>
@@ -21,6 +21,7 @@
 	
 	</div>
 	</div>
+	
 <div align="center">
 	<div id="navbar">
 
@@ -29,6 +30,7 @@
 		</div>
 		</div>
 		<div align="center">
+		<div id="error">${errorMsg}</div>
 		
  <div id= "content" div class="menutitle">
  <form id="accountDetails" name="accountDetails" method="post" action="">

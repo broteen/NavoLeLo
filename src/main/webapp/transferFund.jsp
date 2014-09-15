@@ -7,12 +7,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/loginValidator.js"></script>
+<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
+
+<div align="right">
+	<div id="header" div class="topcorner">
+<%@include file="header.jsp" %>
+		
+	
+	</div>
+	</div>
+<div align="center">
+	<div id="navbar">
+
+
+		<%@include file="navbar.jsp" %>
+		</div>
+		</div>
 <div id="error">${errorMsg}</div>
-	<div id="error"></div>
-	<h3>Enter Sender's and Receiver's account number and amount to be
-		sent</h3>
+
+		<div align="center">
+		
+ <div id= "content">
+	
 
 	<form name="transferFund" action="TransactionAuthorisationController"
 		method="post" onsubmit="return validate()">
@@ -28,5 +49,11 @@
 			<c:out value="${receiverAccountNo.amount}" /> /><br /> <input
 			type="submit" value="Submit" /> <input type="reset" value="Reset" />
 	</form>
+	        </tr>
+ </div>
+ </div>
+ 	<div id="footer">
+		<%@include file="footer.jsp" %>
+		</div>
 </body>
 </html>

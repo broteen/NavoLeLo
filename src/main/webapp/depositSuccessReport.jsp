@@ -20,7 +20,7 @@
 		<br></br>
 	<div id="error">${errorMsg}</div>
 	${requestScope.message}
-	<form action="deposite.jsp" method="post">
+	<form action="deposit.jsp" method="post">
 		<input type="submit" value="OK" />
 	</form>
 </div>

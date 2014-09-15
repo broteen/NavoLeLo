@@ -38,12 +38,12 @@
 						<tbody>
 							<tr>
 								<td><b>Account Number </b></td>
-								<td>${depositeAmountDetails.receiverAccountNo}</td>
+								<td>${depositAmountDetails.receiverAccountNo}</td>
 							</tr>
 
 							<tr>
 								<td><b>Amount(INR) </b></td>
-								<td>${depositeAmountDetails.amount}</td>
+								<td>${depositAmountDetails.amount}</td>
 							</tr>
 						</tbody>
 					</table>

@@ -14,7 +14,7 @@
 				<ul id=b>
 					<li><a href="transferFund.jsp">Transfer</a></li>
 					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
-					<li><a href="deposite.jsp">Deposit</a></li>
+					<li><a href="deposit.jsp">Deposit</a></li>
 					<li><a href="searchAccount.jsp">Search</a></li>
 					<li><a href="delete.jsp">Delete</a></li>
 				</ul></li>

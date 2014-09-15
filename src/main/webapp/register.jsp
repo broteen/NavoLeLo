@@ -30,10 +30,10 @@
 						<td><input type="text" name="name" size="40" /></td>
 					<tr>
 						<td><b>Account Number* </b></td>
-						<td><input type="text" name="account_number" size="40"></td>
+						<td><input type="text" name="accountNumber" size="40"></td>
 					<tr>
 						<td><b>Contact Number* </b></td>
-						<td><input type="text" name="contact_number" size="40"></td>
+						<td><input type="text" name="contactNumber" size="40"></td>
 				</tbody>
 			</table>
 			<br> <br> <input type="submit" size="50" value="Next"

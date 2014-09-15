@@ -19,7 +19,7 @@
 						size="40"></td>
 				</tr>
 				<tr>
-					<td><b>Password* </b><input type="text" name="password"
+					<td><b>Password* </b><input type="password" name="password"
 						size="40"></td>
 				</tr>
 			</table>

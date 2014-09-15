@@ -36,9 +36,15 @@ public class RegisterController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+    	long accountNumber=0;
+    	long contactNumber=0;
         String name = request.getParameter("name");
-        long accountNumber =Long.parseLong( request.getParameter("account_number"));
-        long contactNumber = Long.parseLong(request.getParameter("contact_number"));
+       
+		if(request.getParameter("account_number")!="")
+        accountNumber =Long.parseLong( request.getParameter("accountNumber"));
+      
+		if(request.getParameter("contact_number")!="")
+        contactNumber = Long.parseLong(request.getParameter("contactNumber"));
         //String pan_number = request.getParameter("pan_number");
         String errorMsg = null;
         if (name == null ||name.equals("")) {

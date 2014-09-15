@@ -34,7 +34,12 @@ public class LogInfoService {
 
 	
 	public void insertUserIdInCustomer(Connection connection,long customerId, String username) throws  BankingException{
-		new UserValidationService().insertUserId(connection,customerId,username);
+		try{
+			new UserValidationService().insertUserId(connection,customerId,username);
+			connection.commit();
+		}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
 		
 		}
 	}

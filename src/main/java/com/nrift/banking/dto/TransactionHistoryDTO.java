@@ -46,93 +46,44 @@ public class TransactionHistoryDTO implements Serializable{
         this.amount=amount;
     }
 
-    /**
-     * Gets the transaction ref.
-     *
-     * @return the accountNo
-     */
-    public long getTransactionRef() {
-        return transactionRef;
-    }
+	public long getTransactionRef() {
+		return transactionRef;
+	}
 
-    /**
-     * Sets the transaction refo.
-     *
-     * @param transactionRef the new transaction refo
-     */
-    public void setTransactionRefo(long transactionRef ) {
-        this.transactionRef = transactionRef;
-    }
+	public void setTransactionRef(long transactionRef) {
+		this.transactionRef = transactionRef;
+	}
 
-    /**
-     * Gets the time stamp.
-     *
-     * @return the accountType
-     */
-    public Timestamp getTimeStamp() {
-        return transactionTime;
-    }
+	public long getCrAccNum() {
+		return crAccNum;
+	}
 
-    /**
-     * Sets the time stamp.
-     *
-     * @param timeStamp the new time stamp
-     */
-    public void setTimeStamp(int timeStamp) {
-        this.transactionTime=transactionTime;
-    }
+	public void setCrAccNum(long crAccNum) {
+		this.crAccNum = crAccNum;
+	}
 
-    /**
-     * Gets the cr acc num.
-     *
-     * @return the balance
-     */
-    public long getCrAccNum() {
-        return crAccNum;
-    }
+	public long getDrAccNum() {
+		return drAccNum;
+	}
 
-    /**
-     * Sets the cr acc num.
-     *
-     * @param crAccNum the new cr acc num
-     */
-    public void setCrAccNum(long crAccNum) {
-        this.crAccNum = crAccNum;
-    }
+	public void setDrAccNum(long drAccNum) {
+		this.drAccNum = drAccNum;
+	}
 
-    /**
-     * Gets the dr acc num.
-     *
-     * @return the dr acc num
-     */
-    public long getDrAccNum() {
-        return crAccNum;
-    }
+	public long getAmount() {
+		return amount;
+	}
 
-    /**
-     * Sets the dr acc num.
-     *
-     * @param drAccNum the new dr acc num
-     */
-    public void setDrAccNum(long drAccNum) {
-        this.drAccNum = drAccNum;
-    }
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
 
-    /**
-     * Gets the amount.
-     *
-     * @return the amount
-     */
-    public long getAmount() {
-        return amount;
-    }
+	public Timestamp getTransactionTime() {
+		return transactionTime;
+	}
 
-    /**
-     * Sets the amount.
-     *
-     * @param amount the new amount
-     */
-    public void setAmount(long amount) {
-        this.amount = amount;
-    }
+	public void setTransactionTime(Timestamp transactionTime) {
+		this.transactionTime = transactionTime;
+	}
 }
+

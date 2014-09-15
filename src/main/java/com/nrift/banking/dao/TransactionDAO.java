@@ -46,7 +46,7 @@ public class TransactionDAO {
     
     /** The Constant TRANSACTION_HISTORY_QUERY_STRING. */
     private static final String TRANSACTION_HISTORY_QUERY_STRING= "select transaction_ref, transaction_time, cr_acc_num, dr_acc_num, "
-            + "amount from transaction where cr_num = ? or dr_num = ?";
+            + "amount from transaction where cr_acc_num = ? or dr_acc_num = ?";
 
     /**
      * Insert row for transfer amount.
@@ -124,7 +124,7 @@ public class TransactionDAO {
             if(rs !=null){
             	List<TransactionHistoryDTO> list= new ArrayList<TransactionHistoryDTO>();
                 while (rs.next()){
-                    TransactionHistoryDTO transaction = new TransactionHistoryDTO(rs.getLong("TRANSACTION_REF"),rs.getTimestamp("TRANSACTION_TIME"),rs.getLong("CR_ACCNUM"), rs.getLong("DR_ACCNUM"), rs.getLong("AMOUNT"));
+                    TransactionHistoryDTO transaction = new TransactionHistoryDTO(rs.getLong("TRANSACTION_REF"),rs.getTimestamp("TRANSACTION_TIME"),rs.getLong("CR_ACC_NUM"), rs.getLong("DR_ACC_NUM"), rs.getLong("AMOUNT"));
                     logger.info("Transaction is shown="+transaction);
                     list.add(transaction);
                 }

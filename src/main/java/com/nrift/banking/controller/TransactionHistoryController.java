@@ -47,7 +47,7 @@ public class TransactionHistoryController extends HttpServlet {
 			TransactionViewDTO transactionViewDetails = (TransactionViewDTO) transactionViewManager.getTransactionViewDetails(con, accountNo);
 			logger.info("Transaction history for account number=" + transactionViewDetails);
 			HttpSession session = request.getSession(false);
-			request.setAttribute("transactionHistory", transactionViewDetails);
+			session.setAttribute("transactionViewDetails", transactionViewDetails);
 			response.sendRedirect("transactionHistory.jsp");
 			/*
 				RequestDispatcher rd = getServletContext()

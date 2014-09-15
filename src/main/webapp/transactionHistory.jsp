@@ -39,11 +39,11 @@
 <thead>
 <tr>
           <td><div align="center"><strong>Account Number:</strong></div></td>
-          <td><div align="justify">${user.customerDetails.transactionViewDetails.getAccountDetails.accountNo}</div></td>
+          <td><div align="justify">${transactionViewDetails.accountNo}</div></td>
         </tr>
         <tr>
         <td><div align="center"><strong>Account Type:</strong></div></td>
-          <td><div align="justify">${user.customerDetails.transactionViewDetails.getAccountDetails.accountType}</div></td>
+          <td><div align="justify">${transactionViewDetails.accountType}</div></td>
         </tr>
         </thead>
         <table border=1>
@@ -59,9 +59,9 @@
     </thead>
         <tbody id="table" align="center">
         
-<c:forEach items="${user.customerDetails.transactionViewDetails.transactionHistoryDetailsList}" var="current">
+<c:forEach items="${transactionViewDetails.transactionHistoryDetailsList}" var="current">
         <tr>
-         <td><div align="center"><c:out value="${current.transactionRef" /></strong></div></td>
+         <td><div align="center"><c:out value="${current.transactionRef}" /></strong></div></td>
         <td><div align="center"><c:out value="${current.transactionTime}" /></strong></div></td>
        <td><div align="center"><c:out value="${current.crAccNum}" /></strong></div></td>
                <td><div align="center"><c:out value="${current.drAccNum}" /></strong></div></td>
@@ -72,8 +72,8 @@
         </tbody>
        </table>
        <tr>
-        <td><div align="center"><strong>Account Type:</strong></div></td>
-          <td><div align="justify">${user.customerDetails.transactionViewDetails.getAccountDetails.balance}</div></td>
+        <td><div align="center"><strong>Account Balance:</strong></div></td>
+          <td><div align="justify">${transactionViewDetails.balance}</div></td>
         </tr>
  </div>
  </div>

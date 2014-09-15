@@ -84,48 +84,41 @@ public class UserValidationDAO {
 	 * @param username the username
 	 * @return true, if successful
 	 * @throws SQLException the SQL exception
+	 * @throws BankingException 
 	 */
 
-	public boolean validateUserName(String username,String password) throws SQLException{      //Couldn't understand this method kindly change it.
-		boolean user=false;
-		ResultSet rs = null;
-		ResultSet rs1=null;
+	public void validateUserName(String username,String password) throws SQLException, BankingException{     
+		ResultSet rs1 = null;
+		ResultSet rs2=null;
 		String isAdmin = "n";
 		try {
-			rs = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
+			rs1 = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
 
-			if (rs != null && rs.next()) {
-				logger.info("User name already exists"+username);
-				user=true;	
-			}else
-				rs1=DBHelper.getResultSetFromSQL(connection, insertRowforNewUser(),username,password,isAdmin);
-			if(rs1!=null){
-				user=false;
-			}
+			if (rs1 != null) {
+				throw new BankingException("UserName already exists...Enter different username");	
+			}else{
+				rs2=DBHelper.getResultSetFromSQL(connection, insertRowforNewUser(),username,password,isAdmin);
+		      }
 		}finally{
-			DBHelper.closeResultSet(rs);
 			DBHelper.closeResultSet(rs1);
+			DBHelper.closeResultSet(rs2);
 		}
-		return user;  
 	}
 
-	public boolean insertInCustomerUserId(long customerId,String username) throws SQLException { //Couldn't understand this method kindly change it.
-		ResultSet rs = null;
-		ResultSet rs1=null;
-		Long userId=0L;
+	public void insertInCustomerUserId(long customerId,String username) throws SQLException, BankingException { 
+		ResultSet rs1 = null;
+		ResultSet rs2=null;
 		try{
-			rs = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
-			if (rs != null && rs.next()){
-				userId=rs.getLong("USER_ID");
-				rs1=DBHelper.getResultSetFromSQL(connection, insertUserIdInCustomer(),userId,customerId);
-				return true;
+			rs1 = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
+			if (rs1 != null && rs1.next()){
+				rs2=DBHelper.getResultSetFromSQL(connection, insertUserIdInCustomer(),rs1.getLong("USER_ID"),customerId);
 			}
 			else{
-				return false;
+				throw new BankingException("Sorry!!!..Error in Entry process...");	
 			}
 		}finally{
-			DBHelper.closeResultSet(rs);
 			DBHelper.closeResultSet(rs1);
+			DBHelper.closeResultSet(rs2);
 		}
 	}
 }

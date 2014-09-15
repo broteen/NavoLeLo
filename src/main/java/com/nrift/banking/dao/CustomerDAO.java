@@ -103,24 +103,20 @@ public class CustomerDAO {
      * @return 
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public boolean checkUserId(long customerId) throws SQLException {        //Couldn't understand this method kindly change it.
-        boolean result=false;
+    public void  checkUserId(long customerId) throws SQLException, BankingException {        
         ResultSet rs = null;
         try {
             rs = DBHelper.getResultSetFromSQL(connection, CHECK_USER_ID_QUERY_STRING, customerId);
             if (rs != null && rs.next()) 
-            {
-               long userId = rs.getLong("USER_ID");
-                if(userId==0){
-                    logger.info("new customer please go to log info page");
-                result=true;
-                }
+            {	
+            	if(rs.getLong("USER_ID")!=0L)
+            		throw new BankingException("Customer is already registered");
             }
-        }finally{
-            DBHelper.closeResultSet(rs);       
-        }
-        return result;
-    }		
+            }finally{
+            	DBHelper.closeResultSet(rs);
+            }
+    }	
 
 }

@@ -49,14 +49,25 @@ public class UserValidationService {
      * @param username the username
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public boolean checkUserName(Connection connection, String username,String password) throws SQLException //Couldn't understand this method kindly change it.
+    public void checkUserName(Connection connection, String username,String password) throws BankingException
 	{
-		return(new UserValidationDAO(connection).validateUserName(username, password));
+    	try{
+    		new UserValidationDAO(connection).validateUserName(username, password);
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
+		
 	}
     
-    public boolean insertUserId(Connection connection, long customerId, String username) throws SQLException { //Couldn't understand this method kindly change it.
-		return (new UserValidationDAO(connection).insertInCustomerUserId(customerId,username));
+    public void insertUserId(Connection connection, long customerId, String username) throws BankingException { 
+    	try{
+    		new UserValidationDAO(connection).insertInCustomerUserId(customerId,username);
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
+		
 	}
 
 

@@ -67,33 +67,16 @@ public class RegisterController extends HttpServlet {
 			try{
 				
 				long customerId = registerValidation.validateAccountNumber(con,accountNumber);
-				if (customerId != 0L) {
-					logger.info("account found with given account number =" + customerId);	
-				}
-			else {
-					RequestDispatcher rd = getServletContext()
-							.getRequestDispatcher("/register.jsp");
-					logger.error("account not found=" + name);
-					rd.include(request, response);
-				}
 				CustomerDTO customer=registerValidation.validateCustomerDetails(con,customerId);
-					if(customer!=null && customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
+				
+					if(customer.getName().equalsIgnoreCase(name) && customer.getContactNumber()==contactNumber){
 							logger.info("customer found with details=" + customerId);
-						if(registerValidation.checkuserID(con,customerId)){
+						registerValidation.checkUserId(con,customerId);
 						logger.error("new user.....");
 						request.setAttribute("customerId", customerId);
 						RequestDispatcher rd =getServletContext().getRequestDispatcher("/loginfo.jsp");
 						rd.forward(request, response);
 						}	
-					else{
-						RequestDispatcher rd = getServletContext()
-								.getRequestDispatcher("/register.jsp");
-						PrintWriter out = response.getWriter();
-						logger.error("customer is already registered");
-						out.println("<font color=red>customer is already register</font>");
-						rd.include(request, response);
-					}
-						}
 				else {
 					RequestDispatcher rd = getServletContext()
 							.getRequestDispatcher("/register.jsp");
@@ -102,18 +85,16 @@ public class RegisterController extends HttpServlet {
 					out.println("<font color=red>No customer found with given Details, please fill correct details</font>");
 					rd.include(request, response);
 				}
-				
-					
-			}catch(SQLException|BankingException |ServletException| IOException e) {
+						
+			}catch(BankingException e) {
                 try {
                     con.rollback();
+                    logger.error(" Exception Thrown="+ e.getMessage());
                 } catch(SQLException e1) {
-                    logger.error("Rollback error");
+                    logger.error("Rollback error" +e1.getMessage());
                 }
-                logger.error(" Exception Thrown");
-                //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg",e.getMessage());
-                request.getRequestDispatcher("/register.jsp").forward(request,response);
+                request.setAttribute("errorMsg",e.getMessage()); 
+                request.getRequestDispatcher("register.jsp").forward(request,response);
             }
         }
     }

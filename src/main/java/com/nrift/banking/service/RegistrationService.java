@@ -22,7 +22,7 @@ public class RegistrationService {
      * @throws SQLException the SQL exception
      * @throws BankingException 
      */
-    public long validateAccountNumber(Connection connection, long accountNumber)throws BankingException { //Couldn't understand this method kindly change it.
+    public long validateAccountNumber(Connection connection, long accountNumber)throws BankingException { 
 
         return(new AccountService().validateAccount(connection,accountNumber));
     }
@@ -37,7 +37,7 @@ public class RegistrationService {
      * @throws SQLException the SQL exception
      * @throws BankingException 
      */
-    public CustomerDTO validateCustomerDetails(Connection connection,long customerId) throws BankingException{ //Couldn't understand this method kindly change it.
+    public CustomerDTO validateCustomerDetails(Connection connection,long customerId) throws BankingException{
         return(new CustomerService().validateCustomer(connection,customerId));
     }
 
@@ -49,8 +49,8 @@ public class RegistrationService {
      * @return true, if successful
      * @throws SQLException the SQL exception
      */
-    public boolean checkuserID(Connection connection,long customerId) throws SQLException{ //Couldn't understand this method kindly change it.
-        return(new CustomerService().checkuser_ID(connection,customerId));
+    public void checkUserId(Connection connection,long customerId) throws BankingException{ 
+        new CustomerService().checkUserId(connection,customerId);
     }
 }
 

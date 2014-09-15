@@ -2,9 +2,11 @@ package com.nrift.banking.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import com.nrift.banking.dao.CustomerDAO;
 import com.nrift.banking.dto.CustomerDTO;
 import com.nrift.banking.exception.BankingException;
+import com.nrift.banking.exception.OptimisticLockException;
 
 /**
  * The Class CustomerService.
@@ -54,10 +56,16 @@ public class CustomerService {
      * @param customerId the customer id
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-    public boolean checkuser_ID(Connection connection,long customerId) throws SQLException
+    public void checkUserId(Connection connection,long customerId) throws BankingException
     {
-       return new CustomerDAO(connection).checkUserId(customerId); //Couldn't understand this method kindly change it.       
+    	try{
+    		 new CustomerDAO(connection).checkUserId(customerId);  
+    	}catch(SQLException e){
+    		throw new BankingException(e);
+    	}
+           
     }
 
 }

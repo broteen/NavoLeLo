@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 
+import com.nrift.banking.exception.BankingException;
+import com.nrift.banking.exception.OptimisticLockException;
+
 
 
 /**
@@ -20,31 +23,19 @@ public class LogInfoService {
      * @param username the username
      * @return true, if successful
      * @throws SQLException the SQL exception
+     * @throws BankingException 
      */
-	public boolean validateUsername(Connection connection, String username,String password) throws SQLException{ //Couldn't understand this method kindly change it.
-		if(!(new UserValidationService().checkUserName(connection, username,password))){
-			 connection.commit();
-             connection.setAutoCommit(true);
-             return true;
-		}else{
-			connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }
+	public void validateUsername(Connection connection, String username,String password) throws  BankingException{ 
+		
+			new UserValidationService().checkUserName(connection, username,password);
 		}
+		
 
 
 	
-	public boolean insertUserIdInCustomer(Connection connection,long customerId, String username) throws SQLException{ //Couldn't understand this method kindly change it.
-		if(new UserValidationService().insertUserId(connection,customerId,username)){
-			 connection.commit();
-             connection.setAutoCommit(true);
-             return true;
-		}else{
-			connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }
+	public void insertUserIdInCustomer(Connection connection,long customerId, String username) throws  BankingException{
+		new UserValidationService().insertUserId(connection,customerId,username);
+		
 		}
 	}
 

@@ -70,8 +70,6 @@ public class DepositeController extends HttpServlet {
 
 				logger.error("show the deposite details.....");
 				session.setAttribute("depositeAmountDetails", depositeAmountDetails);
-				//session.setAttribute("depositeAccountNumber", accountNumber);
-				//session.setAttribute("depositeAmount", amount);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/confirmDeposite.jsp");
 				rd.forward(request, response);
 

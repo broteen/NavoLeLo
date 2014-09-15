@@ -61,35 +61,21 @@ public class LogInfoController  extends HttpServlet {
 			
 			try{
 				logger.info("Username registeration");
-				boolean user=logInfo.validateUsername(con, username,password);
+				logInfo.validateUsername(con, username,password);
 			
 				logger.info("CustomerId is..."+customerID);
-				if (user) {
-					boolean insert=logInfo.insertUserIdInCustomer(con, customerID,username);
-					if(insert){
-					logger.info("Username registered");
-					HttpSession session = request.getSession(false);
-					session.setAttribute("user", user);
-					response.sendRedirect("loginsuccess.jsp");
-					}
-				} else {
-					RequestDispatcher rd = getServletContext()
-							.getRequestDispatcher("/login.jsp");
-					PrintWriter out = response.getWriter();
-					logger.error("Username already exists in database");
-					out.println("<font color=red>Sorry! You are already Registered User</font>");
-					rd.include(request, response);
-				}
-			}catch(SQLException |ServletException| IOException e) {
+			
+					logInfo.insertUserIdInCustomer(con, customerID,username);
+				
+			}catch(BankingException e) {
                 try {
                     con.rollback();
+                    logger.error(" Exception Thrown="+ e.getMessage());
                 } catch(SQLException e1) {
-                    logger.error("Rollback error");
+                    logger.error("Rollback error" +e1.getMessage());
                 }
-                logger.error(" Exception Thrown");
-                //There should be an error block on around the top of every jsp page
-                request.setAttribute("errorMsg", "Exception Occured!");
-                request.getRequestDispatcher("loginfo.jsp").forward(request,response);
+                request.setAttribute("errorMsg",e.getMessage()); 
+                request.getRequestDispatcher("register.jsp").forward(request,response);
             }
         }
     }

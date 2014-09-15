@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.AccountDTO;
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransferAuthorizationService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 
 /**
  * Servlet implementation class TransactionAuthorisationController
@@ -81,11 +83,11 @@ public class TransferAuthorizationController extends HttpServlet {
 			rd.include(request, response);
 		} else {
 
-			Connection con = (Connection) getServletContext().getAttribute(
-					"connection");
-			TransferAuthorizationService trancAuthorise = new TransferAuthorizationService();
-
+			Connection con = null;
 			try{
+				con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute(
+						"datasource"));
+				TransferAuthorizationService trancAuthorise = new TransferAuthorizationService();
 				TransferAmountDTO transferAmountDetails= trancAuthorise.validate(con,senderAccount,receiverAccount,amount);
 				HttpSession session= request.getSession(false);
 				logger.info("Transaction is Authorised");
@@ -100,13 +102,8 @@ public class TransferAuthorizationController extends HttpServlet {
                     rd.include(request, response);
 				 */
 			}catch(BankingException e) {
-				try {
-					con.rollback();
-					logger.error(" Exception Thrown="+e.getMessage());
-				} catch(SQLException e1) {
-					logger.error("Rollback error="+e1.getMessage());
-				}
-				request.setAttribute("errorMsg", e.getMessage());    //There should be an error block on around the top of every jsp page
+				DatasourceConnectionManager.rollbackConnection(con);
+				request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
 				request.getRequestDispatcher("transferFund.jsp").forward(request,response);
 			}
 		}

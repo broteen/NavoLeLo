@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransferAmountService;
 import com.nrift.banking.service.TransferAuthorizationService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 import com.nrift.banking.utility.UserInstantiation;
 /**
  * Servlet implementation class TransferAmountController
@@ -51,14 +53,16 @@ public class TransferAmountController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Connection con = (Connection) getServletContext().getAttribute("connection");
-		TransferAmountService transAmount = new TransferAmountService();
+		Connection con = null;
 		HttpSession session= request.getSession(false);
 		TransferAmountDTO transferAmountDetails = (TransferAmountDTO)session.getAttribute("transferAmountDetails"); 
 		UserDTO user = (UserDTO)session.getAttribute("user"); 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/transferSystemConformation.jsp");
 
 		try{
+			con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute(
+					"datasource"));
+			TransferAmountService transAmount = new TransferAmountService();
 			transAmount.makeTransfer(con,transferAmountDetails,user.getUserId()); 
 			user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
 			session.setAttribute("user", user);
@@ -67,13 +71,8 @@ public class TransferAmountController extends HttpServlet {
 			request.setAttribute("message", "Transaction is Successfull");
 			rd.forward(request, response);
 		}catch(BankingException e) {
-			try {
-				con.rollback();
-				logger.error(" Exception Thrown"+e.getMessage());
-			} catch(SQLException e1) {
-				logger.error("Rollback error=" + e1.getMessage());
-			}
-			request.setAttribute("errorMsg",e.getMessage()); //There should be an error block on around the top of every jsp page
+			DatasourceConnectionManager.rollbackConnection(con);
+			request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
 			request.getRequestDispatcher("transferFund.jsp").forward(request,response);
 		}
 	}

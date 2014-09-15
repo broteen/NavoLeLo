@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.TransactionHistoryDTO;
 import com.nrift.banking.dto.TransactionViewDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.TransactionHistoryService;
 import com.nrift.banking.service.TransactionViewService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 
 /**
  * The Class TransactionHistoryController.
@@ -39,11 +41,13 @@ public class TransactionHistoryController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		long accountNo = Long.parseLong(request.getParameter("accountNo"));
 
-		Connection con = (Connection) getServletContext().getAttribute(
-				"connection");
-		TransactionViewService transactionViewManager = new TransactionViewService();
+		Connection con = null;
+		
 
 		try{
+			con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute(
+					"datasource"));
+			TransactionViewService transactionViewManager = new TransactionViewService();
 			TransactionViewDTO transactionViewDetails = (TransactionViewDTO) transactionViewManager.getTransactionViewDetails(con, accountNo);
 			logger.info("Transaction history for account number=" + transactionViewDetails);
 			HttpSession session = request.getSession(false);
@@ -58,12 +62,7 @@ public class TransactionHistoryController extends HttpServlet {
 				rd.include(request, response);
 			 */
 		}catch(BankingException e){
-			try {
-				con.rollback();
-				logger.error(" Exception Thrown"+e.getMessage());
-			} catch(SQLException e1) {
-				logger.error("Rollback error=" + e1.getMessage());
-			}
+			DatasourceConnectionManager.rollbackConnection(con);
 			request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
 			request.getRequestDispatcher("index.jsp").forward(request,response);
 		}

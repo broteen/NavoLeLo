@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.WithdrawAmountDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.WithdrawAuthorizationService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 
 /**
  * Servlet implementation class WithdrawalAuthorizationController
@@ -75,11 +77,11 @@ public class WithdrawalAuthorizationController extends HttpServlet {
             rd.include(request, response);
         } else {
 
-            Connection con = (Connection) getServletContext().getAttribute(
-                    "connection");
-            WithdrawAuthorizationService withdrawAuthorise = new WithdrawAuthorizationService();
-
+            Connection con = null;
             try{
+            	con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute(
+						"datasource"));
+            	WithdrawAuthorizationService withdrawAuthorise = new WithdrawAuthorizationService();
                 WithdrawAmountDTO withdrawAmountDetails= withdrawAuthorise.validate(con,account,amount);
                 HttpSession session= request.getSession(false);
                 if (withdrawAmountDetails!=null) {
@@ -95,13 +97,8 @@ public class WithdrawalAuthorizationController extends HttpServlet {
                     rd.include(request, response);
                 }
             }catch(BankingException e) {
-                try {
-                    con.rollback();
-                    logger.error(" Exception Thrown="+e.getMessage());
-                } catch(SQLException e1) {
-                    logger.error("Rollback error="+e1.getMessage());
-                }
-                request.setAttribute("errorMsg", e.getMessage());      //There should be an error block on around the top of every jsp page
+            	DatasourceConnectionManager.rollbackConnection(con);
+				request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
                 request.getRequestDispatcher("withdrawAmt.jsp").forward(request,response);
             }
         }

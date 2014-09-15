@@ -16,10 +16,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.LogInfoService;
 import com.nrift.banking.service.UserValidationService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 
 /**
  * The Class LogInfoController.
@@ -52,12 +54,10 @@ public class LogInfoController  extends HttpServlet {
                     "/loginfo.jsp");
             rd.include(request, response);
         } else {
-
-        	Connection con = (Connection) getServletContext().getAttribute(
-					"connection");
-			LogInfoService logInfo=new LogInfoService();
-			
+        	Connection con = null;        	
 			try{
+				con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute("datasource"));
+				LogInfoService logInfo=new LogInfoService();
 				logger.info("Username registeration");
 				logInfo.validateUsername(con, username,password);
 				logger.info("CustomerId is..."+customerID);
@@ -65,13 +65,8 @@ public class LogInfoController  extends HttpServlet {
 				response.sendRedirect("loginsuccess.jsp");
 				
 			}catch(BankingException e) {
-                try {
-                    con.rollback();
-                    logger.error(" Exception Thrown="+ e.getMessage());
-                } catch(SQLException e1) {
-                    logger.error("Rollback error" +e1.getMessage());
-                }
-                request.setAttribute("errorMsg",e.getMessage()); 
+                	DatasourceConnectionManager.rollbackConnection(con);
+    				request.setAttribute("errorMsg",e.getMessage());  //There should be an error block on around the top of every jsp page
                 request.getRequestDispatcher("register.jsp").forward(request,response);
             }
         }

@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.DepositeConfirmService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 import com.nrift.banking.utility.UserInstantiation;
 
 /**
@@ -35,15 +37,14 @@ public class DepositConfirmController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Inside Deposite Controller Class");
-		Connection con = (Connection) getServletContext().getAttribute("connection");
 		DepositeConfirmService depositeConfirm = new DepositeConfirmService ();
 		HttpSession session= request.getSession(false);
 		UserDTO user = (UserDTO)session.getAttribute("user"); 
 		TransferAmountDTO depositeAmountDetails = (TransferAmountDTO)session.getAttribute("depositAmountDetails");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/depositSuccessReport.jsp");
-
+		Connection con=null;
 		try{
-
+			con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute("datasource"));
 			depositeConfirm.makeDeposit(con,depositeAmountDetails.getReceiverAccountNo(), depositeAmountDetails.getAmount(),user.getUserId());
 			user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
 			session.setAttribute("user", user);
@@ -51,13 +52,8 @@ public class DepositConfirmController extends HttpServlet {
 			request.setAttribute("message", "Deposite is Successfull");
 			rd.forward(request, response);
 		}catch(BankingException e) {
-			try {
-				con.rollback();
-				logger.error(" Exception Thrown =" + e.getMessage());
-			} catch(SQLException e1) {
-				logger.error("Rollback error" + e1.getMessage());
-			}
-			request.setAttribute("errorMsg", e.getMessage());  
+			DatasourceConnectionManager.rollbackConnection(con);
+			request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page 
 			request.getRequestDispatcher("confirmDeposit.jsp").forward(request,response);
 		}
 	}

@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.CustomerDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.RegistrationService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 
 /**
  * The Class RegisterController.
@@ -64,12 +66,10 @@ public class RegisterController extends HttpServlet {
                     "/register.jsp");
             rd.include(request, response);
         } else {
-        	Connection con = (Connection) getServletContext().getAttribute(
-					"connection");
-			RegistrationService registerValidation = new RegistrationService();
-			
+        	Connection con = null;
 			try{
-				
+				con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute("datasource"));
+				RegistrationService registerValidation = new RegistrationService();
 				long customerId = registerValidation.validateAccountNumber(con,accountNumber);
 				CustomerDTO customer=registerValidation.validateCustomerDetails(con,customerId);
 				
@@ -91,13 +91,8 @@ public class RegisterController extends HttpServlet {
 				}
 						
 			}catch(BankingException e) {
-                try {
-                    con.rollback();
-                    logger.error(" Exception Thrown="+ e.getMessage());
-                } catch(SQLException e1) {
-                    logger.error("Rollback error" +e1.getMessage());
-                }
-                request.setAttribute("errorMsg",e.getMessage()); 
+				DatasourceConnectionManager.rollbackConnection(con);
+				request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
                 request.getRequestDispatcher("register.jsp").forward(request,response);
             }
         }

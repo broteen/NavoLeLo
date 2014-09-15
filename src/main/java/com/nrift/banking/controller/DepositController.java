@@ -17,9 +17,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.TransferAmountDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.DepositeService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
 
 /**
  * The Class DepositeController.
@@ -57,16 +59,13 @@ public class DepositController extends HttpServlet {
 			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
 		} else {
-
-			Connection con = (Connection) getServletContext().getAttribute(
-					"connection");
-			DepositeService deposite=new DepositeService();
-
+			Connection con=null;
 			try{
+				con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute("datasource"));
 				logger.info("Inside deposite controller class");
 				TransferAmountDTO depositAmountDetails=new TransferAmountDTO(0L,accountNumber,amount,null);
 				HttpSession session= request.getSession(false);
-				long customerId  = deposite.validateAccountNumber(con,accountNumber);
+				long customerId  = new DepositeService().validateAccountNumber(con,accountNumber);
 
 				logger.error("show the deposit details.....");
 				session.setAttribute("depositAmountDetails", depositAmountDetails);
@@ -82,13 +81,8 @@ public class DepositController extends HttpServlet {
 				rd.include(request, response);
 				 */							
 			}catch(BankingException e) {
-				try {
-					con.rollback();
-					logger.error(" Exception Thrown="+e.getMessage());
-				} catch(SQLException e1) {
-					logger.error("Rollback error"+e1.getMessage());
-				}
-				request.setAttribute("errorMsg", e.getMessage());//There should be an error block on around the top of every jsp page
+				DatasourceConnectionManager.rollbackConnection(con);
+				request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page 
 				request.getRequestDispatcher("deposit.jsp").forward(request,response);
 			}
 		}

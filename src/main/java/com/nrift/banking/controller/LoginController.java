@@ -16,9 +16,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.BankingException;
 import com.nrift.banking.service.UserValidationService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
+import com.nrift.banking.utility.DatasourceManager;
 
 /**
  * The Class LoginController.
@@ -26,67 +29,61 @@ import com.nrift.banking.service.UserValidationService;
 @WebServlet(name = "Login", urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    static Logger logger = Logger.getLogger(LoginController.class);
+	static Logger logger = Logger.getLogger(LoginController.class);
 
-    /**
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String errorMsg = null;
-        if (username == null || username.equals("")) {
-            errorMsg = "User Name can't be null or empty";
-        }
-        if (password == null || password.equals("")) {
-            errorMsg = "Password can't be null or empty";
-        }
+	/**
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String errorMsg = null;
+		if (username == null || username.equals("")) {
+			errorMsg = "User Name can't be null or empty";
+		}
+		if (password == null || password.equals("")) {
+			errorMsg = "Password can't be null or empty";
+		}
 
-        if (errorMsg != null) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/login.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>" + errorMsg + "</font>");
-            rd.include(request, response);
-        } else {
-
-            Connection con = (Connection) getServletContext().getAttribute(
-                    "connection");
-            UserValidationService userValidation = new UserValidationService();
-
-            try{
-                UserDTO user = userValidation.validate(con, username,password);
-                    logger.info("User found with details=" + user);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", user);
-                    //setting session expiry to 5mins
-                    session.setMaxInactiveInterval(5*60);
-                    if(!user.isAdmin())
-                    	response.sendRedirect("index.jsp");
-                    else
-                    	response.sendRedirect("index.jsp");
-                    /*
+		if (errorMsg != null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					"/login.jsp");
+			PrintWriter out = response.getWriter();
+			out.println("<font color=red>" + errorMsg + "</font>");
+			rd.include(request, response);
+		} else {
+			Connection con = null;
+			try {
+				con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute(
+						"datasource"));
+				UserValidationService userValidation = new UserValidationService();
+				UserDTO user = userValidation.validate(con, username,password);
+				logger.info("User found with details=" + user);
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				//setting session expiry to 5mins
+				session.setMaxInactiveInterval(5*60);
+				if(!user.isAdmin())
+					response.sendRedirect("index.jsp");
+				else
+					response.sendRedirect("index.jsp");
+				/*
                     RequestDispatcher rd = getServletContext()
                             .getRequestDispatcher("/login.html");
                     PrintWriter out = response.getWriter();
                     logger.error("User not found with username=" + username);
                     out.println("<font color=red>No user found with given email id, please register first.</font>");
                     rd.include(request, response);
-                    */
-                }catch(BankingException e) {
-                try {
-                    con.rollback();
-                    logger.error(" Exception Thrown="+ e.getMessage());
-                } catch(SQLException e1) {
-                    logger.error("Rollback error" +e1.getMessage());
-                }
-                request.setAttribute("errorMsg",e.getMessage());  //There should be an error block on around the top of every jsp page
-                request.getRequestDispatcher("login.jsp").forward(request,response);
-            }
-        }
-    }
+				 */
+			}catch(BankingException e) {
+				DatasourceConnectionManager.rollbackConnection(con);
+				request.setAttribute("errorMsg",e.getMessage());  //There should be an error block on around the top of every jsp page
+				request.getRequestDispatcher("login.jsp").forward(request,response);
+			}
+		}
+	}
 
 }

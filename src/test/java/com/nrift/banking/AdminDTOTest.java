@@ -1,8 +1,5 @@
 package com.nrift.banking;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import com.nrift.banking.dto.AdminDTO;
 
 public class AdminDTOTest {

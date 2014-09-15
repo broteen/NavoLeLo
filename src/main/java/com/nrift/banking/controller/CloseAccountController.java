@@ -3,7 +3,6 @@ package com.nrift.banking.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import com.nrift.banking.service.CloseAccountService;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.nrift.banking.dto.UserDTO;
 import com.nrift.banking.exception.BankingException;
+import com.nrift.banking.service.CloseAccountService;
+import com.nrift.banking.utility.DatasourceConnectionManager;
+import com.nrift.banking.utility.DatasourceManager;
+import com.nrift.banking.utility.UserInstantiation;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -56,9 +61,8 @@ public class CloseAccountController extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		long account = 0L;
-		if(request.getParameter("accountNo")!="")
-			account = Long.parseLong(request.getParameter("accountNo"));
+
+		long account = Long.parseLong(request.getParameter("accountNo"));
 		String errorMsg = null;
 		if (account == 0L) {
 			errorMsg = "Please enter a valid account number";
@@ -70,16 +74,18 @@ public class CloseAccountController extends HttpServlet {
 			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
 		} else {
-
-			Connection con = (Connection) getServletContext().getAttribute(
-					"connection");
-
-			CloseAccountService closeAccountMgr = new CloseAccountService();
+			Connection con = null;
 			try {
+				con = DatasourceConnectionManager.getConnection((ComboPooledDataSource)getServletContext().getAttribute(
+						"datasource"));
+				CloseAccountService closeAccountMgr = new CloseAccountService();
 				HttpSession session = request.getSession(false);
 				logger.info("Transaction is Authorised");
 				session.setAttribute("AccountClosed", account);
 				closeAccountMgr.closeAccount(con,account);
+				UserDTO user = (UserDTO) session.getAttribute("user");
+				user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
+				session.setAttribute("user", user);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/deleteAccConfirmation.jsp");
 				rd.forward(request, response);
 				/*
@@ -91,12 +97,7 @@ public class CloseAccountController extends HttpServlet {
 					rd.include(request, response);
 				 */
 			}catch(BankingException e) {
-				try {
-					con.rollback();
-					logger.error(" Exception Thrown"+e.getMessage());
-				} catch(SQLException e1) {
-					logger.error("Rollback error=" + e1.getMessage());
-				}
+				DatasourceConnectionManager.rollbackConnection(con);
 				request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
 				request.getRequestDispatcher("delete.jsp").forward(request,response);
 			}

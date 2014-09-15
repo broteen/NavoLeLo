@@ -15,6 +15,7 @@
 
 </head>
 <body>
+<div id="error">${errorMsg}</div>
 <div align="right">
 	<div id="header" div class="topcorner">
 <%@include file="header.jsp" %>

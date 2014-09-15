@@ -2,12 +2,13 @@
 <head>
 <meta charset="US-ASCII">
 <title>Login Page</title>
-<script type="text/javascript" src="js/loginValidator.js"></script>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/><script type="text/javascript" src="js/loginValidator.js"></script>
 </head>
 <body>
-	<div id="error">${errorMsg}</div>
-	<div id="error">${errorMsg}</div>
-	<h3>Login with email and password</h3>
+	<div id="error"></div>
+<div align="center">
+		<div id="content">	<h3>Login with email and password</h3>
 	<form name="login" action="login" method="post"
 		onsubmit="return validate()">
 		<strong>User Name</strong>:<input type="text" name="username" /><br />
@@ -19,5 +20,7 @@
 	<br /> If you are new user, please
 	<a href="register.jsp">register</a>
 
-</body>
+</div></div><div id="footer">
+		<%@include file="footer.jsp" %>
+		</div></body>
 </html>

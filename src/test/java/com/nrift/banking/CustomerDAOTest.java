@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.nrift.banking.dao.CustomerDAO;
 import com.nrift.banking.dto.CustomerDTO;
 import com.nrift.banking.exception.BankingException;
-
+/*
 public class CustomerDAOTest extends DAOTest{
     @Test
     public void testGetCustomerDetailsByCustomerId() {
@@ -34,4 +34,4 @@ public class CustomerDAOTest extends DAOTest{
             e.printStackTrace();
         }
     }
-}
+}*/

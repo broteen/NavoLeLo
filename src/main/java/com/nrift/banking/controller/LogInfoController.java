@@ -50,6 +50,7 @@ public class LogInfoController  extends HttpServlet {
         }
 
         if (errorMsg != null) {
+        	request.setAttribute("errorMsg",errorMsg);
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/loginfo.jsp");
             rd.include(request, response);

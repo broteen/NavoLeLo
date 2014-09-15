@@ -68,10 +68,9 @@ public class CloseAccountController extends HttpServlet {
 			errorMsg = "Please enter a valid account number";
 		}
 		if (errorMsg != null) {
+			request.setAttribute("errorMsg",errorMsg);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
 					"/delete.jsp");
-			PrintWriter out = response.getWriter();
-			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
 		} else {
 			Connection con = null;

@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.nrift.banking.dao.AdminDAO;
 import com.nrift.banking.dto.AdminDTO;
 import com.nrift.banking.exception.BankingException;
-
+/*
 public class AdminDAOTest extends DAOTest{
 
     @Test
@@ -25,4 +25,4 @@ public class AdminDAOTest extends DAOTest{
     }
     
 
-}
+}*/

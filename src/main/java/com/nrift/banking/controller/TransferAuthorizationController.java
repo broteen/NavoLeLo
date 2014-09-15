@@ -76,10 +76,9 @@ public class TransferAuthorizationController extends HttpServlet {
 		}
 
 		if (errorMsg != null) {
+			request.setAttribute("errorMsg",errorMsg);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
 					"/transferFund.jsp");
-			PrintWriter out = response.getWriter();
-			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
 		} else {
 

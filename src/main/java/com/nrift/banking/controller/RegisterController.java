@@ -62,6 +62,7 @@ public class RegisterController extends HttpServlet {
         	 errorMsg = " Fields can't be null or empty";
          }
         if (errorMsg != null) {
+        	request.setAttribute("errorMsg",errorMsg);
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/register.jsp");
             rd.include(request, response);

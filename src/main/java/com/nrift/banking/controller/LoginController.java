@@ -49,10 +49,9 @@ public class LoginController extends HttpServlet {
 		}
 
 		if (errorMsg != null) {
+			request.setAttribute("errorMsg",errorMsg);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
 					"/login.jsp");
-			PrintWriter out = response.getWriter();
-			out.println("<font color=red>" + errorMsg + "</font>");
 			rd.include(request, response);
 		} else {
 			Connection con = null;

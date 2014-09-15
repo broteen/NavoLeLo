@@ -70,10 +70,9 @@ public class WithdrawalAuthorizationController extends HttpServlet {
         }
 
         if (errorMsg != null) {
+        	request.setAttribute("errorMsg",errorMsg);
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/withdrawAmt.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>" + errorMsg + "</font>");
             rd.include(request, response);
         } else {
 

@@ -65,7 +65,7 @@ public class TransactionHistoryController extends HttpServlet {
 				logger.error("Rollback error=" + e1.getMessage());
 			}
 			request.setAttribute("errorMsg", e.getMessage()); //There should be an error block on around the top of every jsp page
-			request.getRequestDispatcher("searchAccount.jsp").forward(request,response);
+			request.getRequestDispatcher("index.jsp").forward(request,response);
 		}
 	}
 }

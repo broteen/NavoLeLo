@@ -52,7 +52,7 @@
 		</table>
 <form method="post" action="transactionHistory" name="adminHome">
 						<strong>account number</strong>:<input type="text" name="accountNo"/><br/>
-<input type="submit" value="View"/> 
+<input type="submit" value="Search"/> 
 		          	</form>
 </div>
 </div>

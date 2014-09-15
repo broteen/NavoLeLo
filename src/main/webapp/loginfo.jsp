@@ -4,8 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Log-in Information</title>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/><script type="text/javascript" src="js/loginfoValidation.js"></script>
+<script type="text/javascript" src="js/loginfoValidation.js"></script>
 </head>
 <body>
 <div id="error">${errorMsg}</div>

@@ -7,9 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Delete Account Page</title>
 <script type="text/javascript" src="js/closeAccountValidator.js"></script>
-<link href="css\header.css" rel="stylesheet" type="text/css"/>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 
 </head>
 <body>

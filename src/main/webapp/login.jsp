@@ -2,8 +2,7 @@
 <head>
 <meta charset="US-ASCII">
 <title>Login Page</title>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/><script type="text/javascript" src="js/loginValidator.js"></script>
+<script type="text/javascript" src="js/loginValidator.js"></script>
 </head>
 <body>
 	<div id="error">${errorMsg}</div>

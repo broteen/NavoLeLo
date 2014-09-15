@@ -7,9 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/loginValidator.js"></script>
-<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 
 </head>
 <body>

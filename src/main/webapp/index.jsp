@@ -8,14 +8,11 @@
 <head>
 <meta charset="US-ASCII">
 <title>Home Page</title>
-<link href="css\header.css" rel="stylesheet" type="text/css"/>
-<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 
 </head>
 <body>
-<div id="error">${errorMsg}</div>
+
 <div align="right">
 	<div id="header" div class="topcorner">
 <%@include file="header.jsp" %>
@@ -30,6 +27,7 @@
 		<%@include file="navbar.jsp" %>
 		</div>
 		</div>
+		<div id="error">${errorMsg}</div>
 		<div align="center">
 		<div id="content">
 		<br></br>

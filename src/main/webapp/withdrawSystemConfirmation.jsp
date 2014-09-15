@@ -4,11 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Transaction Confirmation</title><link href="css\header.css" rel="stylesheet" type="text/css"/>
-<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
-<link href="css\content.css" rel="stylesheet" type="text/css"/>
-<link href="css\footer.css" rel="stylesheet" type="text/css"/>
-
+<title>Transaction Confirmation</title>
 </head>
 <body>
 <div align="right">

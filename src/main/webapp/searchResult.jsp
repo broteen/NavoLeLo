@@ -7,9 +7,7 @@
 <html>
 <head>
 <meta charset="US-ASCII">
-<link href="/header.css" rel="stylesheet" type="text/css"/>
-<link href="/content.css" rel="stylesheet" type="text/css"/>
-<link href="/footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 

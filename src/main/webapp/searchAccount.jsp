@@ -8,9 +8,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!--  <script type="text/javascript" src="js/searchValidator.js"></script> -->
-<link href="/header.css" rel="stylesheet" type="text/css"/>
-<link href="/content.css" rel="stylesheet" type="text/css"/>
-<link href="/footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 

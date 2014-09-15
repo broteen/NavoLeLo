@@ -50,8 +50,6 @@ public class LogInfoController  extends HttpServlet {
         if (errorMsg != null) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/loginfo.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>" + errorMsg + "</font>");
             rd.include(request, response);
         } else {
 

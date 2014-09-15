@@ -41,7 +41,7 @@ public class UserValidationDAO {
 
 	private String insertRowforNewUser() {
 
-		return "INSERT INTO REGISTERED_USERS(USER_NAME,PASSWORD,IS_ADMIN) VALUES(?,?,?)";
+		return "insert into registered_users(user_name,password,is_admin) values(?,?,?)";
 	}
 	private String insertUserIdInCustomer() {
 
@@ -94,7 +94,7 @@ public class UserValidationDAO {
 		try {
 			rs1 = DBHelper.getResultSetFromSQL(connection, VALIDATE_USER_NAME_QUERY_STRING, username);
 
-			if (rs1 != null) {
+			if (rs1 != null && rs1.next()) {
 				throw new BankingException("UserName already exists...Enter different username");	
 			}else{
 				rs2=DBHelper.getResultSetFromSQL(connection, insertRowforNewUser(),username,password,isAdmin);

@@ -111,7 +111,7 @@ public class CustomerDAO {
             rs = DBHelper.getResultSetFromSQL(connection, CHECK_USER_ID_QUERY_STRING, customerId);
             if (rs != null && rs.next()) 
             {	
-            	if(rs.getLong("USER_ID")!=0L)
+            	if(rs.getLong("USER_ID")!=0)
             		throw new BankingException("Customer is already registered");
             }
             }finally{

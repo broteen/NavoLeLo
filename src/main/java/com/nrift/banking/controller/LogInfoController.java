@@ -62,10 +62,9 @@ public class LogInfoController  extends HttpServlet {
 			try{
 				logger.info("Username registeration");
 				logInfo.validateUsername(con, username,password);
-			
 				logger.info("CustomerId is..."+customerID);
-			
-					logInfo.insertUserIdInCustomer(con, customerID,username);
+				logInfo.insertUserIdInCustomer(con, customerID,username);
+				response.sendRedirect("loginsuccess.jsp");
 				
 			}catch(BankingException e) {
                 try {

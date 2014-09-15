@@ -59,8 +59,9 @@ public class CloseAccountController extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		long account = Long.parseLong(request.getParameter("accountNo"));
+		long account = 0L;
+		if(request.getParameter("accountNo")!="")
+			account = Long.parseLong(request.getParameter("accountNo"));
 		String errorMsg = null;
 		if (account == 0L) {
 			errorMsg = "Please enter a valid account number";
@@ -82,9 +83,6 @@ public class CloseAccountController extends HttpServlet {
 				logger.info("Transaction is Authorised");
 				session.setAttribute("AccountClosed", account);
 				closeAccountMgr.closeAccount(con,account);
-				UserDTO user = (UserDTO) session.getAttribute("user");
-				user.setCustomerDetails(UserInstantiation.getCustomerDetails(con, user.getUserId()));
-				session.setAttribute("user", user);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/deleteAccConfirmation.jsp");
 				rd.forward(request, response);
 				/*

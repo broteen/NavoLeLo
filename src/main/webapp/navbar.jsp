@@ -15,8 +15,8 @@
 					<li><a href="transferFund.jsp">Transfer</a></li>
 					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
 					<li><a href="deposite.jsp">Deposit</a></li>
-
 					<li><a href="searchAccount.jsp">Search</a></li>
+					<li><a href="delete.jsp">Delete</a></li>
 				</ul></li>
 			<li><a href="Update_details.jsp">Update details</a></li>
 

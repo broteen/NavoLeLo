@@ -59,7 +59,7 @@ public class AccountDAO {
 
 
     /** The Constant CLOSE_ACCOUNT_QUERY_STRING. */
-    private static final String CLOSE_ACCOUNT_QUERY_STRING="update account set status=? where account_number=?";
+    private static final String CLOSE_ACCOUNT_QUERY_STRING="update account set status=? where account_number=? and status=?";
 
 
     /** The Constant UPDATED_BY_AND_TIME_QUERY_STRING. */
@@ -201,9 +201,9 @@ public class AccountDAO {
      */
     public void CloseAccount(long accountNo)throws SQLException,BankingException{
         try {
-            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, CLOSE_ACCOUNT_QUERY_STRING,"cancel",accountNo);
+            int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, CLOSE_ACCOUNT_QUERY_STRING,"cancel",accountNo,"normal");
             if(updatedRows==0)
-            	throw new BankingException("Error in Withdrawing");
+            	throw new BankingException("Error while closing an account");
         }finally{
         }
     }

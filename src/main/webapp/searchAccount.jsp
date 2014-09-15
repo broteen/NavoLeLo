@@ -13,16 +13,15 @@
 <link href="/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<div align="right" >
-<div id="header">
-		<form action="logout" method="post">
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;<input type="submit" value="Logout" >
-		</form>
+<div id="error">${errorMsg}</div>
+<div align="right">
+	<div id="header" div class="topcorner">
+<%@include file="header.jsp" %>
+		
+	
 	</div>
-
 	</div>
 <div align="center">
-<div id="error">${errorMsg}</div>
 		
 <div id="content">
 					<form method="post" action="searchAccountController" name="adminHome">
@@ -36,11 +35,7 @@
 				</div>
 </div>
 		<div id="footer">
-		<table>
-			<tr>
-				<td>&copy; Copyright : All Right reserved to NRI FinTech</td>
-			</tr>
-		</table>
+		<%@include file="footer.jsp" %>
 		</div>
 </body>
 </html>

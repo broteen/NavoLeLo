@@ -5,10 +5,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Registration Page</title>
 <script type="text/javascript" src="js/registerValidator.js"></script>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="error">${errorMsg}</div>
-	<center>
+	<div align="center">
+	<div id="navbar">
+
 		<b><font size="6" face="verdana" color="black">Registration
 				Page</font></b> <br> <br>
 		<form name=register action="RegisterController" method="post" onsubmit="return validate()">
@@ -39,7 +43,11 @@
 				style="height: 40px; width: 80px"> <br> <br>
 		</form>
 		Fields marked with (*) are mandatory
-	</center>
+	</div>
+</div>
+		<div id="footer">
+		<%@include file="footer.jsp" %>
+		</div>
 
 </body>
 </html>

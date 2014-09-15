@@ -36,16 +36,14 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>	
-<thead>
-<tr>
-          <td><div align="center"><strong>Account Number:</strong></div></td>
-          <td><div align="justify">${transactionViewDetails.accountNo}</div></td>
-        </tr>
-        <tr>
-        <td><div align="center"><strong>Account Type:</strong></div></td>
-          <td><div align="justify">${transactionViewDetails.accountType}</div></td>
-        </tr>
-        </thead>
+
+
+          <strong>Account Number</strong>:${transactionViewDetails.accountNo}</br>
+        
+        
+           <strong>Account Type</strong>:${transactionViewDetails.accountType}</br>
+      
+        
         <table border=1>
  <thead id="must_be_static">
 
@@ -61,20 +59,20 @@
         
 <c:forEach items="${transactionViewDetails.transactionHistoryDetailsList}" var="current">
         <tr>
-         <td><div align="center"><c:out value="${current.transactionRef}" /></strong></div></td>
-        <td><div align="center"><c:out value="${current.transactionTime}" /></strong></div></td>
-       <td><div align="center"><c:out value="${current.crAccNum}" /></strong></div></td>
-               <td><div align="center"><c:out value="${current.drAccNum}" /></strong></div></td>
-               <td><div align="center"><c:out value="${current.amount}" /></strong></div></td>
+         <td style="text-align:center;white-space:nowrap"><c:out value="${current.transactionRef}" /></strong></div></td>
+       <td style="text-align:center;white-space:nowrap"><c:out value="${current.transactionTime}" /></strong></div></td>
+       <td style="text-align:center;white-space:nowrap"><c:out value="${current.crAccNum}" /></strong></div></td>
+            <td style="text-align:center;white-space:nowrap"><c:out value="${current.drAccNum}" /></strong></div></td>
+               <td style="text-align:center;white-space:nowrap"><c:out value="${current.amount}" /></strong></div></td>
        
        </tr>
         </c:forEach>
         </tbody>
        </table>
-       <tr>
-        <td><div align="center"><strong>Account Balance:</strong></div></td>
-          <td><div align="justify">${transactionViewDetails.balance}</div></td>
-        </tr>
+      
+        
+         <strong>Balance</strong>:${transactionViewDetails.balance}</br>
+       
  </div>
  </div>
  	<div id="footer">

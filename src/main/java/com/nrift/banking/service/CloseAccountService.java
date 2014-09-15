@@ -22,7 +22,7 @@ public class CloseAccountService extends AccountService {
 	 * @throws BankingException 
 	 * @throws SQLException 
 	 */
-	public void closeAccount(Connection connection, long accountNumber) throws BankingException {
+	public void closedAccount(Connection connection, long accountNumber) throws BankingException {
 			try{
 			 new AccountService().closeAccount(connection, accountNumber);
 				 connection.commit();

@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 
-import com.nrift.banking.dao.TransactionHistoryDAO;
-import com.nrift.banking.dto.AccountDTO;
+import com.nrift.banking.dao.TransactionDAO;
 import com.nrift.banking.dto.TransactionHistoryDTO;
 import com.nrift.banking.exception.BankingException;
 
@@ -18,7 +16,7 @@ public class TransactionHistoryService {
 
     /**
      * Gets the transaction history details.
-     *
+     *TransactionDAO.javaTransactionDAO.java
      * @param connection the connection
      * @param accountNo the account no
      * @return the transaction history details
@@ -27,7 +25,7 @@ public class TransactionHistoryService {
      */
     public List<TransactionHistoryDTO> getTransactionHistoryDetails(Connection connection,long accountNo) throws BankingException {
     	try{
-        return new TransactionHistoryDAO(connection).getTransactionHistoryDetails(accountNo) ;
+        return new TransactionDAO(connection).getTransactionHistoryDetails(accountNo) ;
     	}catch(SQLException e){
     		throw new BankingException(e);
     	}

@@ -56,7 +56,7 @@ public class DepositController extends HttpServlet {
 			request.setAttribute("errorMsg",errorMsg);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
 					"/deposit.jsp");
-			rd.include(request, response);
+			rd.forward(request, response);
 		} else {
 			Connection con=null;
 			try{

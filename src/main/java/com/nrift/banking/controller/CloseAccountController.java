@@ -71,7 +71,7 @@ public class CloseAccountController extends HttpServlet {
 			request.setAttribute("errorMsg",errorMsg);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
 					"/delete.jsp");
-			rd.include(request, response);
+			rd.forward(request, response);
 		} else {
 			Connection con = null;
 			try {

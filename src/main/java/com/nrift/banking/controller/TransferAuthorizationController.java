@@ -79,7 +79,7 @@ public class TransferAuthorizationController extends HttpServlet {
 			request.setAttribute("errorMsg",errorMsg);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(
 					"/transferFund.jsp");
-			rd.include(request, response);
+			rd.forward(request, response);
 		} else {
 
 			Connection con = null;

@@ -73,7 +73,7 @@ public class WithdrawalAuthorizationController extends HttpServlet {
         	request.setAttribute("errorMsg",errorMsg);
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/withdrawAmt.jsp");
-            rd.include(request, response);
+            rd.forward(request, response);
         } else {
 
             Connection con = null;

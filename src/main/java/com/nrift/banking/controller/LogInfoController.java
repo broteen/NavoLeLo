@@ -53,7 +53,7 @@ public class LogInfoController  extends HttpServlet {
         	request.setAttribute("errorMsg",errorMsg);
             RequestDispatcher rd = getServletContext().getRequestDispatcher(
                     "/loginfo.jsp");
-            rd.include(request, response);
+            rd.forward(request, response);
         } else {
         	Connection con = null;        	
 			try{

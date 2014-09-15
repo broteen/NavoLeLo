@@ -3,8 +3,7 @@ package com.nrift.banking.exception;
 /**
  * The Class CustomException.
  */
-public class InsufficientPriviledgeException extends BankingException{
-    private static final long serialVersionUID = 4664456874499611218L;
+public class InsufficientPrivilegeException extends BankingException{
     private String errorCode="Unknown_Exception";
 
     /**
@@ -13,9 +12,9 @@ public class InsufficientPriviledgeException extends BankingException{
      * @param message the message
      * @param errorCode the error code
      */
-    public InsufficientPriviledgeException(String message, String errorCode){
+    public InsufficientPrivilegeException(String message){
         super(message);
-        this.errorCode=errorCode;
+        //this.errorCode=errorCode;
     }
 
     /**

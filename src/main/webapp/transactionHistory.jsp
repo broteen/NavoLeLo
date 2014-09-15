@@ -4,37 +4,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="US-ASCII">
+<title>Home Page</title>
 <link href="css\header.css" rel="stylesheet" type="text/css"/>
 <link href="css\navbar.css" rel="stylesheet" type="text/css"/>
 <link href="css\content.css" rel="stylesheet" type="text/css"/>
 <link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <div id="error">${errorMsg}</div>
-		<div id="header" div class="topcorner">
+<div align="right">
+	<div id="header" div class="topcorner">
+<%@include file="header.jsp" %>
 		
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="login.html">Logout</a></div>
 	
-
- <div id="navbar">
-  
- 
-<ul id=a>
-  <li><a href="Home.jsp">Home</a></li>
-  <li><a href="">Transactions</a>
-  <ul id=b>
-                <li><a href="Transfer.jsp">Transfer</a></li>
-                <li><a href="Withdraw.jsp">Withdraw</a></li>
-                <li><a href="Deposit.jsp">Deposit</a></li>
-            </ul></li>
-  <li><a href="Update_details.jsp">Update details</a></li>
-
-</ul>
+	</div>
+	</div>
+<div align="center">
+	<div id="navbar">
 
 
- </div> <!-- end navbar div -->
+		<%@include file="navbar.jsp" %>
+		</div>
+		</div>
+		<div align="center">
+		
  <div id= "content" div class="menutitle">
  <form id="accountDetails" name="accountDetails" method="post" action="">
 	  <table width="80%" border="0" align="center" cellpadding="2" cellspacing="2">
@@ -82,6 +77,9 @@
           <td><div align="justify">${user.customerDetails.transactionViewDetails.getAccountDetails.balance}</div></td>
         </tr>
  </div>
- <div id=footer>Copyright@ NRI Fintech India Pvt Ltd.</div>
+ </div>
+ 	<div id="footer">
+		<%@include file="footer.jsp" %>
+		</div>
 </body>
 </html>

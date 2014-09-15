@@ -12,14 +12,11 @@
 <link href="/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<<<<<<< Upstream, based on master
 
 	<div align="right">
 	<div id="header" div class="topcorner">
-=======
 <div id="error">${errorMsg}</div>
 	<div id="options" div class="topcorner">
->>>>>>> 743a215 commit
 
 		Hi,&nbsp;${user.userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 			href="login.jsp">Logout</a>

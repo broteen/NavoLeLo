@@ -14,10 +14,9 @@ public class QueryBuilder {
         .append(" natural join ")
         .append(" account ")
         .append(" natural join ")
-        .append(" account_type ");
-        if(!reqParams.isEmpty())
-            query.append(" where ")
-            	 .append(" status = 'normal' ");
+        .append(" account_type ")
+        .append(" where ")
+        .append(" status = 'normal' ");
         if(reqParams.containsKey("customerName"))
             query.append(" and name=?");
         if(reqParams.containsKey("customerId"))

@@ -8,14 +8,17 @@
 <head>
 <meta charset="US-ASCII">
 <title>Home Page</title>
+<link href="css\header.css" rel="stylesheet" type="text/css"/>
+<link href="css\navbar.css" rel="stylesheet" type="text/css"/>
+<link href="css\content.css" rel="stylesheet" type="text/css"/>
+<link href="css\footer.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <div align="right">
 	<div id="header" div class="topcorner">
-
-		<form action="logout" method="post">
-		Hi,&nbsp;${user.userName}&nbsp;&nbsp;<input type="submit" value="Logout" >
-		</form>
+<%@include file="header.jsp" %>
+		
 	
 	</div>
 	</div>
@@ -23,26 +26,15 @@
 	<div id="navbar">
 
 
-		<ul id=a>
-			<li><a href="index.jsp">Home</a></li>
-			<li><a href="">Transactions</a>
-				<ul id=b>
-					<li><a href="transferFund.jsp">Transfer</a></li>
-					<li><a href="withdrawAmt.jsp">Withdraw</a></li>
-					<li><a href="deposite.jsp">Deposit</a></li>
-					<li><a href="searchAccount.jsp">search result</a></li>
-				</ul></li>
-			<li><a href="Update_details.jsp">Update details</a></li>
-
-		</ul>
+		<%@include file="navbar.jsp" %>
 		</div>
 		</div>
 		<div align="center">
 		<div id="content">
 		<br></br>
-		<strong>Your Customer Name is</strong>: ${user.customerDetails.name}<br />
+		<strong> Customer Name is</strong>: ${user.customerDetails.name}<br />
 
-		<strong>Your Last Logged On</strong>: ${user.lastLoggedOn}<br /><br>
+		<strong> Last Logged On</strong>: ${user.lastLoggedOn}<br /><br>
 		
 		<table border="1" width="30%" cellpadding="5">
 			<th>Account No</th>
@@ -57,15 +49,14 @@
 				</tr>
 			</c:forEach>
 		</table>
-
+<form method="post" action="transactionHistory" name="adminHome">
+						<strong>account number</strong>:<input type="text" name="accountNo"/><br/>
+<input type="submit" value="View"/> 
+		          	</form>
 </div>
 </div>
 		<div id="footer">
-		<table>
-			<tr>
-				<td>&copy; Copyright : All Right reserved to NRI FinTech</td>
-			</tr>
-		</table>
+		<%@include file="footer.jsp" %>
 		</div>
 </body>
 </html>

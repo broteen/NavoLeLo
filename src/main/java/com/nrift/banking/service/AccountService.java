@@ -42,7 +42,7 @@ public class AccountService {
      * @return the long
      * @throws SQLException the SQL exception
      */
-    public long validateAccount(Connection connection, long account_number) throws BankingException { //Couldn't understand this method kindly change it.
+    public long validateAccount(Connection connection, long account_number) throws BankingException { 
     	try{
     	return new AccountDAO(connection).getCustomerId(account_number);
     	}catch(SQLException  e){

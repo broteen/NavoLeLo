@@ -44,7 +44,7 @@ public class AccountDAO {
 
 
     /** The Constant CUSTOMER_QUERY_STRING. */
-    private static final String CUSTOMER_QUERY_STRING="select customer_id,status from account where account_number=?";
+    private static final String CUSTOMER_QUERY_STRING="select customer_id,status from account where account_number=? and status=?";
 
 
     /** The Constant UPDATED_TIME_QUERY_STRING. */
@@ -134,22 +134,18 @@ public class AccountDAO {
      * @throws SQLException the SQL exception
      * @throws BankingException 
      */
-    public long getCustomerId(long accountNumber) throws SQLException{     //Couldn't understand this method kindly change it.
+    public long getCustomerId(long accountNumber) throws SQLException, BankingException{     
         ResultSet rs = null;
-        long customerId=0L;
         try {
-            rs=DBHelper.getResultSetFromSQL(connection, CUSTOMER_QUERY_STRING, accountNumber);
+            rs=DBHelper.getResultSetFromSQL(connection, CUSTOMER_QUERY_STRING, accountNumber,"normal");
             if(rs !=null && rs.next()){
-            	customerId=rs.getLong("CUSTOMER_ID");
-                String status=rs.getString("STATUS");
-                if(status.equals("cancel")){
-                    customerId=0L;
-                }
+            	long customerId=rs.getLong("CUSTOMER_ID");
+            	return customerId;
             }
+            throw new BankingException("CustomerId is Empty");
         }finally{
             DBHelper.closeResultSet(rs);
         }
-        return customerId;
     }
 
     /**

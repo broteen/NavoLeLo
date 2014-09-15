@@ -22,6 +22,6 @@ public class DepositeService {
      */
     public long validateAccountNumber(Connection con,long accountNumber) throws BankingException {
 
-        return new AccountService().validateAccount(con,accountNumber);	 //Couldn't understand this method kindly change it.
+        return new AccountService().validateAccount(con,accountNumber);	
     }
 }

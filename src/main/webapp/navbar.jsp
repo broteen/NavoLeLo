@@ -18,7 +18,7 @@
 					<li><a href="searchAccount.jsp">Search</a></li>
 					<li><a href="delete.jsp">Delete</a></li>
 				</ul></li>
-			<li><a href="Update_details.jsp">Update details</a></li>
+			<li><a href="changePassword.jsp">Update Password</a></li>
 
 		</ul>
 </body>

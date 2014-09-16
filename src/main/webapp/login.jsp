@@ -6,6 +6,7 @@
 </head>
 <body>
 	<div id="error">${errorMsg}</div>
+	<div id="info">${infoMsg}</div>
 <div align="center">
 		<div id="content">	<h3>Login with email and password</h3>
 	<form name="login" action="login" method="post"

@@ -28,6 +28,7 @@
 		</div>
 		</div>
 		<div id="error">${errorMsg}</div>
+		
 		<div align="center">
 		<div id="content">
 		<br></br>

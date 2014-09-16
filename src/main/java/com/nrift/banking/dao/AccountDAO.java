@@ -199,7 +199,7 @@ public class AccountDAO {
      * @throws SQLException the SQL exception
      * @throws  
      */
-    public void CloseAccount(long accountNo)throws SQLException,BankingException{
+    public void closeAccount(long accountNo)throws SQLException,BankingException{
         try {
             int updatedRows=DBHelper.getUpdateInfoFromSQL(connection, CLOSE_ACCOUNT_QUERY_STRING,"cancel",accountNo,"normal");
             if(updatedRows==0)

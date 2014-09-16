@@ -162,7 +162,7 @@ public class AccountService {
     }
     public void closeAccount(Connection connection, long accountNo) throws  BankingException {
     	try{
-			new AccountDAO(connection).CloseAccount(accountNo);
+			new AccountDAO(connection).closeAccount(accountNo);
 		}catch(SQLException e){
 			throw new BankingException(e);
     	}
